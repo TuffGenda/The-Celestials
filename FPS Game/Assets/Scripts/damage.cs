@@ -10,15 +10,20 @@ public class damage : MonoBehaviour
 
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
+    [SerializeField] Collider floorCollider;
 
     [SerializeField] int damageAmount;
     [SerializeField] float damageRate;
     [SerializeField] int speed;
     [SerializeField] int destroyTime;
-    [SerializeField] float fallVelocity;
+    [SerializeField] float minimumFallVelocity;
 
     bool isDamaging;
-    bool isFallDamage;
+    bool isOnGround;
+
+    float lastYVelocity;
+    float initialGroundY;
+    float groundY;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,29 +38,50 @@ public class damage : MonoBehaviour
             }
         }
 
-        // Include this when gameManager is finished.
-        /*
-        if (type == damageType.falling && gameManager.instance.player.GetComponent<CharacterController>().velocity.y <= fallVelocity)
+        if (type == damageType.falling)
         {
-            isFallDamage = true;
+            initialGroundY = gamemanager.instance.player.transform.position.y - floorCollider.transform.position.y + 0.08f;
         }
-        else if (type == damageType.falling && gameManager.instance.player.GetComponent<CharacterController>().velocity.y >= 0 && isFallDamage)
-        {
-            gameManager.instance.player.GetComponent<IDamage>().TakeDamage(damageAmount);
-            Debug.Log("This is fall damage!");
-            isFallDamage = false;
-        }*/
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        // Include this when gameManager is finished.
-
-        /*if (type == damageType.homing)
+        if (type == damageType.homing)
         {
-            rb.linearVelocity = (gameManager.instance.player.transform.position - transform.position).normalized * speed * Time.deltaTime;
-        }*/
+            rb.linearVelocity = (gamemanager.instance.player.transform.position - transform.position).normalized * speed * Time.deltaTime;
+        }
+
+        if (type == damageType.falling)
+        {
+            CalculateFallDamage();
+        }
+    }
+
+    void CalculateFallDamage()
+    {
+        groundY = gamemanager.instance.player.transform.position.y - floorCollider.transform.position.y;
+
+        if (groundY > initialGroundY)
+        {
+            isOnGround = false;
+            lastYVelocity = gamemanager.instance.player.GetComponent<CharacterController>().velocity.y;
+        }
+        else
+        {
+            isOnGround = true;
+        }
+
+        if (isOnGround && lastYVelocity < minimumFallVelocity)
+        {
+            IAllowDamage dmg = gamemanager.instance.player.GetComponent<IAllowDamage>();
+
+            if (dmg != null)
+            {
+                dmg.TakeDamage(damageAmount);
+                lastYVelocity = 0.00f;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)

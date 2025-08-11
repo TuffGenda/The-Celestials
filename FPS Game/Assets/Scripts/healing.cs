@@ -5,18 +5,19 @@ public class healing : MonoBehaviour
 {
     enum healingType
     {
-        temporary, permanent, cooldown, regen
+        temporary, permanent, timedResuable, regen
     }
 
     [SerializeField] healingType type;
     [SerializeField] Rigidbody rb;
 
     [SerializeField] int healingAmount;
-    [SerializeField] int healingRate;
+    [SerializeField] float healingRate;
     [SerializeField] int uses;
     [SerializeField] int cooldown;
 
     bool isHealing;
+    bool onCooldown;
     int originalUses;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,7 +39,12 @@ public class healing : MonoBehaviour
 
         if (dmg != null && type != healingType.regen)
         {
-            dmg.HealDamage(healingAmount);
+            if (other.gameObject.CompareTag("Player") && !onCooldown)
+            {
+                dmg.HealDamage(healingAmount, onCooldown);
+
+                StartCoroutine(Heal(type));
+            }
         }
 
         if (type == healingType.temporary && uses <= 0)
@@ -46,7 +52,7 @@ public class healing : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (type == healingType.cooldown && uses <= 0)
+        if (type == healingType.timedResuable && uses <= 0)
         {
             StartCoroutine(Cooldown());
         }
@@ -67,16 +73,29 @@ public class healing : MonoBehaviour
         }
     }
 
+    IEnumerator Heal(healingType ty)
+    {
+        onCooldown = true;
+        if (ty == healingType.temporary || ty == healingType.timedResuable)
+        {
+            --uses;
+        }
+        yield return new WaitForSeconds(cooldown);
+        onCooldown = false;
+    }
+
     IEnumerator Cooldown()
     {
+        onCooldown = true;
         yield return new WaitForSeconds(cooldown);
         uses = originalUses;
+        onCooldown = false;
     }
 
     IEnumerator HealOther(IAllowDamage d)
     {
         isHealing = true;
-        d.HealDamage(healingAmount);
+        d.HealDamage(healingAmount, onCooldown);
         yield return new WaitForSeconds(healingRate);
         isHealing = false;
     }
