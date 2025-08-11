@@ -28,7 +28,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void respawnPlayer()
     {
-        //gamemanager.instance.playerScript.spawnPlayer(); // Note: I commented this out due to it causing errors. Please put this back once it is usable.
+        gamemanager.instance.playerScript.spawnPlayer();
         gamemanager.instance.stateUnpause();
     }
 

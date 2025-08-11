@@ -1,57 +1,69 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using TMPro;
 using UnityEngine.UI;
 
-public class gameManager : MonoBehaviour
+public class gamemanager : MonoBehaviour
 {
-    public static gameManager instance;
+    // Singleton instance for global access
+    public static gamemanager instance;
 
+    // Currently active menu (null when no menu is open)
     [SerializeField] GameObject menuActive;
-    [SerializeField] GameObject menuPause;
-    public bool isPaused;
-    float timescaleOrig;
-    [SerializeField] GameObject menuWin;
-    int gameGoalCount;
-    [SerializeField] GameObject menuLose;
 
+    // Menu GameObjects for diffrent game states
+    [SerializeField] GameObject menuPause;
+    [SerializeField] GameObject menuWin;
+    [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuSettings;
+
+    // UI Elements for game information
+    [SerializeField] TMP_Text gameGoalCountText;
+
+    // Player UI Elements
+    public Image playerHPBar;
+
+    public GameObject playerDamageScreen;
+
+    // Player refrences
     public GameObject player;
     public playerController playerScript;
-    public Image playerHPBar;
-    public Image playerHPFlash;
+
+    // Game State tracking
+    public bool isPaused;
+
+    //Time Management
+    float timeScaleOrig;
+
+    int gameGoalCount;
 
 
-
-
-    InputAction pauseKey;
-
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         instance = this;
-        player = GameObject.FindGameObjectWithTag("Player");
+        timeScaleOrig = Time.timeScale;
+
+        player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
-        timescaleOrig = Time.timeScale;
     }
 
-    private void Start()
-    {
-        pauseKey = InputSystem.actions.FindAction("UI/Cancel");
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        if (pauseKey.WasPressedThisFrame())
+        if(Input.GetButtonDown ("Cancel"))
         {
-            if (menuActive == null)
+            if(menuActive == null)
             {
                 statePause();
                 menuActive = menuPause;
                 menuActive.SetActive(true);
             }
-            else if (menuActive == menuPause)
+            else if(menuActive == menuPause)
             {
                 stateUnpause();
             }
         }
+
     }
 
     public void statePause()
@@ -65,20 +77,23 @@ public class gameManager : MonoBehaviour
     public void stateUnpause()
     {
         isPaused = !isPaused;
-        Time.timeScale = timescaleOrig;
+        Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
         menuActive = null;
     }
 
-    public void updateGameGoal(int amount)
+    public void updateGameGoal (int amount)
     {
         gameGoalCount += amount;
 
+        gameGoalCountText.text = gameGoalCount.ToString("F0");
+
         if (gameGoalCount <= 0)
         {
-            statePause();
+             //You won!
+             statePause ();
             menuActive = menuWin;
             menuActive.SetActive(true);
         }
@@ -87,7 +102,30 @@ public class gameManager : MonoBehaviour
     public void youLose()
     {
         statePause();
+
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
+
+    public void openSettings()
+    {
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+        }
+        menuActive = menuSettings;
+        menuActive.SetActive(true);
+    }
+
+    public void closeSettings()
+    {
+        if (menuActive == menuSettings)
+        {
+            menuActive.SetActive(false);
+            menuActive = menuPause;
+            menuActive.SetActive(true);
+        }
+
+    }
+
 }

@@ -3,17 +3,29 @@ using System.Collections;
 
 public class damage : MonoBehaviour
 {
-    enum damageType { moving, stationary, DOT, homing }
+    enum damageType
+    {
+        moving, stationary, DOT, homing, falling
+    }
+
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
+    [SerializeField] Collider floorCollider;
 
-    [SerializeField] float damageAmount;
+    [SerializeField] int damageAmount;
     [SerializeField] float damageRate;
-    [SerializeField] float speed;
-    [SerializeField] float destroyTime;
+    [SerializeField] int speed;
+    [SerializeField] int destroyTime;
+    [SerializeField] float minimumFallVelocity;
 
     bool isDamaging;
+    bool isOnGround;
 
+    float lastYVelocity;
+    float initialGroundY;
+    float groundY;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (type == damageType.moving || type == damageType.homing)
@@ -26,31 +38,67 @@ public class damage : MonoBehaviour
             }
         }
 
+        if (type == damageType.falling)
+        {
+            initialGroundY = gamemanager.instance.player.transform.position.y - floorCollider.transform.position.y + 0.08f;
+        }
     }
 
-    void Update()
+    // Update is called once per frame
+    private void Update()
     {
         if (type == damageType.homing)
         {
-            rb.linearVelocity = (gameManager.instance.player.transform.position - transform.position).normalized * speed * Time.deltaTime;
+            rb.linearVelocity = (gamemanager.instance.player.transform.position - transform.position).normalized * speed * Time.deltaTime;
         }
 
+        if (type == damageType.falling)
+        {
+            CalculateFallDamage();
+        }
+    }
+
+    void CalculateFallDamage()
+    {
+        groundY = gamemanager.instance.player.transform.position.y - floorCollider.transform.position.y;
+
+        if (groundY > initialGroundY)
+        {
+            isOnGround = false;
+            lastYVelocity = gamemanager.instance.player.GetComponent<CharacterController>().velocity.y;
+        }
+        else
+        {
+            isOnGround = true;
+        }
+
+        if (isOnGround && lastYVelocity < minimumFallVelocity)
+        {
+            IAllowDamage dmg = gamemanager.instance.player.GetComponent<IAllowDamage>();
+
+            if (dmg != null)
+            {
+                dmg.TakeDamage(damageAmount);
+                lastYVelocity = 0.00f;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.isTrigger)
+        {
             return;
+        }
 
-        IDamage dmg = other.GetComponent<IDamage>();
+        IAllowDamage dmg = other.GetComponent<IAllowDamage>();
 
         if (dmg != null && type != damageType.DOT)
         {
-
-            dmg.takeDamage(damageAmount);
-
+            dmg.TakeDamage(damageAmount);
         }
-        if (type == damageType.homing || type == damageType.moving)
+
+        if (type == damageType.moving || type == damageType.homing)
         {
             Destroy(gameObject);
         }
@@ -58,21 +106,27 @@ public class damage : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.isTrigger) return;
-
-        IDamage dmg = other.GetComponent<IDamage>();
-        if (dmg != null && type == damageType.DOT & !isDamaging)
+        if (other.isTrigger)
         {
-            StartCoroutine(damageOther(dmg));
+            return;
+        }
+
+        IAllowDamage dmg = other.GetComponent<IAllowDamage>();
+
+        if (dmg != null && type == damageType.DOT)
+        {
+            if (!isDamaging)
+            {
+                StartCoroutine(damageOther(dmg));
+            }
         }
     }
 
-    IEnumerator damageOther(IDamage d)
+    IEnumerator damageOther(IAllowDamage d)
     {
         isDamaging = true;
-        d.takeDamage(damageAmount);
+        d.TakeDamage(damageAmount);
         yield return new WaitForSeconds(damageRate);
         isDamaging = false;
-
     }
 }
