@@ -11,7 +11,7 @@ public class playerController : MonoBehaviour
 
     [SerializeField] int HP;
     [SerializeField] int speed;
-    
+
     [SerializeField] int sprintMod;
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
