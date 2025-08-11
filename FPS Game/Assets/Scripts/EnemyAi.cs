@@ -5,7 +5,7 @@ using UnityEngine.AI;
 // IDamage interface definition removed from here, as it exists in IDamage.cs
 
 
-public class enemyAI : MonoBehaviour, IDamage, IOpen
+public class enemyAI : MonoBehaviour, IOpen
 {
     [Header("--- Components ---")]
     [SerializeField] Renderer model;
@@ -81,15 +81,15 @@ public class enemyAI : MonoBehaviour, IDamage, IOpen
         }
 
         // If gameManager exists and has a goal, update it
-        if (gameManager.instance != null)
+        if (gamemanager.instance != null)
         {
-            gameManager.instance.updateGameGoal(1);
+            gamemanager.instance.updateGameGoal(1);
         }
     }
 
     void Update()
     {
-        if (gameManager.instance == null || gameManager.instance.player == null)
+        if (gamemanager.instance == null || gamemanager.instance.player == null)
         {
             // If player or gameManager is not available, do nothing
             agent.isStopped = true;
@@ -97,7 +97,7 @@ public class enemyAI : MonoBehaviour, IDamage, IOpen
         }
 
         // Calculate player direction and distance
-        playerDir = gameManager.instance.player.transform.position - transform.position;
+        playerDir = gamemanager.instance.player.transform.position - transform.position;
         float playerDistance = playerDir.magnitude;
 
         // Check if player is in detection range
@@ -108,7 +108,7 @@ public class enemyAI : MonoBehaviour, IDamage, IOpen
         if (playerInDetectionRange)
         {
             // Player detected: pursue and potentially attack
-            agent.SetDestination(gameManager.instance.player.transform.position);
+            agent.SetDestination(gamemanager.instance.player.transform.position);
             agent.isStopped = false; // Ensure agent is moving
 
             // Face the player if within stopping distance or attacking
@@ -261,9 +261,9 @@ public class enemyAI : MonoBehaviour, IDamage, IOpen
 
         if (HP <= 0)
         {
-            if (gameManager.instance != null)
+            if (gamemanager.instance != null)
             {
-                gameManager.instance.updateGameGoal(-1); // Decrease enemy count
+                gamemanager.instance.updateGameGoal(-1); // Decrease enemy count
             }
 
             if (audioSource != null && deathSound != null)
