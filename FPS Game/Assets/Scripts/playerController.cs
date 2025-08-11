@@ -11,6 +11,7 @@ public class playerController : MonoBehaviour
 
     [SerializeField] int HP;
     [SerializeField] int speed;
+    
     [SerializeField] int sprintMod;
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
@@ -18,19 +19,30 @@ public class playerController : MonoBehaviour
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
+    [SerializeField] int stamina; //The amount of stamina the player has
+    [SerializeField] int minStamina; //The lowest amount of stamina the player can have to sprint
+    [SerializeField] float staminaGainMult; //The speed at which stamina is gained
+    [SerializeField] float staminaLossMult; //The speed at which stamina is lost
+
 
     Vector3 moveDirection;
     Vector3 playerVelocity;
 
     float shootTimer;
+    float exactStamina;
 
     int jumpcount;
     int HPOriginal;
+    int staminaOriginal;
     bool isSprinting = false;
+    int speedOriginal;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        speedOriginal = speed;
         HPOriginal = HP;
+        exactStamina = stamina;
+        staminaOriginal = stamina;
     }
 
     // Update is called once per frame
@@ -39,6 +51,20 @@ public class playerController : MonoBehaviour
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
         movement();
         sprint();
+        if (!isSprinting && stamina != -1 && stamina < staminaOriginal)
+        {
+            //If the player is not sprinting and has less stamina than original, gain stamina
+            exactStamina += Time.deltaTime * staminaGainMult;
+            stamina = (int)exactStamina;
+        }
+        else if (isSprinting && stamina != -1)
+        {
+            //If the player is sprinting, lose stamina
+            exactStamina -= Time.deltaTime * staminaLossMult;
+            stamina = (int)exactStamina;
+        }
+        //I know it looks weird, but this is the best way to prevent errors when using float math with deltaTime while also keeping the stamina as an int
+
     }
 
     void movement()
@@ -72,13 +98,26 @@ public class playerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Sprint"))
         {
-            speed *= sprintMod;
-            isSprinting = true;
+            if (stamina >= minStamina || stamina == -1) {
+                speed *= sprintMod;
+                isSprinting = true;
+            }
         }
         else if (Input.GetButtonUp("Sprint"))
         {
-            speed /= sprintMod;
+            speed = speedOriginal; //Changed the division here into a variable to decrease room for bugs!
             isSprinting = false;
         }
+        if (stamina == 0) {
+            speed = speedOriginal; //Changed the division here into a variable to decrease room for bugs!
+            isSprinting = false;
+        }
+    }
+
+    public void spawnPlayer()
+    {
+        HP = HPOriginal;
+        //tp player to spawn point
+        //give them basic weaponary
     }
 }

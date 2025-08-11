@@ -61,6 +61,10 @@ MonoBehaviour:
   shootDamage: 10
   shootRate: 0.5
   shootDist: 15
+  stamina: 30
+  minStamina: 5
+  staminaGainMult: 1
+  staminaLossMult: 2
 --- !u!33 &8259228132718787466
 MeshFilter:
   m_ObjectHideFlags: 0

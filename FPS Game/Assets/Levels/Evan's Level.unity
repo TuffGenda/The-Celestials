@@ -486,7 +486,7 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1001 &1824030820
+--- !u!1001 &1893496113
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -496,15 +496,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4379018441882190258, guid: 65fdde44d6a4fa8478e9249d3a2c0219, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.11105
+      value: -0.45971584
       objectReference: {fileID: 0}
     - target: {fileID: 4379018441882190258, guid: 65fdde44d6a4fa8478e9249d3a2c0219, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.25
+      value: 1.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 4379018441882190258, guid: 65fdde44d6a4fa8478e9249d3a2c0219, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20.22793
+      value: -15.03592
       objectReference: {fileID: 0}
     - target: {fileID: 4379018441882190258, guid: 65fdde44d6a4fa8478e9249d3a2c0219, type: 3}
       propertyPath: m_LocalRotation.w
@@ -547,7 +547,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 540323705}
   - {fileID: 1260277808}
   - {fileID: 223146424}
-  - {fileID: 1824030820}
+  - {fileID: 540323705}
+  - {fileID: 1893496113}
