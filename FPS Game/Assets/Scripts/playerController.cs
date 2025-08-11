@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class playerController : MonoBehaviour
+public class playerController : MonoBehaviour, IAllowDamage
 {
 
 
     [SerializeField] LayerMask ignoreLayer;
 
     [SerializeField] CharacterController controller;
+    [SerializeField] GameObject playerCamera;
 
     [SerializeField] int HP;
     [SerializeField] int speed;
@@ -84,6 +85,15 @@ public class playerController : MonoBehaviour
         controller.Move(moveDirection * speed * Time.deltaTime);
         jump();
         controller.Move(playerVelocity * Time.deltaTime);
+        if (Input.GetButton("Fire1") && shootTimer >= shootRate)
+        {
+            shoot();
+        }
+        if (Input.GetButtonDown("Zoom")) { 
+            //Zoom in function
+        } else if (Input.GetButtonUp("Zoom")) {
+            //Zoom out function
+        }
     }
 
     void jump()
@@ -114,10 +124,50 @@ public class playerController : MonoBehaviour
         }
     }
 
+    void shoot()
+    {
+        shootTimer = 0;
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+        {
+            Debug.Log(hit.collider.name); //Delete if you dont need :)
+
+            IAllowDamage dmg = hit.collider.GetComponent<IAllowDamage>();
+
+            if (dmg != null)
+            {
+                dmg.TakeDamage(shootDamage);
+            }
+        }
+    }
+
     public void spawnPlayer()
     {
         HP = HPOriginal;
         //tp player to spawn point
         //give them basic weaponary
+    }
+
+    public void TakeDamage(int amount)
+    {
+        HP -= amount;
+        /*
+        updatePlayerUI();
+        StartCoroutine(flashDamageScreen());
+        */
+        if (HP <= 0)
+        {
+            gamemanager.instance.youLose();
+        }
+    }
+
+    public void HealDamage(int amount, bool onCooldown)
+    {
+        if (onCooldown == false) {
+            if (HP < HPOriginal) {
+                HP += amount;
+            }
+        }
     }
 }
