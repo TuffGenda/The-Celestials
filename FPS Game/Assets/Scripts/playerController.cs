@@ -158,7 +158,7 @@ public class playerController : MonoBehaviour, IAllowDamage
     public void TakeDamage(int amount)
     {
         HP -= amount;
-        updatePlayerUI();
+        updateHealthUI();
         StartCoroutine(flashDamageScreen());
         if (HP <= 0)
         {
@@ -171,16 +171,21 @@ public class playerController : MonoBehaviour, IAllowDamage
         if (onCooldown == false) {
             if (HP < HPOriginal) {
                 HP += amount;
-                updatePlayerUI();
+                updateHealthUI();
                 StartCoroutine(flashHealingScreen());
                 //This should flash green upon healing, that would be really cool :)
             }
         }
     }
 
-    public void updatePlayerUI()
+    public void updateHealthUI()
     {
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
+    }
+
+    public void updateStaminaUI() // Stamina UI updater, this is just supposed to be a skeleton for now! DO NOT USE YET
+    {
+        gamemanager.instance.playerHPBar.fillAmount = (float)stamina / staminaOriginal;
     }
 
     IEnumerator flashDamageScreen()
