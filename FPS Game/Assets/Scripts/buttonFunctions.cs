@@ -37,4 +37,10 @@ public class buttonFunctions : MonoBehaviour
         SceneManager.LoadScene(lvl);
         gamemanager.instance.stateUnpause();
     }
+
+    public void openSettings()
+    {
+        gamemanager.instance.openSettings();
+    }
+
 }
