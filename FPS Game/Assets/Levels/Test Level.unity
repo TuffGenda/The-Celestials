@@ -848,9 +848,9 @@ RectTransform:
   - {fileID: 857089052}
   m_Father: {fileID: 1295204019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 173.2, y: 7.3}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 273.2, y: -0.29999924}
   m_SizeDelta: {x: 300, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &844377854
@@ -2543,6 +2543,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2420435484025445026, guid: a6547e20e94f6ab448a5593aa1c959b4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -34.8
+      objectReference: {fileID: 0}
     - target: {fileID: 2462546664176151238, guid: a6547e20e94f6ab448a5593aa1c959b4, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 97.1
@@ -2606,7 +2610,7 @@ PrefabInstance:
     - target: {fileID: 5486532590108831290, guid: a6547e20e94f6ab448a5593aa1c959b4, type: 3}
       propertyPath: rightKeyButton
       value: 
-      objectReference: {fileID: 1773804613}
+      objectReference: {fileID: 1121067761}
     - target: {fileID: 5486532590108831290, guid: a6547e20e94f6ab448a5593aa1c959b4, type: 3}
       propertyPath: sprintKeyButton
       value: 
@@ -2750,6 +2754,18 @@ PrefabInstance:
     - target: {fileID: 8183854634829477145, guid: a6547e20e94f6ab448a5593aa1c959b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8934257399262736348, guid: a6547e20e94f6ab448a5593aa1c959b4, type: 3}
+      propertyPath: m_margin.w
+      value: 33.368958
+      objectReference: {fileID: 0}
+    - target: {fileID: 8934257399262736348, guid: a6547e20e94f6ab448a5593aa1c959b4, type: 3}
+      propertyPath: m_margin.x
+      value: 3.258606
+      objectReference: {fileID: 0}
+    - target: {fileID: 8934257399262736348, guid: a6547e20e94f6ab448a5593aa1c959b4, type: 3}
+      propertyPath: m_margin.z
+      value: 123.05123
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
