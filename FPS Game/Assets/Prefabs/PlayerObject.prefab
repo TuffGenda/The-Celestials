@@ -50,21 +50,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   controller: {fileID: 4793485087418469351}
+  playerCamera: {fileID: 0}
   HP: 15
   speed: 10
   sprintMod: 2
   jumpSpeed: 4
   jumpMax: 8
   gravity: 15
-  shootDamage: 10
-  shootRate: 0.5
-  shootDist: 15
   stamina: 30
   minStamina: 5
   staminaGainMult: 1
   staminaLossMult: 2
+  shootDamage: 10
+  shootRate: 0.5
+  shootDist: 15
 --- !u!33 &8259228132718787466
 MeshFilter:
   m_ObjectHideFlags: 0

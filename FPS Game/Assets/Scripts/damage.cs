@@ -8,14 +8,22 @@ public class damage : MonoBehaviour
         moving, stationary, DOT, homing, falling
     }
 
+    [Header("--- Components ---")]
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
     [SerializeField] Collider floorCollider;
 
+    [Header("--- For Everything ---")]
     [SerializeField] int damageAmount;
+
+    [Header("--- For DOT ---")]
     [SerializeField] float damageRate;
+
+    [Header("--- For Homing and Moving ---")]
     [SerializeField] int speed;
     [SerializeField] int destroyTime;
+
+    [Header("--- For Fall Damage ---")]
     [SerializeField] float minimumFallVelocity;
 
     bool isDamaging;

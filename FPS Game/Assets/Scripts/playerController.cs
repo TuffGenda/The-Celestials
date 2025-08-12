@@ -9,21 +9,24 @@ public class playerController : MonoBehaviour, IAllowDamage
 
     [SerializeField] CharacterController controller;
     [SerializeField] GameObject playerCamera;
-
-    [SerializeField] int HP;
-    [SerializeField] int speed;
-
-    [SerializeField] int sprintMod;
-    [SerializeField] int jumpSpeed;
-    [SerializeField] int jumpMax;
-    [SerializeField] int gravity;
-    [SerializeField] int shootDamage;
-    [SerializeField] float shootRate;
-    [SerializeField] int shootDist;
+    [Header("--- Health ---")]
+    [SerializeField] int HP; //The current health of the player
+    [Header("--- Movement ---")]
+    [SerializeField] int speed; //The base speed of the player
+    [SerializeField] int sprintMod; //The amount the speed is multiplied by when sprinting
+    [SerializeField] int jumpSpeed; //The speed at which the player jumps
+    [SerializeField] int jumpMax; //The maximum amount of jumps the player can do before touching the ground again
+    [SerializeField] int gravity; //The gravity affecting the player
+    [Header("--- Stamina ---")]
     [SerializeField] int stamina; //The amount of stamina the player has
     [SerializeField] int minStamina; //The lowest amount of stamina the player can have to sprint
     [SerializeField] float staminaGainMult; //The speed at which stamina is gained
     [SerializeField] float staminaLossMult; //The speed at which stamina is lost
+    [Header("--- Shooting ---")]
+    [SerializeField] int shootDamage; //The amount of damage the player's weapon does
+    [SerializeField] float shootRate; //The rate of fire of the player's weapon
+    [SerializeField] int shootDist; //The maximum distance the player's weapon can shoot
+
 
 
     Vector3 moveDirection;
