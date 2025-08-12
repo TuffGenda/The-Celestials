@@ -8,13 +8,20 @@ public class healing : MonoBehaviour
         temporary, permanent, timedResuable, regen
     }
 
+
+    [Header("--- Components ---")]
     [SerializeField] healingType type;
     [SerializeField] Rigidbody rb;
 
+    [Header("--- For Everything ---")]
     [SerializeField] int healingAmount;
-    [SerializeField] float healingRate;
-    [SerializeField] int uses;
     [SerializeField] int cooldown;
+
+    [Header("--- For Regen ---")]
+    [SerializeField] float healingRate;
+
+    [Header("--- For Temporary and TimedResuable ---")]
+    [SerializeField] int uses;
 
     bool isHealing;
     bool onCooldown;
