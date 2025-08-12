@@ -5,14 +5,22 @@ public class cameraController : MonoBehaviour
     [SerializeField] int sens;
     [SerializeField] int lockVertMin, lockVertMax;
     [SerializeField] bool invertY;
+    [SerializeField] float zoomFOV = 30f;
+    [SerializeField] float zoomSpeed = 10f;
 
     float rotX;
+    float originalFOV;
+    Camera cam;
+    bool isZoomed = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        cam = GetComponent<Camera>();
+        originalFOV = cam.fieldOfView;
     }
 
     // Update is called once per frame
@@ -38,5 +46,19 @@ public class cameraController : MonoBehaviour
         // rotate the player to look left and right
         transform.parent.Rotate(Vector3.up * mouseX);
 
+        // smooth the zooming in
+        float targetFOV = isZoomed ? zoomFOV : originalFOV;
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed);
     }
+
+    public void ZoomIn()
+    {
+        isZoomed = true;
+    }
+
+    public void ZoomOut()
+    {
+        isZoomed = false;
+    }
+
 }

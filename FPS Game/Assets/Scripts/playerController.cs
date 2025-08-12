@@ -92,10 +92,13 @@ public class playerController : MonoBehaviour, IAllowDamage
         {
             shoot();
         }
-        if (Input.GetButtonDown("Zoom")) { 
-            //Zoom in function
-        } else if (Input.GetButtonUp("Zoom")) {
-            //Zoom out function
+        if (Input.GetButtonDown("Zoom"))
+        {
+            playerCamera.GetComponent<cameraController>().ZoomIn();
+        } 
+        else if (Input.GetButtonUp("Zoom"))
+        {
+            playerCamera.GetComponent<cameraController>().ZoomOut();
         }
     }
 
