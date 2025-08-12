@@ -172,6 +172,7 @@ public class playerController : MonoBehaviour, IAllowDamage
             if (HP < HPOriginal) {
                 HP += amount;
                 updatePlayerUI();
+                StartCoroutine(flashHealingScreen());
                 //This should flash green upon healing, that would be really cool :)
             }
         }
@@ -192,8 +193,8 @@ public class playerController : MonoBehaviour, IAllowDamage
     //THIS FUNCTION IS FOR THE HEALING SCREEN FLASH, WILL IMPLEMENT FULLY ONCE GAMEMANAGER IS UPDATED, DO NOT USE YET
     IEnumerator flashHealingScreen()
     {
-        gamemanager.instance.playerDamageScreen.SetActive(true);
+        gamemanager.instance.playerHealScreen.SetActive(true);
         yield return new WaitForSeconds(0.1f);
-        gamemanager.instance.playerDamageScreen.SetActive(false);
+        gamemanager.instance.playerHealScreen.SetActive(false);
     }
 }
