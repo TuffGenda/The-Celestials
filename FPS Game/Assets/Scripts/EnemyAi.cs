@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 // IDamage interface definition removed from here, as it exists in IDamage.cs
 
 
-public class enemyAI : MonoBehaviour, IOpen
+public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
 {
     [Header("--- Components ---")]
     [SerializeField] Renderer model;
@@ -250,7 +251,7 @@ public class enemyAI : MonoBehaviour, IOpen
     /// Reduces enemy HP and handles death.
     /// </summary>
     /// <param name="amount">The amount of damage taken.</param>
-    public void takeDamage(float amount)
+    public void TakeDamage(int amount)
     {
         HP -= amount;
 
@@ -280,6 +281,15 @@ public class enemyAI : MonoBehaviour, IOpen
         else
         {
             StartCoroutine(DamageFlash());
+        }
+    }
+
+    // Tuff: I fixed the TakeDamage to work with my damage and I added this HealDamage code in order to handle healing.
+    public void HealDamage(int amount, bool onCooldown)
+    {
+        if (!onCooldown)
+        {
+            HP += amount;
         }
     }
 

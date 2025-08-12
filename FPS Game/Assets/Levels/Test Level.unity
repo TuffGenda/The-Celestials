@@ -258,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8300019698269819084, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5
+      value: 25.25
       objectReference: {fileID: 0}
     - target: {fileID: 8300019698269819084, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -266,7 +266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8300019698269819084, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: -7.75
       objectReference: {fileID: 0}
     - target: {fileID: 8300019698269819084, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -564,6 +564,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Items
       objectReference: {fileID: 0}
+    - target: {fileID: 5323033038856466846, guid: 58552f0e743efae45be3e32599c93216, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7038234701742481587, guid: 58552f0e743efae45be3e32599c93216, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -802,6 +810,10 @@ PrefabInstance:
     - target: {fileID: 1671266330429651373, guid: 178e05192019340498c6c4889f1eb44f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2288543013316823729, guid: 178e05192019340498c6c4889f1eb44f, type: 3}
+      propertyPath: isJumpy
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2288543013316823729, guid: 178e05192019340498c6c4889f1eb44f, type: 3}
       propertyPath: attackRange
