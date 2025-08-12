@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1671266330429651373}
-  - component: {fileID: 1981251270896532447}
+  - component: {fileID: 2288543013316823729}
+  - component: {fileID: 6022057209987267429}
   - component: {fileID: 4575762694846857377}
   - component: {fileID: 2291116024214599431}
   - component: {fileID: 2830068772776407308}
-  - component: {fileID: 3541366680097800983}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy Temp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ Transform:
   - {fileID: 4252897827840295126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1981251270896532447
+--- !u!114 &2288543013316823729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,14 +47,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 1139219481763093636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 009a1fa41db1d6d4a852cb08e6ba1717, type: 3}
+  m_Script: {fileID: 11500000, guid: bea9288e40f9e9c4886c816a65ce7cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 2291116024214599431}
-  HP: 3
-  bullet: {fileID: 8615386853437988833, guid: af1e7d7ab1787f4479a42742f2a04a26, type: 3}
-  shootRate: 0.5
+  agent: {fileID: 6022057209987267429}
+  animator: {fileID: 0}
+  audioSource: {fileID: 0}
+  HP: 100
+  detectionRange: 10
+  attackRange: 8
+  faceTargetSpeed: 5
+  wanderRadius: 15
+  wanderTimer: 5
+  isShooter: 1
   shootPos: {fileID: 4252897827840295126}
+  bulletPrefab: {fileID: 8615386853437988833, guid: af1e7d7ab1787f4479a42742f2a04a26, type: 3}
+  shootRate: 0.5
+  isJumpy: 0
+  jumpForce: 5
+  damageSound: {fileID: 0}
+  deathSound: {fileID: 0}
+  attackSound: {fileID: 0}
+--- !u!195 &6022057209987267429
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139219481763093636}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 8
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!33 &4575762694846857377
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -131,27 +167,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &3541366680097800983
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1139219481763093636}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 15
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2203514530614983941
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +179,7 @@ GameObject:
   - component: {fileID: 5266059539106504434}
   - component: {fileID: 2473554118540222359}
   - component: {fileID: 7447543195701811332}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}

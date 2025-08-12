@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7052839850004061107}
-  - component: {fileID: 3086097379193095515}
+  - component: {fileID: 521101928687207271}
   - component: {fileID: 5320673040287179514}
   - component: {fileID: 3361927200713311528}
   - component: {fileID: 8073720945051543013}
@@ -35,7 +35,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3086097379193095515
+--- !u!114 &521101928687207271
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,15 +44,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8615386853437988833}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88f0a7007de8f6249857894ad91a7c50, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e3854584c94b2a40bb85698c3d20597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
   rb: {fileID: 3361927200713311528}
+  floorCollider: {fileID: 0}
   damageAmount: 1
   damageRate: 0
-  speed: 25
-  destroyTime: 3
+  speed: 30
+  destroyTime: 2
+  minimumFallVelocity: 0
 --- !u!135 &5320673040287179514
 SphereCollider:
   m_ObjectHideFlags: 0
