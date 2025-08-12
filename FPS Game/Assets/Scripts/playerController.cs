@@ -83,7 +83,7 @@ public class playerController : MonoBehaviour, IAllowDamage
         {
             playerVelocity.y -= gravity * Time.deltaTime;
         }
-        moveDirection = (Input.GetAxis("Horizontal") * transform.right) + (Input.GetAxis("Vertical") * transform.forward);
+        moveDirection = (settingsManager.instance.GetAxis("Horizontal") * transform.right) + (settingsManager.instance.GetAxis("Vertical") * transform.forward);
 
         controller.Move(moveDirection * speed * Time.deltaTime);
         jump();
@@ -104,7 +104,7 @@ public class playerController : MonoBehaviour, IAllowDamage
 
     void jump()
     {
-        if (Input.GetButtonDown("Jump") && jumpcount < jumpMax)
+        if (settingsManager.instance.GetKeyDown("Jump") && jumpcount < jumpMax)
         {
             jumpcount++;
             playerVelocity.y = jumpSpeed;
@@ -112,14 +112,14 @@ public class playerController : MonoBehaviour, IAllowDamage
     }
     void sprint()
     {
-        if (Input.GetButtonDown("Sprint"))
+        if (settingsManager.instance.GetKeyDown("Sprint"))
         {
             if (stamina >= minStamina || stamina == -1) {
                 speed *= sprintMod;
                 isSprinting = true;
             }
         }
-        else if (Input.GetButtonUp("Sprint"))
+        else if (settingsManager.instance.GetKeyUp("Sprint"))
         {
             speed = speedOriginal; //Changed the division here into a variable to decrease room for bugs!
             isSprinting = false;
