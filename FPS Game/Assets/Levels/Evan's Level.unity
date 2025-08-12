@@ -237,6 +237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 540323705}
+  - component: {fileID: 540323707}
   - component: {fileID: 540323704}
   - component: {fileID: 540323703}
   - component: {fileID: 540323706}
@@ -365,6 +366,24 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &540323707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540323702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e197c8f76c1c22c4ba7482c3aaef9763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sens: 300
+  lockVertMin: -90
+  lockVertMax: 90
+  invertY: 0
+  zoomFOV: 30
+  zoomSpeed: 10
 --- !u!1001 &944622810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -438,6 +457,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2929716467701953377, guid: 65fdde44d6a4fa8478e9249d3a2c0219, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929716467701953377, guid: 65fdde44d6a4fa8478e9249d3a2c0219, type: 3}
+      propertyPath: gravity
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929716467701953377, guid: 65fdde44d6a4fa8478e9249d3a2c0219, type: 3}
+      propertyPath: jumpMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929716467701953377, guid: 65fdde44d6a4fa8478e9249d3a2c0219, type: 3}
+      propertyPath: jumpSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929716467701953377, guid: 65fdde44d6a4fa8478e9249d3a2c0219, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 540323702}
     - target: {fileID: 4379018441882190258, guid: 65fdde44d6a4fa8478e9249d3a2c0219, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.7139254
