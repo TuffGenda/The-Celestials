@@ -6,7 +6,7 @@ public class gamemanager : MonoBehaviour
 {
     // Singleton instance for global access
     public static gamemanager instance;
-
+    [Header("Menus")]
     // Currently active menu (null when no menu is open)
     [SerializeField] GameObject menuActive;
 
@@ -16,18 +16,28 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuSettings;
 
+    [Header("Enemies left to win")]
     // UI Elements for game information
     [SerializeField] TMP_Text gameGoalCountText;
 
+    [Header("Player UI Settings")]
     // Player UI Elements
     public Image playerHPBar;
 
     public GameObject playerDamageScreen;
 
+    // Player Healing
+    public GameObject playerHealScreen;
+
     // Player refrences
     public GameObject player;
     public playerController playerScript;
 
+    [Header("Player Respawn Point")]
+    // Player Spawn Point
+    public Vector3 spawnPoint;
+
+    [Header("Is Game Paused")]
     // Game State tracking
     public bool isPaused;
 
