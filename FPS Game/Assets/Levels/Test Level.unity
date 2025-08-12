@@ -2002,6 +2002,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c226bfb8299f26146870a240e45743de, type: 3}
+--- !u!114 &1931022541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 666617528664136177, guid: a6547e20e94f6ab448a5593aa1c959b4, type: 3}
+  m_PrefabInstance: {fileID: 338962705706457886}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1986210037
 GameObject:
   m_ObjectHideFlags: 0
@@ -2563,6 +2574,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4225200689377589137, guid: a6547e20e94f6ab448a5593aa1c959b4, type: 3}
+      propertyPath: playerStaminaBar
+      value: 
+      objectReference: {fileID: 1931022541}
     - target: {fileID: 4979084770348707013, guid: a6547e20e94f6ab448a5593aa1c959b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

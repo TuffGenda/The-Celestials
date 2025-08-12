@@ -23,6 +23,7 @@ public class gamemanager : MonoBehaviour
     [Header("Player UI Settings")]
     // Player UI Elements
     public Image playerHPBar;
+    public Image playerStaminaBar;
 
     public GameObject playerDamageScreen;
 
