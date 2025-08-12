@@ -3,10 +3,10 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 
-public class SettingsManager : MonoBehaviour
+public class settingsManager : MonoBehaviour
 {
     // Singleton instance for global access to settings
-    public static SettingsManager instance;
+    public static settingsManager instance;
 
     [Header("Settings UI")]
     // Button to close settings menu
@@ -44,8 +44,6 @@ public class SettingsManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            // Keep this object when loading new scenes
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -119,8 +117,11 @@ public class SettingsManager : MonoBehaviour
     // Load saved control settings from PlayerPrefs
     void LoadControls()
     {
+        // Create a list of keys to avoid modifying dictionary during enumeration
+        List<string> keys = new List<string>(controls.Keys);
+
         // Check each control action for saved preferences
-        foreach (string action in controls.Keys)
+        foreach (string action in keys)
         {
             // If there's a saved preference for this control
             if (PlayerPrefs.HasKey("Control_" + action))
@@ -145,7 +146,7 @@ public class SettingsManager : MonoBehaviour
     }
 
     // Begin the process of changing a key mapping
-    void StartKeyChange(string action)
+    public void StartKeyChange(string action)
     {
         // Set flags to indicate we're waiting for input
         isWaitingForKey = true;
@@ -168,12 +169,12 @@ public class SettingsManager : MonoBehaviour
     // Update all control text displays with current key mappings
     void UpdateControlTexts()
     {
-        forwardKeyText.text = controls["Forward"].ToString();
-        backKeyText.text = controls["Back"].ToString();
-        leftKeyText.text = controls["Left"].ToString();
-        rightKeyText.text = controls["Right"].ToString();
-        jumpKeyText.text = controls["Jump"].ToString();
-        sprintKeyText.text = controls["Sprint"].ToString();
+        if (forwardKeyText != null) forwardKeyText.text = controls["Forward"].ToString();
+        if (backKeyText != null) backKeyText.text = controls["Back"].ToString();
+        if (leftKeyText != null) leftKeyText.text = controls["Left"].ToString();
+        if (rightKeyText != null) rightKeyText.text = controls["Right"].ToString();
+        if (jumpKeyText != null) jumpKeyText.text = controls["Jump"].ToString();
+        if (sprintKeyText != null) sprintKeyText.text = controls["Sprint"].ToString();
     }
 
     // Helper method to get the appropriate text component for a control action
