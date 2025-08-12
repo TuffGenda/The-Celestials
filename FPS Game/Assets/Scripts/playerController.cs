@@ -60,12 +60,14 @@ public class playerController : MonoBehaviour, IAllowDamage
             //If the player is not sprinting and has less stamina than original, gain stamina
             exactStamina += Time.deltaTime * staminaGainMult;
             stamina = (int)exactStamina;
+            updateStaminaUI();
         }
         else if (isSprinting && stamina != -1)
         {
             //If the player is sprinting, lose stamina
             exactStamina -= Time.deltaTime * staminaLossMult;
             stamina = (int)exactStamina;
+            updateStaminaUI();
         }
         //I know it looks weird, but this is the best way to prevent errors when using float math with deltaTime while also keeping the stamina as an int
 
@@ -183,9 +185,9 @@ public class playerController : MonoBehaviour, IAllowDamage
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
     }
 
-    public void updateStaminaUI() // Stamina UI updater, this is just supposed to be a skeleton for now! DO NOT USE YET
+    public void updateStaminaUI()
     {
-        gamemanager.instance.playerHPBar.fillAmount = (float)stamina / staminaOriginal;
+        gamemanager.instance.playerStaminaBar.fillAmount = (float)stamina / staminaOriginal;
     }
 
     IEnumerator flashDamageScreen()
@@ -195,7 +197,7 @@ public class playerController : MonoBehaviour, IAllowDamage
         gamemanager.instance.playerDamageScreen.SetActive(false);
     }
 
-    //THIS FUNCTION IS FOR THE HEALING SCREEN FLASH, WILL IMPLEMENT FULLY ONCE GAMEMANAGER IS UPDATED, DO NOT USE YET
+    
     IEnumerator flashHealingScreen()
     {
         gamemanager.instance.playerHealScreen.SetActive(true);
