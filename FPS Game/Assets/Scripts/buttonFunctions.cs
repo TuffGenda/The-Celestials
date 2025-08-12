@@ -47,4 +47,9 @@ public class buttonFunctions : MonoBehaviour
     {
         gamemanager.instance.closeSettings();
     }
+
+    public void forwardsKey()
+    {
+        settingsManager.instance.StartKeyChange("Forward");
+    }
 }
