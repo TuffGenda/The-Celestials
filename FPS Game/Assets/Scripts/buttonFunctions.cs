@@ -43,4 +43,8 @@ public class buttonFunctions : MonoBehaviour
         gamemanager.instance.openSettings();
     }
 
+    public void Back()
+    {
+        gamemanager.instance.closeSettings();
+    }
 }
