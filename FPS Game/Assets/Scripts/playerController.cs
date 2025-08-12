@@ -155,10 +155,8 @@ public class playerController : MonoBehaviour, IAllowDamage
     public void TakeDamage(int amount)
     {
         HP -= amount;
-        /*
         updatePlayerUI();
         StartCoroutine(flashDamageScreen());
-        */
         if (HP <= 0)
         {
             gamemanager.instance.youLose();
@@ -170,7 +168,29 @@ public class playerController : MonoBehaviour, IAllowDamage
         if (onCooldown == false) {
             if (HP < HPOriginal) {
                 HP += amount;
+                updatePlayerUI();
+                //This should flash green upon healing, that would be really cool :)
             }
         }
+    }
+
+    public void updatePlayerUI()
+    {
+        gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
+    }
+
+    IEnumerator flashDamageScreen()
+    {
+        gamemanager.instance.playerDamageScreen.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gamemanager.instance.playerDamageScreen.SetActive(false);
+    }
+
+    //THIS FUNCTION IS FOR THE HEALING SCREEN FLASH, WILL IMPLEMENT FULLY ONCE GAMEMANAGER IS UPDATED, DO NOT USE YET
+    IEnumerator flashHealingScreen()
+    {
+        gamemanager.instance.playerDamageScreen.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gamemanager.instance.playerDamageScreen.SetActive(false);
     }
 }
