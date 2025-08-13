@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+<<<<<<< Updated upstream:FPS Game/Assets/Enemy Script/EnemyAi.cs
 
 // IDamage interface definition removed from here, as it exists in IDamage.cs
 
+=======
+>>>>>>> Stashed changes:FPS Game/Assets/Scripts/EnemyAi.cs
 
 public class enemyAI : MonoBehaviour, IDamage, IOpen
 {
@@ -80,8 +83,13 @@ public class enemyAI : MonoBehaviour, IDamage, IOpen
             audioSource = GetComponent<AudioSource>();
         }
 
+<<<<<<< Updated upstream:FPS Game/Assets/Enemy Script/EnemyAi.cs
         // If gameManager exists and has a goal, update it
         if (gameManager.instance != null)
+=======
+        // If gamemanager exists and has a goal, update it
+        if (gamemanager.instance != null)
+>>>>>>> Stashed changes:FPS Game/Assets/Scripts/EnemyAi.cs
         {
             gameManager.instance.updateGameGoal(1);
         }
@@ -91,7 +99,7 @@ public class enemyAI : MonoBehaviour, IDamage, IOpen
     {
         if (gameManager.instance == null || gameManager.instance.player == null)
         {
-            // If player or gameManager is not available, do nothing
+            // If player or gamemanager is not available, do nothing
             agent.isStopped = true;
             return;
         }
@@ -175,9 +183,11 @@ public class enemyAI : MonoBehaviour, IDamage, IOpen
     void Jump()
     {
         // Add a force to make the enemy jump
-        // agent.baseOffset
         Rigidbody rb = GetComponent<Rigidbody>();
-
+        if (rb != null)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
         if (audioSource != null && attackSound != null)
         {
             audioSource.PlayOneShot(attackSound);
@@ -226,7 +236,7 @@ public class enemyAI : MonoBehaviour, IDamage, IOpen
     /// <returns>A random point on the NavMesh.</returns>
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
-        Vector3 randomDirection = Random.insideUnitSphere * dist;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * dist;
         randomDirection += origin;
         NavMeshHit navHit;
         NavMesh.SamplePosition(randomDirection, out navHit, dist, layermask);
@@ -246,11 +256,15 @@ public class enemyAI : MonoBehaviour, IDamage, IOpen
         }
     }
 
+<<<<<<< Updated upstream:FPS Game/Assets/Enemy Script/EnemyAi.cs
     /// <summary>
     /// Reduces enemy HP and handles death.
     /// </summary>
     /// <param name="amount">The amount of damage taken.</param>
     public void takeDamage(float amount)
+=======
+    public void TakeDamage(int amount)
+>>>>>>> Stashed changes:FPS Game/Assets/Scripts/EnemyAi.cs
     {
         HP -= amount;
 
@@ -283,6 +297,17 @@ public class enemyAI : MonoBehaviour, IDamage, IOpen
         }
     }
 
+<<<<<<< Updated upstream:FPS Game/Assets/Enemy Script/EnemyAi.cs
+=======
+    public void HealDamage(int amount, bool onCooldown)
+    {
+        if (!onCooldown)
+        {
+            HP += amount;
+        }
+    }
+
+>>>>>>> Stashed changes:FPS Game/Assets/Scripts/EnemyAi.cs
     /// <summary>
     /// Gizmos for visualizing detection and attack ranges in the editor.
     /// </summary>
