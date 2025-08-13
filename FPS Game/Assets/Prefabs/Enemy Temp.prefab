@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4575762694846857377}
   - component: {fileID: 2291116024214599431}
   - component: {fileID: 2830068772776407308}
+  - component: {fileID: 7271865923834391991}
   m_Layer: 6
   m_Name: Enemy Temp
   m_TagString: Untagged
@@ -65,7 +66,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8615386853437988833, guid: af1e7d7ab1787f4479a42742f2a04a26, type: 3}
   shootRate: 0.5
   isJumpy: 1
-  jumpForce: 5
+  jumpForce: 100
+  jumpInterval: 1
   damageSound: {fileID: 0}
   deathSound: {fileID: 0}
   attackSound: {fileID: 0}
@@ -167,6 +169,33 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &7271865923834391991
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139219481763093636}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2203514530614983941
 GameObject:
   m_ObjectHideFlags: 0
