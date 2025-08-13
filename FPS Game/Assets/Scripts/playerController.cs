@@ -62,10 +62,16 @@ public class playerController : MonoBehaviour, IAllowDamage
             stamina = (int)exactStamina;
             updateStaminaUI();
         }
-        else if (isSprinting && stamina != -1)
+        else if (isSprinting && stamina != -1 && (moveDirection.x != 0 || moveDirection.z != 0))
         {
             //If the player is sprinting, lose stamina
             exactStamina -= Time.deltaTime * staminaLossMult;
+            stamina = (int)exactStamina;
+            updateStaminaUI();
+        } else if (isSprinting && stamina != -1 && (moveDirection.x == 0 && moveDirection.z == 0) && stamina < staminaOriginal)
+        {
+            //If the player is not sprinting and has less stamina than original, gain stamina
+            exactStamina += Time.deltaTime * staminaGainMult;
             stamina = (int)exactStamina;
             updateStaminaUI();
         }
@@ -97,7 +103,7 @@ public class playerController : MonoBehaviour, IAllowDamage
         if (Input.GetButtonDown("Zoom"))
         {
             playerCamera.GetComponent<cameraController>().ZoomIn();
-        } 
+        }
         else if (Input.GetButtonUp("Zoom"))
         {
             playerCamera.GetComponent<cameraController>().ZoomOut();
@@ -116,7 +122,8 @@ public class playerController : MonoBehaviour, IAllowDamage
     {
         if (settingsManager.instance.GetKeyDown("Sprint"))
         {
-            if (stamina >= minStamina || stamina == -1) {
+            if (stamina >= minStamina || stamina == -1)
+            {
                 speed *= sprintMod;
                 isSprinting = true;
             }
@@ -126,7 +133,8 @@ public class playerController : MonoBehaviour, IAllowDamage
             speed = speedOriginal; //Changed the division here into a variable to decrease room for bugs!
             isSprinting = false;
         }
-        if (stamina == 0) {
+        if (stamina == 0)
+        {
             speed = speedOriginal; //Changed the division here into a variable to decrease room for bugs!
             isSprinting = false;
         }
@@ -164,19 +172,25 @@ public class playerController : MonoBehaviour, IAllowDamage
         StartCoroutine(flashDamageScreen());
         if (HP <= 0)
         {
-            gamemanager.instance.youLose();
+            if (gamemanager.instance != null)
+            {
+                gamemanager.instance.youLose();
+            }
         }
     }
 
     public void HealDamage(int amount, bool onCooldown)
     {
-        if (onCooldown == false) {
-            if (HP < HPOriginal) {
+        if (onCooldown == false)
+        {
+            if (HP < HPOriginal)
+            {
                 HP += amount;
                 updateHealthUI();
                 StartCoroutine(flashHealingScreen());
                 //This should flash green upon healing, that would be really cool :)
-                if (HP > HPOriginal) {
+                if (HP > HPOriginal)
+                {
                     HP = HPOriginal; //Prevent healing over max health
                 }
             }
@@ -185,26 +199,39 @@ public class playerController : MonoBehaviour, IAllowDamage
 
     public void updateHealthUI()
     {
-        gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
+        if (gamemanager.instance != null)
+        {
+            gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPOriginal;
+        }
     }
 
     public void updateStaminaUI()
     {
-        gamemanager.instance.playerStaminaBar.fillAmount = (float)stamina / staminaOriginal;
+        if (gamemanager.instance != null)
+        {
+            gamemanager.instance.playerStaminaBar.fillAmount = (float)stamina / staminaOriginal;
+        }
     }
 
     IEnumerator flashDamageScreen()
     {
-        gamemanager.instance.playerDamageScreen.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        gamemanager.instance.playerDamageScreen.SetActive(false);
+        if (gamemanager.instance != null)
+        {
+
+            gamemanager.instance.playerDamageScreen.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            gamemanager.instance.playerDamageScreen.SetActive(false);
+        }
     }
 
-    
+
     IEnumerator flashHealingScreen()
     {
-        gamemanager.instance.playerHealScreen.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        gamemanager.instance.playerHealScreen.SetActive(false);
+        if (gamemanager.instance != null)
+        {
+            gamemanager.instance.playerHealScreen.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            gamemanager.instance.playerHealScreen.SetActive(false);
+        }
     }
 }
