@@ -1,87 +1,87 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
-using Unity.VisualScripting;
-
-// IDamage interface definition removed from here, as it exists in IDamage.cs
-
 
 public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
 {
     [Header("--- Components ---")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] Animator animator; // Ensure you assign your Animator component here
-    [SerializeField] AudioSource audioSource; // For sound effects
+    [SerializeField] Animator animator;
+    [SerializeField] AudioSource audioSource;
+    private Rigidbody rb;
 
     [Header("--- Health ---")]
-    [SerializeField] float HP = 100f; // Default HP
+    [SerializeField] float HP = 100f;
     Material defaultMaterial;
     Color defaultColor;
-    Color flashColor = Color.red; // Use Color.red for simplicity or your custom color
+    Color flashColor = Color.red;
 
     [Header("--- Movement & Detection ---")]
-    [SerializeField] float detectionRange = 10f; // How far the enemy can detect the player
-    [SerializeField] float attackRange = 2f; // How close the enemy needs to be to attack (if melee)
-    [SerializeField] float faceTargetSpeed = 5f; // Speed at which the enemy rotates to face the player
-    [SerializeField] float wanderRadius = 15f; // Radius for wandering behavior
-    [SerializeField] float wanderTimer = 5f; // How long to wander before finding a new point
+    [SerializeField] float detectionRange = 10f;
+    [SerializeField] float attackRange = 2f;
+    [SerializeField] float faceTargetSpeed = 5f;
+    [SerializeField] float wanderRadius = 15f;
+    [SerializeField] float wanderTimer = 5f;
 
-    // Internal state variables
     Vector3 playerDir;
     bool playerInDetectionRange;
     bool playerInAttackRange;
     float currentWanderTimer;
 
     [Header("--- Combat Settings ---")]
-    [SerializeField] bool isShooter; // Is this enemy a shooter?
-    [SerializeField] Transform shootPos; // Point from where bullets are spawned
-    [SerializeField] GameObject bulletPrefab; // The bullet GameObject to instantiate
-    [SerializeField] float shootRate = 1f; // How often the enemy can shoot
+    [SerializeField] bool isShooter;
+    [SerializeField] Transform shootPos;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] float shootRate = 1f;
     float lastShootTime;
 
-    [SerializeField] bool isJumpy; // Does this enemy jump?
-    [SerializeField] float jumpForce = 5f; // How high the enemy jumps
+    [SerializeField] bool isJumpy;
+    [SerializeField] float jumpForce = 5f;
+    [SerializeField] float jumpInterval = 3.0f;
+    float jumpTimer;
 
     [Header("--- Audio Clips ---")]
     [SerializeField] AudioClip damageSound;
     [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip attackSound;
 
-
     void Start()
     {
-        // Initialize material colors for damage flash
-        defaultMaterial = model.material;
-        defaultColor = model.material.color;
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            Debug.LogWarning("Rigidbody component not found on " + gameObject.name + ". 'isJumpy' will not work.");
+        }
 
-        // Set initial wander timer
+        if (model != null)
+        {
+            defaultMaterial = model.material;
+            defaultColor = model.material.color;
+        }
+
         currentWanderTimer = wanderTimer;
 
-        // Ensure NavMeshAgent is enabled
         if (agent == null)
         {
             agent = GetComponent<NavMeshAgent>();
             if (agent == null)
             {
                 Debug.LogError("NavMeshAgent component not found on " + gameObject.name);
-                enabled = false; // Disable script if no NavMeshAgent
+                enabled = false;
             }
         }
 
-        // Ensure Animator is assigned or try to get it
         if (animator == null)
         {
             animator = GetComponent<Animator>();
         }
 
-        // Ensure AudioSource is assigned or try to get it
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
         }
 
-        // If gameManager exists and has a goal, update it
         if (gamemanager.instance != null)
         {
             gamemanager.instance.updateGameGoal(1);
@@ -92,73 +92,72 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
     {
         if (gamemanager.instance == null || gamemanager.instance.player == null)
         {
-            // If player or gameManager is not available, do nothing
-            agent.isStopped = true;
+            if (agent != null) agent.isStopped = true;
             return;
         }
 
-        // Calculate player direction and distance
         playerDir = gamemanager.instance.player.transform.position - transform.position;
         float playerDistance = playerDir.magnitude;
 
-        // Check if player is in detection range
         playerInDetectionRange = playerDistance <= detectionRange;
-        // Check if player is in attack range (useful for melee or close-range shooters)
         playerInAttackRange = playerDistance <= attackRange;
 
-        if (playerInDetectionRange)
+        // Normal state: Use NavMeshAgent for movement
+        if (agent != null && agent.enabled)
         {
-            // Player detected: pursue and potentially attack
-            agent.SetDestination(gamemanager.instance.player.transform.position);
-            agent.isStopped = false; // Ensure agent is moving
-
-            // Face the player if within stopping distance or attacking
-            if (agent.remainingDistance <= agent.stoppingDistance || playerInAttackRange)
+            if (playerInDetectionRange)
             {
-                faceTarget();
-            }
+                if (agent.isOnNavMesh)
+                {
+                    agent.SetDestination(gamemanager.instance.player.transform.position);
+                    agent.isStopped = false;
+                }
 
-            // Attack logic (shoot or jump)
-            if (isShooter && Time.time - lastShootTime > shootRate)
-            {
-                if (playerInAttackRange) // Only shoot if within attack range
+                if (agent.remainingDistance <= agent.stoppingDistance || playerInAttackRange)
+                {
+                    faceTarget();
+                }
+
+                if (isShooter && Time.time - lastShootTime > shootRate && playerInAttackRange)
                 {
                     Shoot();
                     lastShootTime = Time.time;
                 }
             }
-
-            if (isJumpy && Time.time - lastShootTime > shootRate) // Using shootRate for jump delay
+            else
             {
-                if (playerInAttackRange) // Only jump if within attack range
+                Wander();
+            }
+
+            // Jump trigger � set to detection range instead of melee
+            if (isJumpy && playerInDetectionRange)
+            {
+                jumpTimer += Time.deltaTime;
+                if (jumpTimer >= jumpInterval)
                 {
-                    Jump();
-                    lastShootTime = Time.time;
+                    StartCoroutine(JumpRoutine());
+                    jumpTimer = 0;
                 }
             }
-        }
-        else
-        {
-            // Player not detected: wander
-            Wander();
+            else
+            {
+                jumpTimer = 0;
+            }
         }
 
-        // Update animator speed parameter
-        if (animator != null)
+        if (animator != null && agent != null)
         {
             animator.SetFloat("Speed", agent.velocity.magnitude);
         }
     }
 
-    /// <summary>
-    /// Handles the enemy shooting a projectile.
-    /// </summary>
     void Shoot()
     {
         if (bulletPrefab != null && shootPos != null)
         {
-            // Instantiate the bullet, adjusting its initial position slightly forward
-            Instantiate(bulletPrefab, shootPos.position + (transform.forward * 0.5f), transform.rotation);
+            Vector3 directionToPlayer = (gamemanager.instance.player.transform.position - shootPos.position).normalized;
+            Instantiate(bulletPrefab, shootPos.position, Quaternion.LookRotation(directionToPlayer));
+
             if (audioSource != null && attackSound != null)
             {
                 audioSource.PlayOneShot(attackSound);
@@ -170,87 +169,91 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
         }
     }
 
-    /// <summary>
-    /// Makes the enemy jump.
-    /// </summary>
-    void Jump()
+    private IEnumerator JumpRoutine()
     {
-        // Add a force to make the enemy jump
-        // agent.baseOffset
-        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody is missing, cannot perform jump.");
+            yield break;
+        }
 
         if (audioSource != null && attackSound != null)
         {
             audioSource.PlayOneShot(attackSound);
         }
+
+        // Disable agent for jump
+        agent.enabled = false;
+        yield return new WaitForFixedUpdate();
+
+        // Reset vertical velocity
+        Vector3 vel = rb.linearVelocity;
+        vel.y = 0f;
+        rb.linearVelocity = vel;
+
+        // Apply jump instantly
+        rb.linearVelocity += Vector3.up * jumpForce;
+
+        // Wait until grounded again
+        yield return new WaitUntil(() => IsGrounded());
+        yield return new WaitForSeconds(0.1f);
+
+        agent.enabled = true;
     }
 
-    /// <summary>
-    /// Rotates the enemy to face the player.
-    /// </summary>
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, 1.1f);
+    }
+
     void faceTarget()
     {
-        // Only rotate around the Y-axis to prevent enemy tilting
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
     }
 
-    /// <summary>
-    /// Implements wandering behavior when the player is not in detection range.
-    /// </summary>
     void Wander()
     {
-        agent.isStopped = false; // Ensure agent can move for wandering
-
-        currentWanderTimer += Time.deltaTime;
-
-        if (currentWanderTimer >= wanderTimer)
+        if (agent != null && agent.enabled && agent.isOnNavMesh)
         {
-            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-            agent.SetDestination(newPos);
-            currentWanderTimer = 0; // Reset timer
-        }
+            currentWanderTimer += Time.deltaTime;
 
-        // If the agent has reached its destination, reset the timer to find a new point sooner
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
-        {
-            currentWanderTimer = wanderTimer; // Trigger finding a new point immediately
+            if (currentWanderTimer >= wanderTimer)
+            {
+                Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+                agent.SetDestination(newPos);
+                currentWanderTimer = 0;
+            }
+
+            if (!agent.pathPending && agent.remainingDistance < 0.5f && agent.hasPath)
+            {
+                currentWanderTimer = wanderTimer;
+            }
         }
     }
 
-    /// <summary>
-    /// Finds a random point on the NavMesh within a specified radius.
-    /// </summary>
-    /// <param name="origin">The center point for the sphere.</param>
-    /// <param name="dist">The radius of the sphere.</param>
-    /// <param name="layermask">The NavMesh layer mask.</param>
-    /// <returns>A random point on the NavMesh.</returns>
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
-        Vector3 randomDirection = Random.insideUnitSphere * dist;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * dist;
         randomDirection += origin;
         NavMeshHit navHit;
         NavMesh.SamplePosition(randomDirection, out navHit, dist, layermask);
         return navHit.position;
     }
 
-    /// <summary>
-    /// Handles visual flash when the enemy takes damage.
-    /// </summary>
     IEnumerator DamageFlash()
     {
-        model.material.color = flashColor;
-        yield return new WaitForSeconds(0.1f); // Slightly longer flash duration
-        if (gameObject != null) // Check if the GameObject still exists before accessing its material
+        if (model != null)
         {
-            model.material.color = defaultColor;
+            model.material.color = flashColor;
+            yield return new WaitForSeconds(0.1f);
+            if (gameObject != null && model != null)
+            {
+                model.material.color = defaultColor;
+            }
         }
     }
 
-    /// <summary>
-    /// Reduces enemy HP and handles death.
-    /// </summary>
-    /// <param name="amount">The amount of damage taken.</param>
     public void TakeDamage(int amount)
     {
         HP -= amount;
@@ -264,18 +267,17 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
         {
             if (gamemanager.instance != null)
             {
-                gamemanager.instance.updateGameGoal(-1); // Decrease enemy count
+                gamemanager.instance.updateGameGoal(-1);
             }
 
             if (audioSource != null && deathSound != null)
             {
-                // Play death sound and then destroy after the sound finishes
                 audioSource.PlayOneShot(deathSound);
                 Destroy(gameObject, deathSound.length);
             }
             else
             {
-                Destroy(gameObject); // Destroy immediately if no death sound
+                Destroy(gameObject);
             }
         }
         else
@@ -284,7 +286,6 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
         }
     }
 
-    // Tuff: I fixed the TakeDamage to work with my damage and I added this HealDamage code in order to handle healing.
     public void HealDamage(int amount, bool onCooldown)
     {
         if (!onCooldown)
@@ -293,9 +294,6 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
         }
     }
 
-    /// <summary>
-    /// Gizmos for visualizing detection and attack ranges in the editor.
-    /// </summary>
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
