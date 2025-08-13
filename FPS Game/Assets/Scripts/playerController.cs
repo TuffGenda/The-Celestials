@@ -176,6 +176,9 @@ public class playerController : MonoBehaviour, IAllowDamage
                 updateHealthUI();
                 StartCoroutine(flashHealingScreen());
                 //This should flash green upon healing, that would be really cool :)
+                if (HP > HPOriginal) {
+                    HP = HPOriginal; //Prevent healing over max health
+                }
             }
         }
     }
