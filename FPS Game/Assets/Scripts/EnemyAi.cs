@@ -1,10 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
-using Unity.VisualScripting;
-
-// IDamage interface definition removed from here, as it exists in IDamage.cs
-
 
 public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
 {
@@ -81,7 +77,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
             audioSource = GetComponent<AudioSource>();
         }
 
-        // If gameManager exists and has a goal, update it
+        // If gamemanager exists and has a goal, update it
         if (gamemanager.instance != null)
         {
             gamemanager.instance.updateGameGoal(1);
@@ -92,7 +88,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
     {
         if (gamemanager.instance == null || gamemanager.instance.player == null)
         {
-            // If player or gameManager is not available, do nothing
+            // If player or gamemanager is not available, do nothing
             agent.isStopped = true;
             return;
         }
@@ -176,9 +172,11 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
     void Jump()
     {
         // Add a force to make the enemy jump
-        // agent.baseOffset
         Rigidbody rb = GetComponent<Rigidbody>();
-
+        if (rb != null)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
         if (audioSource != null && attackSound != null)
         {
             audioSource.PlayOneShot(attackSound);
@@ -227,7 +225,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
     /// <returns>A random point on the NavMesh.</returns>
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
-        Vector3 randomDirection = Random.insideUnitSphere * dist;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * dist;
         randomDirection += origin;
         NavMeshHit navHit;
         NavMesh.SamplePosition(randomDirection, out navHit, dist, layermask);
@@ -247,10 +245,6 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
         }
     }
 
-    /// <summary>
-    /// Reduces enemy HP and handles death.
-    /// </summary>
-    /// <param name="amount">The amount of damage taken.</param>
     public void TakeDamage(int amount)
     {
         HP -= amount;
@@ -284,7 +278,6 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
         }
     }
 
-    // Tuff: I fixed the TakeDamage to work with my damage and I added this HealDamage code in order to handle healing.
     public void HealDamage(int amount, bool onCooldown)
     {
         if (!onCooldown)
