@@ -24,6 +24,9 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
     [SerializeField] float wanderRadius = 15f;
     [SerializeField] float wanderTimer = 5f;
 
+    [SerializeField] float fovAngle = 120f; // Field of View in degrees
+    [SerializeField] LayerMask obstructionMask; // Obstacles that block sight
+
     Vector3 playerDir;
     bool playerInDetectionRange;
     bool playerInAttackRange;
@@ -99,10 +102,25 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
         playerDir = gamemanager.instance.player.transform.position - transform.position;
         float playerDistance = playerDir.magnitude;
 
-        playerInDetectionRange = playerDistance <= detectionRange;
+        // Vision check
+        playerInDetectionRange = false;
+        if (playerDistance <= detectionRange)
+        {
+            Vector3 dirToPlayer = (gamemanager.instance.player.transform.position - transform.position).normalized;
+            float angleToPlayer = Vector3.Angle(transform.forward, dirToPlayer);
+
+            if (angleToPlayer <= fovAngle / 2f) // inside cone
+            {
+                if (!Physics.Raycast(transform.position + Vector3.up, dirToPlayer, playerDistance, obstructionMask))
+                {
+                    playerInDetectionRange = true;
+                }
+            }
+        }
+
         playerInAttackRange = playerDistance <= attackRange;
 
-        // Normal state: Use NavMeshAgent for movement
+        // Normal movement
         if (agent != null && agent.enabled)
         {
             if (playerInDetectionRange)
@@ -129,7 +147,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
                 Wander();
             }
 
-            // Jump trigger � set to detection range instead of melee
+            // Jump trigger
             if (isJumpy && playerInDetectionRange)
             {
                 jumpTimer += Time.deltaTime;
@@ -182,22 +200,17 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
             audioSource.PlayOneShot(attackSound);
         }
 
-        // Disable agent for jump
         agent.enabled = false;
+        rb.isKinematic = false; // enable physics
+
         yield return new WaitForFixedUpdate();
 
-        // Reset vertical velocity
-        Vector3 vel = rb.linearVelocity;
-        vel.y = 0f;
-        rb.linearVelocity = vel;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
 
-        // Apply jump instantly
-        rb.linearVelocity += Vector3.up * jumpForce;
-
-        // Wait until grounded again
         yield return new WaitUntil(() => IsGrounded());
         yield return new WaitForSeconds(0.1f);
 
+        rb.isKinematic = true; // lock again for navmesh
         agent.enabled = true;
     }
 
@@ -209,7 +222,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
     void faceTarget()
     {
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
     }
 
     void Wander()
@@ -301,5 +314,12 @@ public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        // Draw FOV cone
+        Vector3 leftBoundary = Quaternion.Euler(0, -fovAngle / 2f, 0) * transform.forward;
+        Vector3 rightBoundary = Quaternion.Euler(0, fovAngle / 2f, 0) * transform.forward;
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, leftBoundary * detectionRange);
+        Gizmos.DrawRay(transform.position, rightBoundary * detectionRange);
     }
 }
