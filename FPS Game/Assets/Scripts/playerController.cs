@@ -47,6 +47,9 @@ public class playerController : MonoBehaviour, IAllowDamage
         HPOriginal = HP;
         exactStamina = stamina;
         staminaOriginal = stamina;
+
+        updateStaminaUI();
+        updateHealthUI();
     }
 
     // Update is called once per frame

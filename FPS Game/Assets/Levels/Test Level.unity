@@ -489,6 +489,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerObjectAndCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 7072860862236234198, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
+      propertyPath: sens
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 7440650788070187551, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: HP
       value: 25
@@ -3885,6 +3889,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 666617528664136177, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339075470208723321, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3946362402018013131, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
