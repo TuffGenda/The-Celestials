@@ -2,324 +2,182 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
 
-public class enemyAI : MonoBehaviour, IAllowDamage, IOpen
+public class enemyAI : MonoBehaviour, IAllowDamage
 {
-    [Header("--- Components ---")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] Animator animator;
-    [SerializeField] AudioSource audioSource;
-    private Rigidbody rb;
 
-    [Header("--- Health ---")]
-    [SerializeField] float HP = 100f;
-    Material defaultMaterial;
-    Color defaultColor;
-    Color flashColor = Color.red;
+    [SerializeField] int HP;
+    [SerializeField] int faceTargetSpeed;
+    [SerializeField] int fov;
+    [SerializeField] int roamDistance;
+    [SerializeField] int roamPauseTimer;
 
-    [Header("--- Movement & Detection ---")]
-    [SerializeField] float detectionRange = 10f;
-    [SerializeField] float attackRange = 2f;
-    [SerializeField] float faceTargetSpeed = 5f;
-    [SerializeField] float wanderRadius = 15f;
-    [SerializeField] float wanderTimer = 5f;
-
-    [SerializeField] float fovAngle = 120f; // Field of View in degrees
-    [SerializeField] LayerMask obstructionMask; // Obstacles that block sight
-
-    Vector3 playerDir;
-    bool playerInDetectionRange;
-    bool playerInAttackRange;
-    float currentWanderTimer;
-
-    [Header("--- Combat Settings ---")]
-    [SerializeField] bool isShooter;
+    [SerializeField] GameObject bullet;
+    [SerializeField] float shootRate;
     [SerializeField] Transform shootPos;
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] float shootRate = 1f;
-    float lastShootTime;
 
-    [SerializeField] bool isJumpy;
-    [SerializeField] float jumpForce = 5f;
-    [SerializeField] float jumpInterval = 3.0f;
-    float jumpTimer;
+    Color colorOriginal;
 
-    [Header("--- Audio Clips ---")]
-    [SerializeField] AudioClip damageSound;
-    [SerializeField] AudioClip deathSound;
-    [SerializeField] AudioClip attackSound;
+    int HPOriginal;
+    float shootTimer;
+    float roamTimer;
+    float playerAngle;
+    float stoppingDistanceOriginal;
 
+    bool playerInTrigger;
+
+    Vector3 playerDirection;
+    Vector3 startPos;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        if (rb == null)
+        HPOriginal = HP;
+        colorOriginal = model.material.color;
+        gamemanager.instance.updateGameGoal(1);
+        startPos = transform.position;
+        stoppingDistanceOriginal = agent.stoppingDistance;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        shootTimer += Time.deltaTime;
+        if (agent.remainingDistance < 0.01f)
         {
-            Debug.LogWarning("Rigidbody component not found on " + gameObject.name + ". 'isJumpy' will not work.");
+            roamTimer += Time.deltaTime;
         }
 
-        if (model != null)
+        if (playerInTrigger && !canSeePlayer())
         {
-            defaultMaterial = model.material;
-            defaultColor = model.material.color;
+            CheckRoam();
         }
-
-        currentWanderTimer = wanderTimer;
-
-        if (agent == null)
+        else if (!playerInTrigger)
         {
-            agent = GetComponent<NavMeshAgent>();
-            if (agent == null)
-            {
-                Debug.LogError("NavMeshAgent component not found on " + gameObject.name);
-                enabled = false;
-            }
-        }
-
-        if (animator == null)
-        {
-            animator = GetComponent<Animator>();
-        }
-
-        if (audioSource == null)
-        {
-            audioSource = GetComponent<AudioSource>();
-        }
-
-        if (gamemanager.instance != null)
-        {
-            gamemanager.instance.updateGameGoal(1);
+            CheckRoam();
         }
     }
 
-    void Update()
+    void CheckRoam()
     {
-        if (gamemanager.instance == null || gamemanager.instance.player == null)
+        if (roamTimer >= roamPauseTimer && agent.remainingDistance < 0.01f)
         {
-            if (agent != null) agent.isStopped = true;
-            return;
+            Roam();
+        }
+    }
+
+    void Roam()
+    {
+        roamTimer = 0;
+
+        agent.stoppingDistance = 0;
+
+        Vector3 ranPos = Random.insideUnitSphere * roamDistance;
+        ranPos += startPos;
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(ranPos, out hit, roamDistance, 1);
+        agent.SetDestination(hit.position);
+    }
+
+    bool canSeePlayer()
+    {
+        playerDirection = gamemanager.instance.player.transform.position - transform.position;
+        playerAngle = Vector3.Angle(playerDirection, transform.forward);
+        Debug.DrawRay(transform.position, playerDirection, Color.red);
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, playerDirection, out hit))
+        {
+
+        }
+        if (hit.collider.CompareTag("Player") && playerAngle <= fov)
+        {
+            agent.SetDestination(gamemanager.instance.player.transform.position);
+
+            if (shootTimer >= shootRate)
+            {
+                Shoot();
+            }
+
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+                FaceTarget();
+            }
+
+            agent.stoppingDistance = stoppingDistanceOriginal;
+
+            return true;
         }
 
-        playerDir = gamemanager.instance.player.transform.position - transform.position;
-        float playerDistance = playerDir.magnitude;
+        agent.stoppingDistance = 0;
 
-        // Vision check
-        playerInDetectionRange = false;
-        if (playerDistance <= detectionRange)
+        return false;
+    }
+
+    void FaceTarget()
+    {
+        Quaternion rot = transform.rotation = Quaternion.LookRotation(playerDirection);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
-            Vector3 dirToPlayer = (gamemanager.instance.player.transform.position - transform.position).normalized;
-            float angleToPlayer = Vector3.Angle(transform.forward, dirToPlayer);
+            playerInTrigger = true;
+        }
+    }
 
-            if (angleToPlayer <= fovAngle / 2f) // inside cone
-            {
-                if (!Physics.Raycast(transform.position + Vector3.up, dirToPlayer, playerDistance, obstructionMask))
-                {
-                    playerInDetectionRange = true;
-                }
-            }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInTrigger = false;
         }
 
-        playerInAttackRange = playerDistance <= attackRange;
-
-        // Normal movement
-        if (agent != null && agent.enabled)
-        {
-            if (playerInDetectionRange)
-            {
-                if (agent.isOnNavMesh)
-                {
-                    agent.SetDestination(gamemanager.instance.player.transform.position);
-                    agent.isStopped = false;
-                }
-
-                if (agent.remainingDistance <= agent.stoppingDistance || playerInAttackRange)
-                {
-                    faceTarget();
-                }
-
-                if (isShooter && Time.time - lastShootTime > shootRate && playerInAttackRange)
-                {
-                    Shoot();
-                    lastShootTime = Time.time;
-                }
-            }
-            else
-            {
-                Wander();
-            }
-
-            // Jump trigger
-            if (isJumpy && playerInDetectionRange)
-            {
-                jumpTimer += Time.deltaTime;
-                if (jumpTimer >= jumpInterval)
-                {
-                    StartCoroutine(JumpRoutine());
-                    jumpTimer = 0;
-                }
-            }
-            else
-            {
-                jumpTimer = 0;
-            }
-        }
-
-        if (animator != null && agent != null)
-        {
-            animator.SetFloat("Speed", agent.velocity.magnitude);
-        }
+        agent.stoppingDistance = 0;
     }
 
     void Shoot()
     {
-        if (bulletPrefab != null && shootPos != null)
-        {
-            Vector3 directionToPlayer = (gamemanager.instance.player.transform.position - shootPos.position).normalized;
-            Instantiate(bulletPrefab, shootPos.position, Quaternion.LookRotation(directionToPlayer));
-
-            if (audioSource != null && attackSound != null)
-            {
-                audioSource.PlayOneShot(attackSound);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Bullet prefab or shoot position is not assigned for " + gameObject.name);
-        }
-    }
-
-    private IEnumerator JumpRoutine()
-    {
-        if (rb == null)
-        {
-            Debug.LogError("Rigidbody is missing, cannot perform jump.");
-            yield break;
-        }
-
-        if (audioSource != null && attackSound != null)
-        {
-            audioSource.PlayOneShot(attackSound);
-        }
-
-        agent.enabled = false;
-        rb.isKinematic = false; // enable physics
-
-        yield return new WaitForFixedUpdate();
-
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
-
-        yield return new WaitUntil(() => IsGrounded());
-        yield return new WaitForSeconds(0.1f);
-
-        rb.isKinematic = true; // lock again for navmesh
-        agent.enabled = true;
-    }
-
-    private bool IsGrounded()
-    {
-        return Physics.Raycast(transform.position, Vector3.down, 1.1f);
-    }
-
-    void faceTarget()
-    {
-        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
-    }
-
-    void Wander()
-    {
-        if (agent != null && agent.enabled && agent.isOnNavMesh)
-        {
-            currentWanderTimer += Time.deltaTime;
-
-            if (currentWanderTimer >= wanderTimer)
-            {
-                Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-                agent.SetDestination(newPos);
-                currentWanderTimer = 0;
-            }
-
-            if (!agent.pathPending && agent.remainingDistance < 0.5f && agent.hasPath)
-            {
-                currentWanderTimer = wanderTimer;
-            }
-        }
-    }
-
-    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
-    {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * dist;
-        randomDirection += origin;
-        NavMeshHit navHit;
-        NavMesh.SamplePosition(randomDirection, out navHit, dist, layermask);
-        return navHit.position;
-    }
-
-    IEnumerator DamageFlash()
-    {
-        if (model != null)
-        {
-            model.material.color = flashColor;
-            yield return new WaitForSeconds(0.1f);
-            if (gameObject != null && model != null)
-            {
-                model.material.color = defaultColor;
-            }
-        }
+        shootTimer = 0;
+        Instantiate(bullet, shootPos.position, transform.rotation);
     }
 
     public void TakeDamage(int amount)
     {
-        HP -= amount;
-
-        if (audioSource != null && damageSound != null)
+        if (HP > 0)
         {
-            audioSource.PlayOneShot(damageSound);
+            HP -= amount;
+            StartCoroutine(FlashRed());
         }
 
         if (HP <= 0)
         {
-            if (gamemanager.instance != null)
-            {
-                gamemanager.instance.updateGameGoal(-1);
-            }
-
-            if (audioSource != null && deathSound != null)
-            {
-                audioSource.PlayOneShot(deathSound);
-                Destroy(gameObject, deathSound.length);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
-        else
-        {
-            StartCoroutine(DamageFlash());
+            gamemanager.instance.updateGameGoal(-1);
+            Destroy(gameObject);
         }
     }
 
     public void HealDamage(int amount, bool onCooldown)
     {
-        if (!onCooldown)
+        if (onCooldown == false && HP < HPOriginal)
         {
             HP += amount;
+
+            if (HP > HPOriginal)
+            {
+                HP = HPOriginal;
+            }
         }
     }
 
-    void OnDrawGizmosSelected()
+    IEnumerator FlashRed()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-
-        // Draw FOV cone
-        Vector3 leftBoundary = Quaternion.Euler(0, -fovAngle / 2f, 0) * transform.forward;
-        Vector3 rightBoundary = Quaternion.Euler(0, fovAngle / 2f, 0) * transform.forward;
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, leftBoundary * detectionRange);
-        Gizmos.DrawRay(transform.position, rightBoundary * detectionRange);
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        model.material.color = colorOriginal;
     }
 }
