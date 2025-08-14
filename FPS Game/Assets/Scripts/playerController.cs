@@ -68,7 +68,8 @@ public class playerController : MonoBehaviour, IAllowDamage
             exactStamina -= Time.deltaTime * staminaLossMult;
             stamina = (int)exactStamina;
             updateStaminaUI();
-        } else if (isSprinting && stamina != -1 && (moveDirection.x == 0 && moveDirection.z == 0) && stamina < staminaOriginal)
+        }
+        else if (isSprinting && stamina != -1 && (moveDirection.x == 0 && moveDirection.z == 0) && stamina < staminaOriginal)
         {
             //If the player is not sprinting and has less stamina than original, gain stamina
             exactStamina += Time.deltaTime * staminaGainMult;
@@ -181,19 +182,18 @@ public class playerController : MonoBehaviour, IAllowDamage
 
     public void HealDamage(int amount, bool onCooldown)
     {
-        if (onCooldown == false)
+        if (onCooldown == false && HP < HPOriginal)
         {
-            if (HP < HPOriginal)
+
+            HP += amount;
+            updateHealthUI();
+            StartCoroutine(flashHealingScreen());
+            //This should flash green upon healing, that would be really cool :)
+            if (HP > HPOriginal)
             {
-                HP += amount;
-                updateHealthUI();
-                StartCoroutine(flashHealingScreen());
-                //This should flash green upon healing, that would be really cool :)
-                if (HP > HPOriginal)
-                {
-                    HP = HPOriginal; //Prevent healing over max health
-                }
+                HP = HPOriginal; //Prevent healing over max health
             }
+
         }
     }
 
