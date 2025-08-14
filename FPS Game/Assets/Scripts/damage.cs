@@ -21,7 +21,7 @@ public class damage : MonoBehaviour
 
     [Header("--- For Homing and Moving ---")]
     [SerializeField] int speed;
-    [SerializeField] int destroyTime;
+    [SerializeField] float destroyTime;
 
     [Header("--- For Fall Damage ---")]
     [SerializeField] float minimumFallVelocity;

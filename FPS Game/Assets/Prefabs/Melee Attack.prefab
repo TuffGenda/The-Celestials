@@ -53,7 +53,7 @@ MonoBehaviour:
   damageAmount: 1
   damageRate: 0
   speed: 0
-  destroyTime: 1
+  destroyTime: 0.1
   minimumFallVelocity: 0
 --- !u!135 &2638514795065180965
 SphereCollider:
