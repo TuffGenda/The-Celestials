@@ -64,7 +64,7 @@ MonoBehaviour:
   minStamina: 5
   staminaGainMult: 1
   staminaLossMult: 2
-  shootDamage: 10
+  shootDamage: 3
   shootRate: 0.5
   shootDist: 15
 --- !u!33 &4428267519878785780
