@@ -44,7 +44,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     void Update()
     {
         shootTimer += Time.deltaTime;
-        if (agent.remainingDistance < 0.01f)
+        if (agent.remainingDistance < 0.01f && roamPauseTimer != -1)
         {
             roamTimer += Time.deltaTime;
         }
@@ -69,16 +69,18 @@ public class enemyAI : MonoBehaviour, IAllowDamage
 
     void Roam()
     {
-        roamTimer = 0;
+        if (roamDistance != 0) {
+            roamTimer = 0;
 
-        agent.stoppingDistance = 0;
+            agent.stoppingDistance = 0;
 
-        Vector3 ranPos = Random.insideUnitSphere * roamDistance;
-        ranPos += startPos;
+            Vector3 ranPos = Random.insideUnitSphere * roamDistance;
+            ranPos += startPos;
 
-        NavMeshHit hit;
-        NavMesh.SamplePosition(ranPos, out hit, roamDistance, 1);
-        agent.SetDestination(hit.position);
+            NavMeshHit hit;
+            NavMesh.SamplePosition(ranPos, out hit, roamDistance, 1);
+            agent.SetDestination(hit.position);
+        }
     }
 
     bool canSeePlayer()

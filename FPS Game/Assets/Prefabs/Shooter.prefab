@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2291116024214599431}
   - component: {fileID: 2830068772776407308}
   - component: {fileID: 4806250858844357772}
+  - component: {fileID: 8869477539679753531}
   m_Layer: 6
   m_Name: Shooter
   m_TagString: Untagged
@@ -53,28 +54,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 2291116024214599431}
   agent: {fileID: 6022057209987267429}
-  animator: {fileID: 0}
-  audioSource: {fileID: 0}
-  HP: 10
-  detectionRange: 15
-  attackRange: 13
-  faceTargetSpeed: 8
-  wanderRadius: 15
-  wanderTimer: 5
-  fovAngle: 120
-  obstructionMask:
-    serializedVersion: 2
-    m_Bits: 0
-  isShooter: 1
-  shootPos: {fileID: 4252897827840295126}
-  bulletPrefab: {fileID: 8615386853437988833, guid: af1e7d7ab1787f4479a42742f2a04a26, type: 3}
+  HP: 15
+  faceTargetSpeed: 6
+  fov: 120
+  roamDistance: 10
+  roamPauseTimer: 5
+  bullet: {fileID: 8615386853437988833, guid: af1e7d7ab1787f4479a42742f2a04a26, type: 3}
   shootRate: 0.5
-  isJumpy: 0
-  jumpForce: 100
-  jumpInterval: 1
-  damageSound: {fileID: 0}
-  deathSound: {fileID: 0}
-  attackSound: {fileID: 0}
+  shootPos: {fileID: 4252897827840295126}
 --- !u!195 &6022057209987267429
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -88,7 +75,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 8
   m_StoppingDistance: 8
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -200,6 +187,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &8869477539679753531
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139219481763093636}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 15
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2203514530614983941
 GameObject:
   m_ObjectHideFlags: 0
