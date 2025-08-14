@@ -86,12 +86,16 @@ MonoBehaviour:
   agent: {fileID: 3138278005937043839}
   animator: {fileID: 0}
   audioSource: {fileID: 0}
-  HP: 100
+  HP: 10
   detectionRange: 20
   attackRange: 2
   faceTargetSpeed: 8
   wanderRadius: 15
   wanderTimer: 5
+  fovAngle: 120
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 1
   isShooter: 1
   shootPos: {fileID: 5642797260011328093}
   bulletPrefab: {fileID: 6260519950760193845, guid: 2fa2573b94cdb6f41a3303789ee6d19a, type: 3}
@@ -155,7 +159,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9b68d4d727362c74489e26da64f3b39c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

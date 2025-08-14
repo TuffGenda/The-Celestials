@@ -169,6 +169,10 @@ MonoBehaviour:
   faceTargetSpeed: 15
   wanderRadius: 20
   wanderTimer: 0
+  fovAngle: 360
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 0
   isShooter: 1
   shootPos: {fileID: 5962953699007319103}
   bulletPrefab: {fileID: 8615386853437988833, guid: af1e7d7ab1787f4479a42742f2a04a26, type: 3}

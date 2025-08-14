@@ -55,12 +55,16 @@ MonoBehaviour:
   agent: {fileID: 6022057209987267429}
   animator: {fileID: 0}
   audioSource: {fileID: 0}
-  HP: 100
+  HP: 10
   detectionRange: 15
   attackRange: 13
   faceTargetSpeed: 8
   wanderRadius: 15
   wanderTimer: 5
+  fovAngle: 120
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 0
   isShooter: 1
   shootPos: {fileID: 4252897827840295126}
   bulletPrefab: {fileID: 8615386853437988833, guid: af1e7d7ab1787f4479a42742f2a04a26, type: 3}
