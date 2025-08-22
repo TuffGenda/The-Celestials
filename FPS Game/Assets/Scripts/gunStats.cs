@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class gunStats : MonoBehaviour
+[CreateAssetMenu(fileName = "New Weapon", menuName = "Weapons/Gun Stats")]
+public class gunStats : ScriptableObject
 {
     public GameObject model;
     public WeaponType weaponType = WeaponType.Rifle;
@@ -21,10 +22,7 @@ public class gunStats : MonoBehaviour
     [Range(1, 50)] public int unlockLevel = 1;
     public WeaponRarity rarity = WeaponRarity.Common;
 
-    private void Start()
-    {
-        ApplyRarityBonus();
-    }
+    
 
     void ApplyRarityBonus()
     {
@@ -51,6 +49,8 @@ public class gunStats : MonoBehaviour
 
     public Color GetRarityColor()
     {
+       ApplyRarityBonus();
+
         switch (rarity)
         {
             case WeaponRarity.Common: return Color.white;
