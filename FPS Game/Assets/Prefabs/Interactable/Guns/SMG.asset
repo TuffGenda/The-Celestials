@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
+  m_Name: SMG
+  m_EditorClassIdentifier: 
+  model: {fileID: 6387870623347908936, guid: 813f7b43ec97d544dbf8c95261465260, type: 3}
+  weaponType: 3
+  shootDamage: 6
+  shootDist: 10
+  shootRate: 0.1
+  critChance: 1
+  ammoCur: 50
+  ammoMax: 50
+  reloadTime: 0.5
+  recoil: 0.2
+  moveSpeed: 0.9
+  price: 1000
+  unlockLevel: 1
+  rarity: 0
