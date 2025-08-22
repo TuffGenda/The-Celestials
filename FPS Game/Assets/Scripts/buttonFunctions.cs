@@ -42,4 +42,11 @@ public class buttonFunctions : MonoBehaviour
     {
         gamemanager.instance.openSettings();
     }
+
+    public shopManager shopManager;
+
+    public void openShop()
+    {
+        shopManager.openShop();
+    }
 }
