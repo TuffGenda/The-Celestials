@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
   m_Name: SMG
   m_EditorClassIdentifier: 
-  model: {fileID: 6387870623347908936, guid: a8c65a3dbfbb6d44cb982d313ed270fe, type: 3}
+  model: {fileID: 94336308459943047, guid: c0b3a32bde0ebde43b015b37c9eefbd2, type: 3}
   weaponType: 3
-  shootDamage: 6
+  shootDamage: 1
   shootDist: 10
   shootRate: 0.1
   critChance: 1
