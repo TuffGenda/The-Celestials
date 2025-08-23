@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
   m_Name: Sniper Rifle
   m_EditorClassIdentifier: 
-  model: {fileID: 4186732861545219174, guid: 580ef089c1118094799e5e9f1439d032, type: 3}
+  model: {fileID: 4186732861545219174, guid: caec4a4016af3b74dbaf5c89b30c80da, type: 3}
   weaponType: 1
-  shootDamage: 13
+  shootDamage: 33
   shootDist: 100
   shootRate: 0.5
-  critChance: 25
+  critChance: 40
   ammoCur: 15
   ammoMax: 15
   reloadTime: 3
-  recoil: 0.1
+  recoil: 0.060000002
   moveSpeed: 0.9
   price: 5000
   unlockLevel: 5

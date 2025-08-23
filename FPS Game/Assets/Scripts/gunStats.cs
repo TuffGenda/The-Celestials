@@ -45,11 +45,11 @@ public class gunStats : ScriptableObject
                 recoil *= 0.6f;
                 break;
         }
+    
     }
 
     public Color GetRarityColor()
     {
-       ApplyRarityBonus();
 
         switch (rarity)
         {
@@ -60,6 +60,11 @@ public class gunStats : ScriptableObject
             default: return Color.white;
 
         }
+    }
+
+    void OnEnable()
+    {
+        ApplyRarityBonus();
     }
 }
 

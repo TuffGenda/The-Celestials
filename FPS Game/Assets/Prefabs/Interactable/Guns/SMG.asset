@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
   m_Name: SMG
   m_EditorClassIdentifier: 
-  model: {fileID: 6387870623347908936, guid: 813f7b43ec97d544dbf8c95261465260, type: 3}
+  model: {fileID: 6387870623347908936, guid: a8c65a3dbfbb6d44cb982d313ed270fe, type: 3}
   weaponType: 3
   shootDamage: 6
   shootDist: 10

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
   m_Name: Assult Rifle
   m_EditorClassIdentifier: 
-  model: {fileID: 8025314476284901893, guid: 2cf5555454c809f40b7fb4229fc3dd8b, type: 3}
+  model: {fileID: 8025314476284901893, guid: 7fa616a0e7eea8e4a847f2084ef7a649, type: 3}
   weaponType: 1
-  shootDamage: 25
+  shootDamage: 30
   shootDist: 10
   shootRate: 0.1
-  critChance: 2
+  critChance: 7
   ammoCur: 30
   ammoMax: 30
   reloadTime: 1
