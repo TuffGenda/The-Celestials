@@ -162,11 +162,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 8400024461483510322}
   agent: {fileID: 1958086302204082527}
-  HP: 1
   faceTargetSpeed: 15
-  fov: 360
+  HP: 1
+  FOV: 360
   roamDistance: 0
-  roamPauseTimer: 0
+  roamPauseTime: 0
   bullet: {fileID: 8615386853437988833, guid: af1e7d7ab1787f4479a42742f2a04a26, type: 3}
   shootRate: 0.3
   shootPos: {fileID: 5962953699007319103}

@@ -36,6 +36,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage
         colorOriginal = model.material.color;
         gamemanager.instance.updateGameGoal(1);
         startingPos = transform.position;
+        stoppingDistanceOriginal = agent.stoppingDistance;
     }
 
     // Update is called once per frame
@@ -47,7 +48,6 @@ public class enemyAI : MonoBehaviour, IAllowDamage
         {
             roamTimer += Time.deltaTime;
         }
-        stoppingDistanceOriginal = agent.stoppingDistance;
 
         if (playerInTrigger && !canSeePlayer())
         {
@@ -70,15 +70,18 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     }
     void roam()
     {
-        roamTimer = 0;
-        agent.stoppingDistance = 0;
+        if (roamDistance != 0)
+        {
+            roamTimer = 0;
+            agent.stoppingDistance = 0;
 
-        Vector3 randomPos = Random.insideUnitSphere * roamDistance;
-        randomPos += startingPos;
+            Vector3 randomPos = Random.insideUnitSphere * roamDistance;
+            randomPos += startingPos;
 
-        NavMeshHit hit;
-        NavMesh.SamplePosition(randomPos, out hit, roamDistance, 1);
-        agent.SetDestination(hit.position);
+            NavMeshHit hit;
+            NavMesh.SamplePosition(randomPos, out hit, roamDistance, 1);
+            agent.SetDestination(hit.position);
+        }
     }
 
     bool canSeePlayer()
@@ -129,8 +132,9 @@ public class enemyAI : MonoBehaviour, IAllowDamage
         if (other.CompareTag("Player"))
         {
             playerInTrigger = false;
-            agent.stoppingDistance = 0;
         }
+
+        agent.stoppingDistance = 0;
     }
 
     void shoot()
@@ -141,15 +145,18 @@ public class enemyAI : MonoBehaviour, IAllowDamage
 
     public void TakeDamage(int amount)
     {
-        HP -= amount;
+        if (HP > 0)
+        {
+            HP -= amount;
+            StartCoroutine(flashRed());
+
+            agent.SetDestination(gamemanager.instance.player.transform.position);
+        }
+
         if (HP <= 0)
         {
-            Destroy(gameObject);
             gamemanager.instance.updateGameGoal(-1);
-        }
-        else
-        {
-            StartCoroutine(flashRed());
+            Destroy(gameObject);
         }
     }
     public void HealDamage(int amount, bool onCooldown)
