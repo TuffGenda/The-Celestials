@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2372419849410177180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4657983903925519304}
+  m_Layer: 0
+  m_Name: gunPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4657983903925519304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2372419849410177180}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.449147, y: -0.29999995, z: 0.63539505}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3728024284041527113}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2715122462285565902
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,7 +85,7 @@ MonoBehaviour:
     m_Bits: 136
   controller: {fileID: 968010762589969049}
   playerCamera: {fileID: 8660641191906894885}
-  HP: 15
+  HP: 150
   speed: 5
   sprintMod: 2
   jumpSpeed: 12
@@ -64,9 +95,11 @@ MonoBehaviour:
   minStamina: 5
   staminaGainMult: 1
   staminaLossMult: 2
-  shootDamage: 3
-  shootRate: 0.5
-  shootDist: 15
+  shootDamage: 0
+  shootRate: 0
+  shootDist: 0
+  gunList: []
+  gunModelPos: {fileID: 4657983903925519304}
 --- !u!33 &4428267519878785780
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -200,7 +233,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4657983903925519304}
   m_Father: {fileID: 8300019698269819084}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7072860862236234198
