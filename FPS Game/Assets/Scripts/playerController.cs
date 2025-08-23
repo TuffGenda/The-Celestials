@@ -263,18 +263,21 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         {
             Destroy(curGun);
         } 
-        curGun = Instantiate(gunList[gunListPos].model, gunModelPos.position, transform.rotation, gunModelPos);
+        curGun = Instantiate(gunList[gunListPos].model, gunModelPos.position, gunModelPos.rotation, gunModelPos);
     }
 
     void selectGun()
     {
+        
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1)
         {
+            Debug.Log("I AM THE PROBLEM");
             gunListPos++;
             changeGun();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0)
         {
+            Debug.Log("I AM THE PROBLEM");
             gunListPos--;
             changeGun();
         }
