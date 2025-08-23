@@ -17,6 +17,7 @@ public class shopManager : MonoBehaviour
     public TextMeshProUGUI weaponPriceText;
     public Button purchaseButton;
     public Button sellButton;
+    public Button selectButton;
 
     public gunStats[] availableWeapons;
 
@@ -81,7 +82,8 @@ public class shopManager : MonoBehaviour
         TextMeshProUGUI nameText = weaponItem.transform.Find("WeaponName").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI priceText = weaponItem.transform.Find("Price").GetComponent<TextMeshProUGUI>();
         Image rarityBorder = weaponItem.transform.Find("RarityBorder").GetComponent<Image>();
-        Button selectButton = weaponItem.GetComponent<Button>();
+        Button selectButton = weaponItem.transform.Find("SelectButton").GetComponent<Button>();
+
 
         nameText.text = GetWeaponDisplayName(weapon);
         priceText.text = "$" + weapon.price.ToString();
