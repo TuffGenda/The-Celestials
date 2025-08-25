@@ -17,7 +17,7 @@ public class shopManager : MonoBehaviour
     public TextMeshProUGUI weaponPriceText;
     public Button purchaseButton;
     public Button sellButton;
-    public Button selectButton;
+
 
     public gunStats[] availableWeapons;
 
