@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Assult Rifle
   m_EditorClassIdentifier: 
   model: {fileID: 5955557658189492419, guid: 30bc401ace006654d950f54c6e93f675, type: 3}
-  WeaponIcon: {fileID: 0}
-  WeaponImage: {fileID: 0}
+  weaponIcon: {fileID: 21300000, guid: b13379e9ea449054ab9fef4667a0b28e, type: 3}
+  weaponImage: {fileID: 21300000, guid: 0c9e1fd91d70180459ecfb68d1f71356, type: 3}
   weaponType: 1
-  shootDamage: 41
+  shootDamage: 51
   shootDist: 10
   shootRate: 0.1
   critChance: 50
@@ -26,5 +26,5 @@ MonoBehaviour:
   recoil: 0.3
   moveSpeed: 0.9
   price: 2000
-  unlockLevel: 2
+  unlockLevel: 1
   rarity: 1
