@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Assult Rifle
   m_EditorClassIdentifier: 
   model: {fileID: 5955557658189492419, guid: 30bc401ace006654d950f54c6e93f675, type: 3}
+  WeaponIcon: {fileID: 0}
+  WeaponImage: {fileID: 0}
   weaponType: 1
-  shootDamage: 26
+  shootDamage: 41
   shootDist: 10
   shootRate: 0.1
-  critChance: 60
+  critChance: 50
   ammoCur: 30
   ammoMax: 30
   reloadTime: 1

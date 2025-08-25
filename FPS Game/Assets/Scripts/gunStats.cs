@@ -4,6 +4,9 @@ using UnityEngine;
 public class gunStats : ScriptableObject
 {
     public GameObject model;
+    public Sprite weaponIcon;
+    public Sprite weaponImage;
+
     public WeaponType weaponType = WeaponType.Rifle;
 
     [Range(1, 100)] public int shootDamage = 25;
