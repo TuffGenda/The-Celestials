@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 5955557658189492419, guid: 30bc401ace006654d950f54c6e93f675, type: 3}
   weaponType: 1
-  shootDamage: 6
+  shootDamage: 26
   shootDist: 10
   shootRate: 0.1
-  critChance: 55
+  critChance: 60
   ammoCur: 30
   ammoMax: 30
   reloadTime: 1

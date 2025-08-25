@@ -106,7 +106,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         controller.Move(moveDirection * speed * Time.deltaTime);
         jump();
         controller.Move(playerVelocity * Time.deltaTime);
-        if (Input.GetButton("Fire1") && shootTimer >= shootRate)
+        if (Input.GetButton("Fire1") && gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer >= shootRate)
         {
             shoot();
         }
@@ -119,6 +119,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             playerCamera.GetComponent<cameraController>().ZoomOut();
         }
         selectGun();
+        reload();
     }
 
     void jump()
@@ -154,11 +155,13 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     void shoot()
     {
         shootTimer = 0;
+        gunList[gunListPos].ammoCur--;
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
-            Debug.Log(hit.collider.name); //Delete if you dont need :)
+            //Debug.Log(hit.collider.name);
+            //Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
 
             IAllowDamage dmg = hit.collider.GetComponent<IAllowDamage>();
 
@@ -166,6 +169,14 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             {
                 dmg.TakeDamage(shootDamage);
             }
+        }
+    }
+
+    void reload()
+    {
+        if (Input.GetButtonDown("Reload") && gunList.Count > 0)
+        {
+            gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
         }
     }
 
@@ -271,13 +282,11 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1)
         {
-            Debug.Log("I AM THE PROBLEM");
             gunListPos++;
             changeGun();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0)
         {
-            Debug.Log("I AM THE PROBLEM");
             gunListPos--;
             changeGun();
         }

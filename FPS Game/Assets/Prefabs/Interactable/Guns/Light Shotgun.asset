@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
   m_Name: Light Shotgun
   m_EditorClassIdentifier: 
-  model: {fileID: 1121656183933948882, guid: 6b03943fc152e214493f2ce28e636d68, type: 3}
+  model: {fileID: 946854379323518631, guid: 4ba709cd36d08794eba483182ccaaa91, type: 3}
   weaponType: 1
-  shootDamage: 125
+  shootDamage: 60
   shootDist: 5
   shootRate: 0.75
-  critChance: 80
+  critChance: 70
   ammoCur: 8
   ammoMax: 8
   reloadTime: 2
-  recoil: 0.032212265
+  recoil: 0.010555317
   moveSpeed: 0.9
   price: 2000
   unlockLevel: 3

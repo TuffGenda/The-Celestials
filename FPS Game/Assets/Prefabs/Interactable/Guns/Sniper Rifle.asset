@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 2093207648122188749, guid: bc3a77b578a623d41985c803e1969e0c, type: 3}
   weaponType: 1
-  shootDamage: 21
+  shootDamage: 110
   shootDist: 100
   shootRate: 0.5
-  critChance: 65
+  critChance: 80
   ammoCur: 15
   ammoMax: 15
   reloadTime: 3
-  recoil: 0.0003627972
+  recoil: 0.000047018522
   moveSpeed: 0.9
   price: 5000
   unlockLevel: 5

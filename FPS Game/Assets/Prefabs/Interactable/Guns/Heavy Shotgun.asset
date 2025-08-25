@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
   m_Name: Heavy Shotgun
   m_EditorClassIdentifier: 
-  model: {fileID: 1133764293459219706, guid: 8c126f20f768f164181884f7ef614c0e, type: 3}
+  model: {fileID: 1913830197270561714, guid: 4abc3c09230fb1b4fa2fa4f943f44f34, type: 3}
   weaponType: 2
-  shootDamage: 160
-  shootDist: 5
+  shootDamage: 120
+  shootDist: 10
   shootRate: 1.5
-  critChance: 95
-  ammoCur: 8
+  critChance: 65
+  ammoCur: 6
   ammoMax: 8
   reloadTime: 2
-  recoil: 0.003627972
+  recoil: 0.00028211117
   moveSpeed: 0.9
   price: 3000
   unlockLevel: 4
