@@ -805,6 +805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545112354af4b0c4cac8a2fe1a469ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   shopPanel: {fileID: 2937072137652262849}
   closeShopButton: {fileID: 7025818734938216199}
   playerMoneyText: {fileID: 9155389046559519025}

@@ -5,9 +5,11 @@ using System.Collections.Generic;
 
 public class shopManager : MonoBehaviour
 {
+    public GameObject player;
     public GameObject shopPanel;
     public Button closeShopButton;
     public TextMeshProUGUI playerMoneyText;
+    public IAllowPickup playerPickupInterface;
 
     public Transform weaponContainer;
     public GameObject weaponItemPrefab;
@@ -34,6 +36,18 @@ public class shopManager : MonoBehaviour
         closeShopButton.onClick.AddListener(closeShop);
         purchaseButton.onClick.AddListener(purchaseSelectedWeapon);
         sellButton.onClick.AddListener(sellSelectedWeapon);
+
+        if (player != null)
+        {
+            playerPickupInterface = player.GetComponent<IAllowPickup>();
+        }
+        else
+        {
+           
+            player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                playerPickupInterface = player.GetComponent<IAllowPickup>();
+        }
 
         shopPanel.SetActive(false);
         UpdateMoneyDisplay();
@@ -207,7 +221,18 @@ public class shopManager : MonoBehaviour
             playerMoney -= selectedWeapon.price;
             ownedWeapons.Add(selectedWeapon);
 
-            
+            if (playerPickupInterface != null)
+            {
+                selectedWeapon.ammoCur = selectedWeapon.ammoMax;
+                playerPickupInterface.GetGunStats(selectedWeapon);
+                Debug.Log("Purchased and equipped: " + GetWeaponDisplayName(selectedWeapon));
+            }
+            else
+            {
+                Debug.LogWarning("Could not equip weapon - player pickup interface not found!");
+            }
+
+
             UpdateMoneyDisplay();
             PopulateWeaponList();
             UpdatePurchaseButton();
