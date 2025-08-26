@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 427178140357800565}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MDL Short Assult Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 5751782668662874994}
   - component: {fileID: 7234168413796860325}
   - component: {fileID: 5280083812534773673}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_J_Grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 1080669551532539492}
   - component: {fileID: 1356439653758454445}
   - component: {fileID: 6734234056768345509}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_J_Reciver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 4682786969002982943}
   - component: {fileID: 6011006887285783738}
   - component: {fileID: 4003493567244284952}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_J_BarrelGuard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 5620488184532085481}
   - component: {fileID: 1795906455485691110}
   - component: {fileID: 5449920467937258933}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_J_Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 3860234910341735788}
   - component: {fileID: 2241177916892024097}
   - component: {fileID: 5260384778164480028}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_J_Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,7 +480,7 @@ GameObject:
   - component: {fileID: 6279263614529362155}
   - component: {fileID: 8414214842154465349}
   - component: {fileID: 9140176875416201409}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_J_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 38053403685805896}
   - component: {fileID: 749201343499591488}
   - component: {fileID: 3548012760479518270}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_J_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,7 +652,7 @@ GameObject:
   - component: {fileID: 1890683341896240740}
   - component: {fileID: 8578882294880664138}
   - component: {fileID: 9080228131015690410}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_J_Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

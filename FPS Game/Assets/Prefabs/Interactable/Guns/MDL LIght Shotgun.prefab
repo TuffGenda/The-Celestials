@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3988466721762571969}
   - component: {fileID: 4853102514890723963}
   - component: {fileID: 4230771501099771946}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_F_Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1485586079983259303}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MDL LIght Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 6893180668463419396}
   - component: {fileID: 8877321911344983165}
   - component: {fileID: 2181159769620078781}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_F_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 475034686824550404}
   - component: {fileID: 6453683632358998528}
   - component: {fileID: 3774731060847875550}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_F_Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 6002548995904964322}
   - component: {fileID: 2759357160813731741}
   - component: {fileID: 7780876614964403589}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_F_BarrelGuard_Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 2498816785400127309}
   - component: {fileID: 8825622452258284088}
   - component: {fileID: 8851746583651382334}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_F_Stock_Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 8881241473060838906}
   - component: {fileID: 2985649691115669664}
   - component: {fileID: 3538443253507974512}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_F_Receiver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +567,7 @@ GameObject:
   - component: {fileID: 5087494498721513025}
   - component: {fileID: 1854193801631591513}
   - component: {fileID: 6863077318497980261}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_F_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 7859779334844226201}
   - component: {fileID: 2196493602462079848}
   - component: {fileID: 5734227774250342142}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_F_Grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -739,7 +739,7 @@ GameObject:
   - component: {fileID: 7246271359147917890}
   - component: {fileID: 3517877625773806571}
   - component: {fileID: 9004251322644484177}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_F_BarrelGuard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 7653848362153153883}
   - component: {fileID: 7360659072613618288}
   - component: {fileID: 4788150668589685362}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun_F_Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
