@@ -16,14 +16,14 @@ MonoBehaviour:
   weaponIcon: {fileID: 21300000, guid: 6276cb5e122ed744e80a1d71c43a9d85, type: 3}
   weaponImage: {fileID: 21300000, guid: 24a71ec1bce00c64a92e40c0c7b93190, type: 3}
   weaponType: 2
-  shootDamage: 25
+  shootDamage: 65
   shootDist: 5
   shootRate: 0.75
   critChance: 50
   ammoCur: 8
   ammoMax: 8
   reloadTime: 2
-  recoil: 0.004323458
+  recoil: 0.0017708885
   moveSpeed: 0.9
   price: 2000
   unlockLevel: 1
