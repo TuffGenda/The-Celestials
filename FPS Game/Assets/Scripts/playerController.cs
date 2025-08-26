@@ -170,6 +170,13 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
             if (dmg != null)
             {
+                int finalDamage = shootDamage;
+                if (Random.Range(0f, 100f) <= gunList[gunListPos].critChance)
+                {
+                    finalDamage = Mathf.RoundToInt(shootDamage * 1.5f); // 1.5x crit multiplier
+                    Debug.Log("CRITICAL HIT! " + finalDamage + " damage");
+                }
+
                 dmg.TakeDamage(shootDamage);
             }
         }
@@ -287,6 +294,9 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         shootDist = gunList[gunListPos].shootDist;
         shootRate = gunList[gunListPos].shootRate;
         reloadTime = gunList[gunListPos].reloadTime;
+
+        speed = Mathf.RoundToInt(speedOriginal * gunList[gunListPos].moveSpeed);
+
 
         if (curGun != null)
         {

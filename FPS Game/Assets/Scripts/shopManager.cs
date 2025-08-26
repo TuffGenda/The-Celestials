@@ -1,7 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections.Generic;
+
 
 public class shopManager : MonoBehaviour
 {
@@ -13,10 +15,14 @@ public class shopManager : MonoBehaviour
 
     public Transform weaponContainer;
     public GameObject weaponItemPrefab;
+    public GameObject messagePanel;
 
     public TextMeshProUGUI weaponNameText;
     public TextMeshProUGUI weaponStatsText;
     public TextMeshProUGUI weaponPriceText;
+    public TextMeshProUGUI messageText;
+    public float messageDuration = 1.5f;
+    public float fadeDuration = 0.5f;
     public Image weaponPreviewImage;
     public Button purchaseButton;
     public Button sellButton;
@@ -30,6 +36,8 @@ public class shopManager : MonoBehaviour
     public gunStats selectedWeapon;
     public List<gunStats> ownedWeapons = new List<gunStats>();
     public List<GameObject> weaponUIItems = new List<GameObject>();
+
+    CanvasGroup messageCanvasGroup;
 
     void Start()
     {
@@ -52,10 +60,27 @@ public class shopManager : MonoBehaviour
         shopPanel.SetActive(false);
         UpdateMoneyDisplay();
 
+        messageCanvasGroup = messagePanel.GetComponent<CanvasGroup>();
+        if (messagePanel != null)
+        {
+            messagePanel.SetActive(false);
+        }
+
+        if (messageText != null)
+            messageText.text = "";
+
 
         if (availableWeapons.Length > 0)
         {
-            ownedWeapons.Add(availableWeapons[0]); 
+            ownedWeapons.Add(availableWeapons[0]);
+
+            if (playerPickupInterface != null)
+            {
+                gunStats startingWeapon = ScriptableObject.Instantiate(availableWeapons[0]);
+                startingWeapon.ammoCur = startingWeapon.ammoMax;
+                playerPickupInterface.GetGunStats(startingWeapon);
+            }
+
         }
     }
 
@@ -72,6 +97,9 @@ public class shopManager : MonoBehaviour
     {
         gamemanager.instance.stateUnpause();
         shopPanel.SetActive(false);
+
+        if (messageText != null)
+            messageText.text = "";
     }
 
     void PopulateWeaponList()
@@ -126,7 +154,8 @@ public class shopManager : MonoBehaviour
             selectButton.interactable = false;
         }
 
-        
+        selectButton.onClick.RemoveAllListeners();
+
         selectButton.onClick.AddListener(() => SelectWeapon(weapon));
     }
 
@@ -247,21 +276,61 @@ public class shopManager : MonoBehaviour
 
         bool isOwned = ownedWeapons.Contains(selectedWeapon);
 
-        if (isOwned && ownedWeapons.Count > 1) 
+        if (isOwned && ownedWeapons.Count > 1)
         {
-            
+
             int sellValue = Mathf.RoundToInt(selectedWeapon.price * 0.6f);
             playerMoney += sellValue;
             ownedWeapons.Remove(selectedWeapon);
 
-            
+
             UpdateMoneyDisplay();
             PopulateWeaponList();
             UpdatePurchaseButton();
 
             Debug.Log("Sold: " + GetWeaponDisplayName(selectedWeapon) + " for $" + sellValue);
         }
+        else if (isOwned && ownedWeapons.Count <= 1)
+        {
+            ShowMessage("Cannot sell your only weapon!");
+        }
     }
+
+
+    void ShowMessage(string message)
+    {
+        if (messagePanel != null && messageText != null)
+        {
+            messageText.text = message;
+            messagePanel.SetActive(true);
+
+            if (messageCanvasGroup != null)
+                messageCanvasGroup.alpha = 1f;
+
+            StopAllCoroutines();
+            StartCoroutine(FadeMessage());
+        }
+        Debug.Log("Showing message: " + message);
+    }
+
+
+    IEnumerator FadeMessage()
+    {
+        messageCanvasGroup.alpha = 1;
+
+        yield return new WaitForSeconds(messageDuration);
+
+        float elapsed = 0f;
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            messageCanvasGroup.alpha = Mathf.Lerp(1, 0, elapsed / fadeDuration);
+            yield return null;
+        }
+
+        messagePanel.SetActive(false);
+    }
+
 
     void UpdateMoneyDisplay()
     {
