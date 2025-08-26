@@ -42,4 +42,9 @@ public class buttonFunctions : MonoBehaviour
     {
         gamemanager.instance.openSettings();
     }
+
+
+
+
+
 }

@@ -20,6 +20,8 @@ public class settingsManager : MonoBehaviour
     public Button rightKeyButton;
     public Button jumpKeyButton;
     public Button sprintKeyButton;
+    // Button to reset controls to default
+    public Button resetButton;
 
     [Header("Display")]
     // Text displays showing current key assignments
@@ -64,6 +66,9 @@ public class settingsManager : MonoBehaviour
 
         // Takes the player back to the Pause Menu
         backButton.onClick.AddListener(BackToPauseMenu);
+
+        // Reset controls back to default
+        if (resetButton != null) resetButton.onClick.AddListener(ResetToDefaults);
 
         // Set up key remapping button events
         forwardKeyButton.onClick.AddListener(() => StartKeyChange("Forward"));
@@ -236,5 +241,13 @@ public class settingsManager : MonoBehaviour
             return vertical;
         }
         return 0f;
+    }
+
+    // Resets all controls back to default
+    public void ResetToDefaults()
+    {
+        LoadDefaultControls();
+        SaveControls();
+        UpdateControlTexts();
     }
 }

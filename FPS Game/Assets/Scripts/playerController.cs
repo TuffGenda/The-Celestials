@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class playerController : MonoBehaviour, IAllowDamage
+public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 {
 
 
@@ -26,6 +27,11 @@ public class playerController : MonoBehaviour, IAllowDamage
     [SerializeField] int shootDamage; //The amount of damage the player's weapon does
     [SerializeField] float shootRate; //The rate of fire of the player's weapon
     [SerializeField] int shootDist; //The maximum distance the player's weapon can shoot
+    [SerializeField] float reloadTime; //The time it takes to reload the player's weapon
+    [Header("--- Guns ---")]
+    [SerializeField] List<gunStats> gunList = new List<gunStats>();
+    [SerializeField] Transform gunModelPos;
+    [SerializeField] bool reloadTimes;
 
 
 
@@ -40,6 +46,9 @@ public class playerController : MonoBehaviour, IAllowDamage
     int staminaOriginal;
     bool isSprinting = false;
     int speedOriginal;
+    int gunListPos;
+
+    GameObject curGun;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -100,7 +109,7 @@ public class playerController : MonoBehaviour, IAllowDamage
         controller.Move(moveDirection * speed * Time.deltaTime);
         jump();
         controller.Move(playerVelocity * Time.deltaTime);
-        if (Input.GetButton("Fire1") && shootTimer >= shootRate)
+        if (Input.GetButton("Fire1") && gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer >= shootRate)
         {
             shoot();
         }
@@ -112,6 +121,8 @@ public class playerController : MonoBehaviour, IAllowDamage
         {
             playerCamera.GetComponent<cameraController>().ZoomOut();
         }
+        selectGun();
+        reload();
     }
 
     void jump()
@@ -147,18 +158,42 @@ public class playerController : MonoBehaviour, IAllowDamage
     void shoot()
     {
         shootTimer = 0;
+        gunList[gunListPos].ammoCur--;
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
-            Debug.Log(hit.collider.name); //Delete if you dont need :)
+            //Debug.Log(hit.collider.name);
+            //Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
 
             IAllowDamage dmg = hit.collider.GetComponent<IAllowDamage>();
 
             if (dmg != null)
             {
+                int finalDamage = shootDamage;
+                if (Random.Range(0f, 100f) <= gunList[gunListPos].critChance)
+                {
+                    finalDamage = Mathf.RoundToInt(shootDamage * 1.5f); // 1.5x crit multiplier
+                    Debug.Log("CRITICAL HIT! " + finalDamage + " damage");
+                }
+
                 dmg.TakeDamage(shootDamage);
             }
+        }
+    }
+
+    void reload()
+    {
+        if (Input.GetButtonDown("Reload") && gunList.Count > 0)
+        {
+            if (reloadTimes)
+            {
+                StartCoroutine(reloadDebounce());
+            }
+            else {
+                gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+            }
+            
         }
     }
 
@@ -235,6 +270,53 @@ public class playerController : MonoBehaviour, IAllowDamage
             gamemanager.instance.playerHealScreen.SetActive(true);
             yield return new WaitForSeconds(0.1f);
             gamemanager.instance.playerHealScreen.SetActive(false);
+        }
+    }
+
+    IEnumerator reloadDebounce()
+    {
+        Debug.Log("RELOAD");
+        yield return new WaitForSeconds(reloadTime);
+        gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+    }
+
+    public void GetGunStats(gunStats gun)
+    {
+        gunList.Add(gun);
+        gunListPos = gunList.Count - 1;
+        changeGun();
+
+    }
+
+    void changeGun()
+    {
+        shootDamage = gunList[gunListPos].shootDamage;
+        shootDist = gunList[gunListPos].shootDist;
+        shootRate = gunList[gunListPos].shootRate;
+        reloadTime = gunList[gunListPos].reloadTime;
+
+        speed = Mathf.RoundToInt(speedOriginal * gunList[gunListPos].moveSpeed);
+
+
+        if (curGun != null)
+        {
+            Destroy(curGun);
+        } 
+        curGun = Instantiate(gunList[gunListPos].model, gunModelPos.position, gunModelPos.rotation, gunModelPos);
+    }
+
+    void selectGun()
+    {
+        
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1)
+        {
+            gunListPos++;
+            changeGun();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0)
+        {
+            gunListPos--;
+            changeGun();
         }
     }
 }

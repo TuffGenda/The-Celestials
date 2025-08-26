@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
+  m_Name: Sniper Rifle
+  m_EditorClassIdentifier: 
+  model: {fileID: 2093207648122188749, guid: bc3a77b578a623d41985c803e1969e0c, type: 3}
+  weaponIcon: {fileID: 21300000, guid: c185103daad24524cab325ed17d7a699, type: 3}
+  weaponImage: {fileID: 21300000, guid: cb55f1118727ac24fbdaf61f054fb118, type: 3}
+  weaponType: 1
+  shootDamage: 100
+  shootDist: 100
+  shootRate: 0.5
+  critChance: 50
+  ammoCur: 15
+  ammoMax: 15
+  reloadTime: 3
+  recoil: 0.000001316218
+  moveSpeed: 0.9
+  price: 5000
+  unlockLevel: 1
+  rarity: 3
