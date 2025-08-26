@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using TMPro;
 using System.Collections.Generic;
 
@@ -22,6 +23,15 @@ public class settingsManager : MonoBehaviour
     public Button sprintKeyButton;
     // Button to reset controls to default
     public Button resetButton;
+
+    [Header("Audio Settings")]
+    // Audio mixer for volume control
+    public AudioMixer audioMixer;
+    // Volume sliders
+    public Slider masterVolumeSlider;
+    public Slider sfxVolumeSlider;
+    public Slider musicVolumeSlider;
+
 
     [Header("Display")]
     // Text displays showing current key assignments
@@ -77,6 +87,14 @@ public class settingsManager : MonoBehaviour
         rightKeyButton.onClick.AddListener(() => StartKeyChange("Right"));
         jumpKeyButton.onClick.AddListener(() => StartKeyChange("Jump"));
         sprintKeyButton.onClick.AddListener(() => StartKeyChange("Sprint"));
+
+        // Set up for audio slider events
+        if (masterVolumeSlider != null) masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
+        if (sfxVolumeSlider != null) sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+        if (musicVolumeSlider != null) musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
+
+        // Load and apply audio settings
+        LoadAudioSettings();
     }
 
     // Handle key detection for remapping
@@ -249,5 +267,75 @@ public class settingsManager : MonoBehaviour
         LoadDefaultControls();
         SaveControls();
         UpdateControlTexts();
+        ResetAudioToDefaults();
+    }
+
+    // Audio volume control methods
+    public void SetMasterVolume(float volume)
+    {
+        if (audioMixer != null)
+        {
+            audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+            PlayerPrefs.SetFloat("MasterVolume", volume);
+        }
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        if (audioMixer != null)
+        {
+            audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+            PlayerPrefs.SetFloat("SFXVolume", volume);
+        }
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        if (audioMixer != null)
+        {
+            audioMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
+            PlayerPrefs.SetFloat("MusicVolume", volume);
+        }
+    }
+
+    // Load saved audio settings
+    void LoadAudioSettings()
+    {
+        // Load master volume (default: 0.8)
+        float masterVolume = PlayerPrefs.GetFloat("MasterVolume", 0.8f);
+        if (masterVolumeSlider != null) masterVolumeSlider.value = masterVolume;
+        SetMasterVolume(masterVolume);
+
+        // Load SFX volume (default: 0.8)
+        float sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.8f);
+        if (sfxVolumeSlider != null) sfxVolumeSlider.value = sfxVolume;
+        SetSFXVolume(sfxVolume);
+
+        // Load music volume (default: 0.6)
+        float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.6f);
+        if (musicVolumeSlider != null) musicVolumeSlider.value = musicVolume;
+        SetMusicVolume(musicVolume);
+    }
+
+    // Reset audio settings to defaults
+    void ResetAudioToDefaults()
+    {
+        if (masterVolumeSlider != null)
+        {
+            masterVolumeSlider.value = 0.8f;
+            SetMasterVolume(0.8f);
+        }
+
+        if (sfxVolumeSlider != null)
+        {
+            sfxVolumeSlider.value = 0.8f;
+            SetSFXVolume(0.8f);
+        }
+
+        if (musicVolumeSlider != null)
+        {
+            musicVolumeSlider.value = 0.6f;
+            SetMusicVolume(0.6f);
+        }
     }
 }
