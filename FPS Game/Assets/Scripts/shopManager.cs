@@ -37,7 +37,8 @@ public class shopManager : MonoBehaviour
     public List<gunStats> ownedWeapons = new List<gunStats>();
     public List<GameObject> weaponUIItems = new List<GameObject>();
 
-    CanvasGroup messageCanvasGroup;
+    public CanvasGroup messageCanvasGroup;
+
 
     void Start()
     {
@@ -84,19 +85,26 @@ public class shopManager : MonoBehaviour
         }
     }
 
-    public void openShop()
+    public void openShopWithoutPause()
     {
-        gamemanager.instance.statePause();
+
         shopPanel.SetActive(true);
         PopulateWeaponList();
         ClearWeaponInfo();
 
+        // Enable cursor for shop UI
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void closeShop()
     {
-        gamemanager.instance.stateUnpause();
+
         shopPanel.SetActive(false);
+
+        // Hide cursor again
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         if (messageText != null)
             messageText.text = "";
@@ -297,20 +305,21 @@ public class shopManager : MonoBehaviour
     }
 
 
-    void ShowMessage(string message)
+    public void ShowMessage(string message)
     {
-        if (messagePanel != null && messageText != null)
-        {
-            messageText.text = message;
-            messagePanel.SetActive(true);
+        // Only show popup if shop is open
+        if (!shopPanel.activeSelf)
+            return;
 
-            if (messageCanvasGroup != null)
-                messageCanvasGroup.alpha = 1f;
+        messageText.text = message;
 
-            StopAllCoroutines();
-            StartCoroutine(FadeMessage());
-        }
-        Debug.Log("Showing message: " + message);
+        messagePanel.SetActive(true);
+
+        StopAllCoroutines(); // restart fade if already running
+
+        StartCoroutine(FadeMessage());
+
+
     }
 
 
@@ -318,18 +327,19 @@ public class shopManager : MonoBehaviour
     {
         messageCanvasGroup.alpha = 1;
 
-        yield return new WaitForSeconds(messageDuration);
+        yield return new WaitForSecondsRealtime(messageDuration);
 
         float elapsed = 0f;
         while (elapsed < fadeDuration)
         {
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime;
             messageCanvasGroup.alpha = Mathf.Lerp(1, 0, elapsed / fadeDuration);
             yield return null;
         }
 
         messagePanel.SetActive(false);
     }
+
 
 
     void UpdateMoneyDisplay()
