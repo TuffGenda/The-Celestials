@@ -30,7 +30,6 @@ public class shopManager : MonoBehaviour
 
     public gunStats[] availableWeapons;
 
-    public int playerMoney = 5000;
     public int playerLevel = 1;
 
     public gunStats selectedWeapon;
@@ -51,14 +50,14 @@ public class shopManager : MonoBehaviour
         }
         else
         {
-           
+
             player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
                 playerPickupInterface = player.GetComponent<IAllowPickup>();
         }
 
         shopPanel.SetActive(false);
-        UpdateMoneyDisplay();
+        
 
         messageCanvasGroup = messagePanel.GetComponent<CanvasGroup>();
         if (messagePanel != null)
@@ -104,7 +103,7 @@ public class shopManager : MonoBehaviour
 
     void PopulateWeaponList()
     {
-        
+
         foreach (GameObject item in weaponUIItems)
         {
             Destroy(item);
@@ -128,7 +127,7 @@ public class shopManager : MonoBehaviour
         Button selectButton = weaponItem.transform.Find("SelectButton").GetComponent<Button>();
 
         Image weaponIconImage = weaponItem.transform.Find("WeaponIcon")?.GetComponent<Image>();
-        if(weaponIconImage != null && weapon.weaponIcon != null)
+        if (weaponIconImage != null && weapon.weaponIcon != null)
         {
             weaponIconImage.sprite = weapon.weaponIcon;
             weaponIconImage.gameObject.SetActive(true);
@@ -161,7 +160,7 @@ public class shopManager : MonoBehaviour
 
     string GetWeaponDisplayName(gunStats weapon)
     {
-        
+
         string rarityPrefix = "";
         switch (weapon.rarity)
         {
@@ -212,10 +211,10 @@ public class shopManager : MonoBehaviour
         if (selectedWeapon == null) return;
 
         bool isOwned = ownedWeapons.Contains(selectedWeapon);
-        bool canAfford = playerMoney >= selectedWeapon.price;
+        bool canAfford = currencyManager.instance.GetMoney() >= selectedWeapon.price;
         bool isUnlocked = playerLevel >= selectedWeapon.unlockLevel;
 
-       
+
         if (isOwned)
         {
             purchaseButton.gameObject.SetActive(false);
@@ -240,14 +239,14 @@ public class shopManager : MonoBehaviour
     {
         if (selectedWeapon == null) return;
 
-        bool canAfford = playerMoney >= selectedWeapon.price;
+        bool canAfford = currencyManager.instance.GetMoney() >= selectedWeapon.price;
         bool isUnlocked = playerLevel >= selectedWeapon.unlockLevel;
         bool isOwned = ownedWeapons.Contains(selectedWeapon);
 
         if (!isOwned && canAfford && isUnlocked)
         {
-            
-            playerMoney -= selectedWeapon.price;
+
+            currencyManager.instance.SpendMoney(selectedWeapon.price);
             ownedWeapons.Add(selectedWeapon);
 
             if (playerPickupInterface != null)
@@ -262,7 +261,7 @@ public class shopManager : MonoBehaviour
             }
 
 
-            UpdateMoneyDisplay();
+            
             PopulateWeaponList();
             UpdatePurchaseButton();
 
@@ -280,11 +279,11 @@ public class shopManager : MonoBehaviour
         {
 
             int sellValue = Mathf.RoundToInt(selectedWeapon.price * 0.6f);
-            playerMoney += sellValue;
+            currencyManager.instance.AddMoney(sellValue);
             ownedWeapons.Remove(selectedWeapon);
 
 
-            UpdateMoneyDisplay();
+            
             PopulateWeaponList();
             UpdatePurchaseButton();
 
@@ -332,10 +331,6 @@ public class shopManager : MonoBehaviour
     }
 
 
-    void UpdateMoneyDisplay()
-    {
-        playerMoneyText.text = "Money: $" + playerMoney.ToString();
-    }
 
     void ClearWeaponInfo()
     {
@@ -346,17 +341,12 @@ public class shopManager : MonoBehaviour
         sellButton.gameObject.SetActive(false);
     }
 
-    
+
     public List<gunStats> GetOwnedWeapons()
     {
         return ownedWeapons;
     }
 
-    public void addMoney(int amount)
-    {
-        playerMoney += amount;
-        UpdateMoneyDisplay();
-    }
 
     public void setPlayerLevel(int level)
     {
@@ -366,5 +356,7 @@ public class shopManager : MonoBehaviour
             PopulateWeaponList();
         }
     }
+
+
 
 }
