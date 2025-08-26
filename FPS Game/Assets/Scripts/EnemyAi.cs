@@ -20,6 +20,11 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     [SerializeField] float shootRate;
     [SerializeField] Transform shootPos;
 
+    // --- Drop Loot Variables ---
+    [Header("--- Drop Loot ---")]
+    [SerializeField] GameObject[] lootDrops; // Array of loot items the enemy can drop
+    [SerializeField] int lootDropChance; // A percentage chance (0-100) that loot will drop
+
     Color colorOriginal;
 
     float shootTimer;
@@ -156,6 +161,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage
         if (HP <= 0)
         {
             gamemanager.instance.updateGameGoal(-1);
+            dropLoot(); // Call the dropLoot function on death
             Destroy(gameObject);
         }
     }
@@ -169,4 +175,27 @@ public class enemyAI : MonoBehaviour, IAllowDamage
         yield return new WaitForSeconds(0.1f);
         model.material.color = colorOriginal;
     }
+
+
+    /// <summary>
+    /// Handles the dropping of loot when the enemy is defeated.
+    /// </summary>
+    void dropLoot()
+    {
+        // Check if a random number is less than or equal to the drop chance
+        if (Random.Range(0, 101) <= lootDropChance)
+        {
+            // Check if there are any loot items to drop
+            if (lootDrops.Length > 0)
+            {
+                // Select a random loot item from the array
+                int randomIndex = Random.Range(0, lootDrops.Length);
+                GameObject itemToDrop = lootDrops[randomIndex];
+
+                // Instantiate the selected loot item at the enemy's position
+                Instantiate(itemToDrop, transform.position, Quaternion.identity);
+            }
+        }
+    }
 }
+
