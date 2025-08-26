@@ -4,7 +4,7 @@ public class pickups : MonoBehaviour
 {
     enum pickupType
     {
-        guns, coins
+        guns, money
     }
     [Header("Components")]
     [SerializeField] pickupType type;
@@ -12,9 +12,8 @@ public class pickups : MonoBehaviour
     [Header("For Guns")]
     [SerializeField] gunStats gun;
 
-    // Will add once I know what the coin system is.
-    /*[Header("For Coins")]
-    [SerializeField] coinStats coin;*/
+    [Header("For Money")]
+    [SerializeField] int moneyAmount = 10;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,6 +24,17 @@ public class pickups : MonoBehaviour
             pickupable.GetGunStats(gun);
 
             gun.ammoCur = gun.ammoMax;
+
+            Destroy(gameObject);
+        }
+
+        else if (type == pickupType.money)
+        {
+            currencyManager cm = Object.FindFirstObjectByType<currencyManager>();
+            if (cm != null)
+            {
+                cm.AddMoney(moneyAmount);
+            }
 
             Destroy(gameObject);
         }
