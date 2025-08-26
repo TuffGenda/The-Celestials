@@ -28,7 +28,7 @@ public class pickups : MonoBehaviour
             Destroy(gameObject);
         }
 
-        else if (type == pickupType.money)
+        else if (other.CompareTag("Player") && type == pickupType.money)
         {
             currencyManager cm = Object.FindFirstObjectByType<currencyManager>();
             if (cm != null)
