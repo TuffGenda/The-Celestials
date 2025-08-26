@@ -339,11 +339,6 @@ public class shopManager : MonoBehaviour
         messagePanel.SetActive(false);
     }
 
-    void UpdateMoneyDisplay()
-    {
-        playerMoneyText.text = "Money: $" + playerMoney.ToString();
-    }
-
     void ClearWeaponInfo()
     {
         weaponNameText.text = "Select a weapon";
