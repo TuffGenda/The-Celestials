@@ -15,9 +15,10 @@ public class shopManager : MonoBehaviour
     public TextMeshProUGUI weaponNameText;
     public TextMeshProUGUI weaponStatsText;
     public TextMeshProUGUI weaponPriceText;
+    public Image weaponPreviewImage;
     public Button purchaseButton;
     public Button sellButton;
-    public Button selectButton;
+
 
     public gunStats[] availableWeapons;
 
@@ -84,6 +85,13 @@ public class shopManager : MonoBehaviour
         Image rarityBorder = weaponItem.transform.Find("RarityBorder").GetComponent<Image>();
         Button selectButton = weaponItem.transform.Find("SelectButton").GetComponent<Button>();
 
+        Image weaponIconImage = weaponItem.transform.Find("WeaponIcon")?.GetComponent<Image>();
+        if(weaponIconImage != null && weapon.weaponIcon != null)
+        {
+            weaponIconImage.sprite = weapon.weaponIcon;
+            weaponIconImage.gameObject.SetActive(true);
+        }
+
 
         nameText.text = GetWeaponDisplayName(weapon);
         priceText.text = "$" + weapon.price.ToString();
@@ -134,7 +142,16 @@ public class shopManager : MonoBehaviour
         weaponNameText.text = GetWeaponDisplayName(weapon);
         weaponNameText.color = weapon.GetRarityColor();
 
-        
+        if (weaponPreviewImage != null && weapon.weaponImage != null)
+        {
+            weaponPreviewImage.sprite = weapon.weaponImage;
+            weaponPreviewImage.gameObject.SetActive(true);
+        }
+        else if (weaponPreviewImage != null)
+        {
+            weaponPreviewImage.gameObject.SetActive(false);
+        }
+
         weaponStatsText.text = $"Damage: {weapon.shootDamage}\n" +
                               $"Range: {weapon.shootDist}m\n" +
                               $"Fire Rate: {weapon.shootRate:F1}\n" +
