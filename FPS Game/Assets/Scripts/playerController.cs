@@ -27,9 +27,11 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     [SerializeField] int shootDamage; //The amount of damage the player's weapon does
     [SerializeField] float shootRate; //The rate of fire of the player's weapon
     [SerializeField] int shootDist; //The maximum distance the player's weapon can shoot
+    [SerializeField] float reloadTime; //The time it takes to reload the player's weapon
     [Header("--- Guns ---")]
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
     [SerializeField] Transform gunModelPos;
+    [SerializeField] bool reloadTimes;
 
 
 
@@ -45,6 +47,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     bool isSprinting = false;
     int speedOriginal;
     int gunListPos;
+
     GameObject curGun;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -176,7 +179,14 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     {
         if (Input.GetButtonDown("Reload") && gunList.Count > 0)
         {
-            gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+            if (reloadTimes)
+            {
+                StartCoroutine(reloadDebounce());
+            }
+            else {
+                gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+            }
+            
         }
     }
 
@@ -256,6 +266,13 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         }
     }
 
+    IEnumerator reloadDebounce()
+    {
+        Debug.Log("RELOAD");
+        yield return new WaitForSeconds(reloadTime);
+        gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+    }
+
     public void GetGunStats(gunStats gun)
     {
         gunList.Add(gun);
@@ -269,6 +286,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         shootDamage = gunList[gunListPos].shootDamage;
         shootDist = gunList[gunListPos].shootDist;
         shootRate = gunList[gunListPos].shootRate;
+        reloadTime = gunList[gunListPos].reloadTime;
 
         if (curGun != null)
         {

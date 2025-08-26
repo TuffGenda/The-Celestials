@@ -18,10 +18,10 @@ MonoBehaviour:
   shootDist: 10
   shootRate: 1.5
   critChance: 65
-  ammoCur: 6
+  ammoCur: 8
   ammoMax: 8
   reloadTime: 2
-  recoil: 0.00028211117
+  recoil: 0.000101560036
   moveSpeed: 0.9
   price: 3000
   unlockLevel: 4

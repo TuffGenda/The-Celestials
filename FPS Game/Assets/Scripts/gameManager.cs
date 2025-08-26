@@ -101,13 +101,13 @@ public class gamemanager : MonoBehaviour
 
         gameGoalCountText.text = gameGoalCount.ToString("F0");
 
-        /*if (gameGoalCount <= 0)
+        if (gameGoalCount <= 0)
         {
              //You won!
              statePause ();
             menuActive = menuWin;
             menuActive.SetActive(true);
-        }*/
+        }
     }
 
     public void youLose()
