@@ -31,6 +31,9 @@ public class gamemanager : MonoBehaviour
     // Player Healing
     public GameObject playerHealScreen;
 
+    // Shop Interaction
+    public GameObject buttonInteract; // 'E' To Interact
+
     // Player refrences
     public GameObject player;
     public playerController playerScript;
