@@ -16,7 +16,7 @@ MonoBehaviour:
   weaponIcon: {fileID: 21300000, guid: 4e3e5e12a43a71344919439903885107, type: 3}
   weaponImage: {fileID: 21300000, guid: 839bd50c2b080494b81c5d88793e285b, type: 3}
   weaponType: 3
-  shootDamage: 3
+  shootDamage: 1
   shootDist: 10
   shootRate: 0.1
   critChance: 13

@@ -23,7 +23,7 @@ MonoBehaviour:
   ammoCur: 15
   ammoMax: 15
   reloadTime: 3
-  recoil: 0.000003656161
+  recoil: 0.0000021936967
   moveSpeed: 0.9
   price: 5000
   unlockLevel: 1
