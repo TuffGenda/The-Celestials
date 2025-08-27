@@ -68,6 +68,8 @@ public class gamemanager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
 
+        // I added these for the spawning of players and enemies.
+        playerSpawnPOS = GameObject.FindGameObjectWithTag("Player Spawnpoint");
         enemySpawnPOS = GameObject.FindGameObjectWithTag("Enemy Spawnpoint");
     }
 

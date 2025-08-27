@@ -203,8 +203,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     public void spawnPlayer()
     {
         HP = HPOriginal;
-        //tp player to spawn point
-        //give them basic weaponary
+
     }
 
     public void TakeDamage(int amount)
