@@ -29,9 +29,12 @@ public class gamemanager : MonoBehaviour
 
     public GameObject playerDamageScreen;
 
-    [Header("Player Spawn")]
+    [Header("Player and Enemy Spawn")]
     // Public spawn object
     public GameObject playerSpawnPOS;
+
+    // I added this enemy spawn object so that Elijah's enemy manager does not use playerSpawnPOS. - Tuff Genda
+    public GameObject enemySpawnPOS;
 
     // Player Healing
     public GameObject playerHealScreen;
@@ -50,7 +53,7 @@ public class gamemanager : MonoBehaviour
     //Time Management
     float timeScaleOrig;
 
-    public int gameGoalCount;
+    int gameGoalCount;
 
     // I created this so that level manager can see it and use it at the start.
     public int gameGoalTotal;
@@ -65,6 +68,7 @@ public class gamemanager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
 
+        enemySpawnPOS = GameObject.FindGameObjectWithTag("Enemy Spawnpoint");
     }
 
 

@@ -36,10 +36,10 @@ public class WaveManager : MonoBehaviour
     {
         if (gameManagerReady)
         {
-            if (gamemanager.instance.gameGoalCount <= 0 && !isSpawning)
+            if (gamemanager.instance.gameGoalTotal <= 0 && !isSpawning)
             {
                 currentWaveIndex++;
-                if (currentWaveIndex < waves.Length)
+                if (currentWaveIndex <= waves.Length)
                 {
                     StartCoroutine(StartWave());
                 }
@@ -56,8 +56,9 @@ public class WaveManager : MonoBehaviour
         isSpawning = true;
 
         // This is the key change: Wait for playerSpawnPOS to be assigned.
-        while (gamemanager.instance.playerSpawnPOS == null)
+        while (gamemanager.instance.enemySpawnPOS == null)
         {
+            isSpawning = false;
             yield return null;
         }
 
@@ -70,7 +71,7 @@ public class WaveManager : MonoBehaviour
 
         for (int i = 0; i < waves[currentWaveIndex].enemiesToSpawn.Length; i++)
         {
-            Instantiate(waves[currentWaveIndex].enemiesToSpawn[i], gamemanager.instance.playerSpawnPOS.transform.position, Quaternion.identity);
+            Instantiate(waves[currentWaveIndex].enemiesToSpawn[i], gamemanager.instance.enemySpawnPOS.transform.position, Quaternion.identity);
 
             yield return new WaitForSeconds(waves[currentWaveIndex].timeBetweenEnemies);
         }
