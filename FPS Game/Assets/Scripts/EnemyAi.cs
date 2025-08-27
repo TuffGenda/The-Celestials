@@ -35,6 +35,10 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     Vector3 playerDirection;
     Vector3 startPos;
 
+    // New state variables
+    bool playerInDetectionRange;
+    bool playerInAttackRange;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -49,18 +53,43 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     void Update()
     {
         shootTimer += Time.deltaTime;
+
+        playerDirection = gamemanager.instance.player.transform.position - transform.position;
+        playerAngle = Vector3.Angle(playerDirection, transform.forward);
+        Debug.DrawRay(transform.position, playerDirection, Color.red);
+
+        // Use consistent state checks for player detection and attack
+        playerInDetectionRange = playerAngle <= fov && playerInTrigger;
+        playerInAttackRange = playerInDetectionRange && agent.remainingDistance <= agent.stoppingDistance;
+
+        if (playerInDetectionRange)
+        {
+            // Player is detected, so pursue them
+            agent.SetDestination(gamemanager.instance.player.transform.position);
+
+            if (playerInAttackRange)
+            {
+                // Player is in attack range, so face and attack
+                FaceTarget();
+                if (shootTimer >= shootRate)
+                {
+                    Shoot();
+                }
+            }
+
+            // Reset stopping distance for pursuit
+            agent.stoppingDistance = stoppingDistanceOriginal;
+        }
+        else
+        {
+            // Player not detected, roam
+            CheckRoam();
+            agent.stoppingDistance = 0;
+        }
+
         if (agent.remainingDistance < 0.01f && roamPauseTimer != -1)
         {
             roamTimer += Time.deltaTime;
-        }
-
-        if (playerInTrigger && !canSeePlayer())
-        {
-            CheckRoam();
-        }
-        else if (!playerInTrigger)
-        {
-            CheckRoam();
         }
     }
 
@@ -77,56 +106,19 @@ public class enemyAI : MonoBehaviour, IAllowDamage
         if (roamDistance != 0)
         {
             roamTimer = 0;
-
-            agent.stoppingDistance = 0;
-
             Vector3 ranPos = Random.insideUnitSphere * roamDistance;
             ranPos += startPos;
-
             NavMeshHit hit;
             NavMesh.SamplePosition(ranPos, out hit, roamDistance, 1);
             agent.SetDestination(hit.position);
         }
     }
 
-    bool canSeePlayer()
-    {
-        playerDirection = gamemanager.instance.player.transform.position - transform.position;
-        playerAngle = Vector3.Angle(playerDirection, transform.forward);
-        Debug.DrawRay(transform.position, playerDirection, Color.red);
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, playerDirection, out hit))
-        {
-
-        }
-        if (hit.collider.CompareTag("Player") && playerAngle <= fov)
-        {
-            agent.SetDestination(gamemanager.instance.player.transform.position);
-
-            if (shootTimer >= shootRate)
-            {
-                Shoot();
-            }
-
-            if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                FaceTarget();
-            }
-
-            agent.stoppingDistance = stoppingDistanceOriginal;
-
-            return true;
-        }
-
-        agent.stoppingDistance = 0;
-
-        return false;
-    }
+    // `canSeePlayer` has been removed as its logic is now in `Update`.
 
     void FaceTarget()
     {
-        Quaternion rot = transform.rotation = Quaternion.LookRotation(playerDirection);
+        Quaternion rot = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
     }
 
@@ -144,8 +136,6 @@ public class enemyAI : MonoBehaviour, IAllowDamage
         {
             playerInTrigger = false;
         }
-
-        agent.stoppingDistance = 0;
     }
 
     void Shoot()
@@ -166,7 +156,6 @@ public class enemyAI : MonoBehaviour, IAllowDamage
         {
             // Call the level manager to update the enemies killed count
             levelManager.instance.EnemyKilled();
-
             gamemanager.instance.updateGameGoal(-1);
             dropLoot();
             Destroy(gameObject);
@@ -193,22 +182,14 @@ public class enemyAI : MonoBehaviour, IAllowDamage
         model.material.color = colorOriginal;
     }
 
-    /// <summary>
-    /// Handles the dropping of loot when the enemy is defeated.
-    /// </summary>
     void dropLoot()
     {
-        // Check if a random number is less than or equal to the drop chance
         if (Random.Range(0, 101) <= lootDropChance)
         {
-            // Check if there are any loot items to drop
             if (lootDrops.Length > 0)
             {
-                // Select a random loot item from the array
                 int randomIndex = Random.Range(0, lootDrops.Length);
                 GameObject itemToDrop = lootDrops[randomIndex];
-
-                // Instantiate the selected loot item at the enemy's position
                 Instantiate(itemToDrop, transform.position, Quaternion.identity);
             }
         }

@@ -433,14 +433,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - enemiesToSpawn:
-    - {fileID: 2889738945940854670, guid: 8d873772a9049624fbbb4c9fb821d3ff, type: 3}
-    - {fileID: 7339872214075955117, guid: 07f2c52168dd095449a4c146871dd8e3, type: 3}
-    - {fileID: 2914136547419628199, guid: e1f1d3b92e169ab458cf9b6d824a5239, type: 3}
-    - {fileID: 8144598499828633238, guid: 4e3e69ffd022c6041bf75ce5ebe1c0fb, type: 3}
-    - {fileID: 8015314413821620190, guid: 5df87440f470c41448dbb252e95e5f02, type: 3}
-    timeBetweenEnemies: 3
-  timeBetweenWaves: 5
+  - enemiesToSpawn: []
+    timeBetweenEnemies: 0
+  timeBetweenWaves: 0
 --- !u!4 &567059074
 Transform:
   m_ObjectHideFlags: 0
@@ -450,7 +445,7 @@ Transform:
   m_GameObject: {fileID: 567059072}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -221660.19, y: 131911.48, z: 302308.88}
+  m_LocalPosition: {x: 3.5, y: 3.68, z: -23.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1760,6 +1755,69 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d873772a9049624fbbb4c9fb821d3ff, type: 3}
+--- !u!1 &1996230452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1996230454}
+  - component: {fileID: 1996230453}
+  m_Layer: 0
+  m_Name: EnemySpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1996230453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996230452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f65a4a3846f7da49a2b4d82c0a046de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuActive: {fileID: 0}
+  menuPause: {fileID: 0}
+  menuWin: {fileID: 0}
+  menuLose: {fileID: 0}
+  menuSettings: {fileID: 0}
+  gameGoalCountText: {fileID: 0}
+  playerHPBar: {fileID: 0}
+  playerStaminaBar: {fileID: 0}
+  reloadBar: {fileID: 0}
+  ammoCountUI: {fileID: 0}
+  playerDamageScreen: {fileID: 0}
+  playerSpawnPOS: {fileID: 1996230452}
+  playerHealScreen: {fileID: 0}
+  buttonInteract: {fileID: 0}
+  player: {fileID: 0}
+  playerScript: {fileID: 0}
+  isPaused: 0
+  gameGoalCount: 0
+  gameGoalTotal: 0
+--- !u!4 &1996230454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996230452}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.41, y: 1.85, z: 6.37}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2058366741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,3 +2113,4 @@ SceneRoots:
   - {fileID: 1814627638}
   - {fileID: 1966197493}
   - {fileID: 567059074}
+  - {fileID: 1996230454}
