@@ -29,6 +29,10 @@ public class gamemanager : MonoBehaviour
 
     public GameObject playerDamageScreen;
 
+    [Header("Player Spawn")]
+    // Public spawn object
+    public GameObject playerSpawnPOS;
+
     // Player Healing
     public GameObject playerHealScreen;
 
@@ -38,10 +42,6 @@ public class gamemanager : MonoBehaviour
     // Player refrences
     public GameObject player;
     public playerController playerScript;
-
-    [Header("Player Respawn Point")]
-    // Player Spawn Point
-    public Vector3 spawnPoint;
 
     [Header("Is Game Paused")]
     // Game State tracking

@@ -26,6 +26,8 @@ public class shopManager : MonoBehaviour
     public Image weaponPreviewImage;
     public Button purchaseButton;
     public Button sellButton;
+    // Shop Interaction
+    public GameObject buttonInteract; // 'E' To Interact
 
 
     public gunStats[] availableWeapons;
