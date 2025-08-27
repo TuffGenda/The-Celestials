@@ -26,7 +26,7 @@ public class shopManager : MonoBehaviour
     public Image weaponPreviewImage;
     public Button purchaseButton;
     public Button sellButton;
-    // Shop Interaction
+
     public GameObject buttonInteract; // 'E' To Interact
 
 
@@ -71,20 +71,7 @@ public class shopManager : MonoBehaviour
         if (messageText != null)
             messageText.text = "";
 
-        /*
-        if (availableWeapons.Length > 0)
-        {
-            ownedWeapons.Add(availableWeapons[0]);
 
-            if (playerPickupInterface != null)
-            {
-                gunStats startingWeapon = ScriptableObject.Instantiate(availableWeapons[0]);
-                startingWeapon.ammoCur = startingWeapon.ammoMax;
-                playerPickupInterface.GetGunStats(startingWeapon);
-            }
-
-        }
-        */
     }
 
     public void openShopWithoutPause()

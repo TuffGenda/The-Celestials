@@ -1077,6 +1077,7 @@ MonoBehaviour:
   weaponPreviewImage: {fileID: 3846895367762999202}
   purchaseButton: {fileID: 8812301050144736380}
   sellButton: {fileID: 6382574694267112945}
+  buttonInteract: {fileID: 0}
   availableWeapons:
   - {fileID: 11400000, guid: 095583234c7eac746865a3a48f414974, type: 2}
   - {fileID: 11400000, guid: 8e775b1a13fd8f240abd832aa8b8a011, type: 2}
@@ -6806,17 +6807,20 @@ MonoBehaviour:
   menuWin: {fileID: 8081364036407856426}
   menuLose: {fileID: 1645781851332060745}
   menuSettings: {fileID: 5670940370597266005}
-  shopManagerScript: {fileID: 3626798382887839173}
   gameGoalCountText: {fileID: 2772121367176901653}
   playerHPBar: {fileID: 3339075470208723321}
   playerStaminaBar: {fileID: 666617528664136177}
+  reloadBar: {fileID: 0}
+  ammoCountUI: {fileID: 0}
   playerDamageScreen: {fileID: 1631035522467702546}
+  playerSpawnPOS: {fileID: 0}
   playerHealScreen: {fileID: 6884614884392081022}
   buttonInteract: {fileID: 2356313928874755793}
   player: {fileID: 0}
   playerScript: {fileID: 0}
-  spawnPoint: {x: 0, y: 0, z: 0}
   isPaused: 0
+  gameGoalCount: 0
+  gameGoalTotal: 0
 --- !u!114 &5486532590108831290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8813,7 +8817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.13333334, g: 0.19607845, b: 0.23137257, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
