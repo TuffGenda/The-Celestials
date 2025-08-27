@@ -105,7 +105,7 @@ public class gamemanager : MonoBehaviour
         }
     }
 
-    public void updateGameGoal (int amount)
+    public void updateGameGoal(int amount)
     {
         gameGoalCount += amount;
 
@@ -113,10 +113,10 @@ public class gamemanager : MonoBehaviour
 
         if (gameGoalCount <= 0)
         {
-             //You won!
-             statePause ();
-            menuActive = menuWin;
-            menuActive.SetActive(true);
+            levelManager.instance.NextLevel();
+
+            //You won!
+            //youWin();
         }
     }
 
