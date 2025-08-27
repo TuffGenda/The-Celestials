@@ -12,7 +12,6 @@ public class levelManager : MonoBehaviour
 
     [Header("Level Requirements")]
     [SerializeField] int requiredItemsPerLevel; // Items needed for each level
-    [SerializeField] int requiredEnemiesPerLevel; // Enemies to kill per level
 
     [Header("Current Progress")]
     [SerializeField] int itemsCollected; // Items collected in current level
@@ -23,6 +22,9 @@ public class levelManager : MonoBehaviour
 
     // Flag to check if current level objectives are complete
     private bool levelComplete = false;
+
+    // I made this private so that no one has to set it each time they add an enemy. - Tuff Genda
+    private int requiredEnemiesPerLevel; // Enemies to kill per level
 
     // Initialize singleton pattern
     void Awake()
@@ -48,6 +50,9 @@ public class levelManager : MonoBehaviour
     // Check level completion every frame
     void Update()
     {
+        // I added this code so that this can be a private number instead of being set every time. - Tuff Genda
+        requiredEnemiesPerLevel = gamemanager.instance.gameGoalTotal;
+
         CheckLevelCompletion();
     }
 

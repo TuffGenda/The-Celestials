@@ -52,6 +52,9 @@ public class gamemanager : MonoBehaviour
 
     int gameGoalCount;
 
+    // I created this so that level manager can see it and use it at the start.
+    public int gameGoalTotal;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -108,6 +111,9 @@ public class gamemanager : MonoBehaviour
     public void updateGameGoal(int amount)
     {
         gameGoalCount += amount;
+
+        // I added this so that it updates the total amount of enemies so that we do not have to keep track and update it. - Tuff Genda
+        gameGoalTotal = gameGoalCount;
 
         gameGoalCountText.text = gameGoalCount.ToString("F0");
 
