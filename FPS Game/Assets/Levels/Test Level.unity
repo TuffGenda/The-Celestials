@@ -403,6 +403,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &567059072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 567059074}
+  - component: {fileID: 567059073}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &567059073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567059072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56663e21d99f9c14d8ca0d8dedea71f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - enemiesToSpawn:
+    - {fileID: 2889738945940854670, guid: 8d873772a9049624fbbb4c9fb821d3ff, type: 3}
+    - {fileID: 7339872214075955117, guid: 07f2c52168dd095449a4c146871dd8e3, type: 3}
+    - {fileID: 2914136547419628199, guid: e1f1d3b92e169ab458cf9b6d824a5239, type: 3}
+    - {fileID: 8144598499828633238, guid: 4e3e69ffd022c6041bf75ce5ebe1c0fb, type: 3}
+    - {fileID: 8015314413821620190, guid: 5df87440f470c41448dbb252e95e5f02, type: 3}
+    timeBetweenEnemies: 3
+  timeBetweenWaves: 5
+--- !u!4 &567059074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567059072}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -221660.19, y: 131911.48, z: 302308.88}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &599939591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3750173485626550144, guid: 142d13f8eebabb04886ea3483b9026b2, type: 3}
@@ -2001,3 +2054,4 @@ SceneRoots:
   - {fileID: 698975607}
   - {fileID: 1814627638}
   - {fileID: 1966197493}
+  - {fileID: 567059074}

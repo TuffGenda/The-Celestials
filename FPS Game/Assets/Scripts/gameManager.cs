@@ -50,7 +50,7 @@ public class gamemanager : MonoBehaviour
     //Time Management
     float timeScaleOrig;
 
-    int gameGoalCount;
+    public int gameGoalCount;
 
     // I created this so that level manager can see it and use it at the start.
     public int gameGoalTotal;
@@ -66,6 +66,8 @@ public class gamemanager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
 
     }
+
+
 
     // Update is called once per frame
     void Update()
