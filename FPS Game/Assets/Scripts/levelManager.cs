@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-/*
+
 public class levelManager : MonoBehaviour
 {
     // Singleton instance for global access
@@ -11,15 +11,14 @@ public class levelManager : MonoBehaviour
     [SerializeField] int maxLevels; // Total number of levels in the game
 
     [Header("Level Requirements")]
-    [SerializeField] int[] requiredItemsPerLevel; // Items needed for each level
-    [SerializeField] int[] requiredEnemiesPerLevel; // Enemies to kill per level
+    [SerializeField] int requiredItemsPerLevel; // Items needed for each level
+    [SerializeField] int requiredEnemiesPerLevel; // Enemies to kill per level
 
     [Header("Current Progress")]
     [SerializeField] int itemsCollected; // Items collected in current level
     [SerializeField] int enemiesKilled; // Enemies killed in current level
 
     [Header("Level Objects")]
-    [SerializeField] GameObject elevator; // The elevator/door object
     [SerializeField] GameObject[] requiredItems; // Array of items that can be collected
 
     // Flag to check if current level objectives are complete
@@ -74,26 +73,14 @@ public class levelManager : MonoBehaviour
         if (!levelComplete)
         {
             // Get requirements for current level
-            int requiredItems = requiredItemsPerLevel[currentLevel - 1];
-            int requiredEnemies = requiredEnemiesPerLevel[currentLevel - 1];
+            int requiredItems = requiredItemsPerLevel;
+            int requiredEnemies = requiredEnemiesPerLevel;
 
             // Check if all objectives are met
             if (itemsCollected >= requiredItems && enemiesKilled >= requiredEnemies)
             {
                 levelComplete = true;
-                UnlockElevator();
             }
-        }
-    }
-
-    // Unlock the elevator when level is complete
-    void UnlockElevator()
-    {
-        if (elevator != null)
-        {
-            // Enable elevator interaction or activate it
-            elevator.SetActive(true);
-            Debug.Log("Level " + currentLevel + " complete! Elevator unlocked!");
         }
     }
 
@@ -123,8 +110,8 @@ public class levelManager : MonoBehaviour
     void UpdateLevelUI()
     {
         // Update UI elements showing progress
-        Debug.Log($"Level {currentLevel}: Items {itemsCollected}/{requiredItemsPerLevel[currentLevel - 1]}, " +
-                  $"Enemies {enemiesKilled}/{requiredEnemiesPerLevel[currentLevel - 1]}");
+        Debug.Log($"Level {currentLevel}: Items {itemsCollected}, " +
+                  $"Enemies {enemiesKilled}");
     }
 
     // Return whether current level is complete
@@ -154,13 +141,12 @@ public class levelManager : MonoBehaviour
     // Get number of items required for current level
     public int GetRequiredItems()
     {
-        return requiredItemsPerLevel[currentLevel - 1];
+        return requiredItemsPerLevel;
     }
 
     // Get number of enemies required for current level
     public int GetRequiredEnemies()
     {
-        return requiredEnemiesPerLevel[currentLevel - 1];
+        return requiredEnemiesPerLevel;
     }
 }
-*/
