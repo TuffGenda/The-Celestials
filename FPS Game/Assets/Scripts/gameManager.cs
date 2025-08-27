@@ -15,7 +15,6 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuSettings;
-    [SerializeField] shopManager shopManagerScript;
 
     [Header("Enemies left to win")]
     // UI Elements for game information
@@ -25,8 +24,14 @@ public class gamemanager : MonoBehaviour
     // Player UI Elements
     public Image playerHPBar;
     public Image playerStaminaBar;
+    public Image reloadBar;
+    public TMP_Text ammoCountUI;
 
     public GameObject playerDamageScreen;
+
+    [Header("Player Spawn")]
+    // Public spawn object
+    public GameObject playerSpawnPOS;
 
     // Player Healing
     public GameObject playerHealScreen;
@@ -38,10 +43,6 @@ public class gamemanager : MonoBehaviour
     public GameObject player;
     public playerController playerScript;
 
-    [Header("Player Respawn Point")]
-    // Player Spawn Point
-    public Vector3 spawnPoint;
-
     [Header("Is Game Paused")]
     // Game State tracking
     public bool isPaused;
@@ -50,6 +51,9 @@ public class gamemanager : MonoBehaviour
     float timeScaleOrig;
 
     int gameGoalCount;
+
+    // I created this so that level manager can see it and use it at the start.
+    public int gameGoalTotal;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -61,14 +65,6 @@ public class gamemanager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
 
-        if (shopManagerScript == null)
-        {
-            GameObject shopSystemObj = GameObject.Find("shopSystem");
-            if (shopSystemObj != null)
-            {
-                shopManagerScript = shopSystemObj.GetComponent<shopManager>();
-            }
-        }
     }
 
     // Update is called once per frame
@@ -76,11 +72,8 @@ public class gamemanager : MonoBehaviour
     {
         if(Input.GetButtonDown("Cancel"))
         {
-            if(shopManagerScript != null && shopManagerScript.shopPanel.activeInHierarchy)
-            {
-                shopManagerScript.closeShop();
-            }
-           else if (menuActive == null)
+            
+           if (menuActive == null)
            {
                 statePause();
                 menuActive = menuPause;
@@ -115,18 +108,21 @@ public class gamemanager : MonoBehaviour
         }
     }
 
-    public void updateGameGoal (int amount)
+    public void updateGameGoal(int amount)
     {
         gameGoalCount += amount;
+
+        // I added this so that it updates the total amount of enemies so that we do not have to keep track and update it. - Tuff Genda
+        gameGoalTotal = gameGoalCount;
 
         gameGoalCountText.text = gameGoalCount.ToString("F0");
 
         if (gameGoalCount <= 0)
         {
-             //You won!
-             statePause ();
-            menuActive = menuWin;
-            menuActive.SetActive(true);
+            levelManager.instance.NextLevel();
+
+            //You won!
+            //youWin();
         }
     }
 

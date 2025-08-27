@@ -16,11 +16,11 @@ MonoBehaviour:
   weaponIcon: {fileID: 21300000, guid: b13379e9ea449054ab9fef4667a0b28e, type: 3}
   weaponImage: {fileID: 21300000, guid: 0c9e1fd91d70180459ecfb68d1f71356, type: 3}
   weaponType: 1
-  shootDamage: 8
+  shootDamage: 3
   shootDist: 10
   shootRate: 0.1
   critChance: 50
-  ammoCur: 18
+  ammoCur: 25
   ammoMax: 30
   reloadTime: 1
   recoil: 0.3

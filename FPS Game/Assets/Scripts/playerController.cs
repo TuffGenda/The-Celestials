@@ -13,7 +13,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     [Header("--- Health ---")]
     [SerializeField] int HP; //The current health of the player
     [Header("--- Movement ---")]
-    [SerializeField] int speed; //The base speed of the player
+    [SerializeField] float speed; //The base speed of the player
     [SerializeField] int sprintMod; //The amount the speed is multiplied by when sprinting
     [SerializeField] int jumpSpeed; //The speed at which the player jumps
     [SerializeField] int jumpMax; //The maximum amount of jumps the player can do before touching the ground again
@@ -45,7 +45,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     int HPOriginal;
     int staminaOriginal;
     bool isSprinting = false;
-    int speedOriginal;
+    float speedOriginal;
     int gunListPos;
 
     GameObject curGun;
@@ -146,11 +146,18 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         else if (settingsManager.instance.GetKeyUp("Sprint"))
         {
             speed = speedOriginal; //Changed the division here into a variable to decrease room for bugs!
+            if (gunList.Count > 0) {
+                speed = speedOriginal * gunList[gunListPos].moveSpeed;
+            }
             isSprinting = false;
         }
         if (stamina == 0)
         {
             speed = speedOriginal; //Changed the division here into a variable to decrease room for bugs!
+            if (gunList.Count > 0)
+            {
+                speed = speedOriginal * gunList[gunListPos].moveSpeed;
+            }
             isSprinting = false;
         }
     }
@@ -159,6 +166,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     {
         shootTimer = 0;
         gunList[gunListPos].ammoCur--;
+
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
@@ -170,13 +178,8 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
             if (dmg != null)
             {
-                int finalDamage = shootDamage;
-                if (Random.Range(0f, 100f) <= gunList[gunListPos].critChance)
-                {
-                    finalDamage = Mathf.RoundToInt(shootDamage * 1.5f); // 1.5x crit multiplier
-                    Debug.Log("CRITICAL HIT! " + finalDamage + " damage");
-                }
 
+                //Adding statistical crits do not make any sense in the context of this game, so I'm removing this code. Please don't touch the player script.
                 dmg.TakeDamage(shootDamage);
             }
         }
@@ -295,7 +298,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         shootRate = gunList[gunListPos].shootRate;
         reloadTime = gunList[gunListPos].reloadTime;
 
-        speed = Mathf.RoundToInt(speedOriginal * gunList[gunListPos].moveSpeed);
+        speed = speedOriginal * gunList[gunListPos].moveSpeed;
 
 
         if (curGun != null)
