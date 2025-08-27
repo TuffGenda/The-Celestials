@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+/*
 public class levelManager : MonoBehaviour
 {
     // Singleton instance for global access
@@ -163,3 +163,4 @@ public class levelManager : MonoBehaviour
         return requiredEnemiesPerLevel[currentLevel - 1];
     }
 }
+*/

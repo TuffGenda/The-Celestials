@@ -69,7 +69,7 @@ public class shopManager : MonoBehaviour
         if (messageText != null)
             messageText.text = "";
 
-
+        /*
         if (availableWeapons.Length > 0)
         {
             ownedWeapons.Add(availableWeapons[0]);
@@ -82,6 +82,7 @@ public class shopManager : MonoBehaviour
             }
 
         }
+        */
     }
 
     public void openShopWithoutPause()

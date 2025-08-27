@@ -6,7 +6,7 @@ AudioMixerEffectController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
+  m_Name:
   m_EffectID: b9dd1423e8575ac4694c1ea42fb30eec
   m_EffectName: Attenuation
   m_MixLevel: 7bae006163404494389ffc3aa12ac5ad
@@ -31,9 +31,9 @@ AudioMixerController:
   m_UpdateMode: 0
   m_ExposedParameters:
   - guid: e5a77e66664f2204db73104071258617
-    name: MyExposedParam
+    name: Master
   - guid: b0e6d78e269b40b4b8f71f06e7616027
-    name: MyExposedParam 2
+    name: Music
   - guid: e4e9a4b3078fc6947b4204116b9a1444
     name: MyExposedParam 1
   m_AudioMixerGroupViews:
@@ -71,7 +71,7 @@ AudioMixerEffectController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
+  m_Name:
   m_EffectID: 83ed54d73b9bd0c429ec19efd34a8764
   m_EffectName: Attenuation
   m_MixLevel: 706e188cf153f6247a500fa1c727b206
@@ -96,7 +96,7 @@ AudioMixerEffectController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
+  m_Name:
   m_EffectID: 41ea180c2d03ab74d83882150eefd550
   m_EffectName: Attenuation
   m_MixLevel: 518ae625620efa14eac4606d1ba39130
