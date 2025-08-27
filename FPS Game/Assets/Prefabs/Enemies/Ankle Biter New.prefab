@@ -169,6 +169,10 @@ MonoBehaviour:
   bullet: {fileID: 8615386853437988833, guid: af1e7d7ab1787f4479a42742f2a04a26, type: 3}
   shootRate: 0.3
   shootPos: {fileID: 7102913099727403510}
+  lootDrops:
+  - {fileID: 6249300833344195509, guid: 300395e880875894fbf5649699d24d88, type: 3}
+  - {fileID: 1294851164820021041, guid: 0fefe249973e5104b8b598af9c46a7b3, type: 3}
+  lootDropChance: 25
 --- !u!195 &1301265543471933069
 NavMeshAgent:
   m_ObjectHideFlags: 0
