@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   gun: {fileID: 0}
-  moneyAmount: 100
+  moneyAmount: 1000
 --- !u!33 &8784098041159756744
 MeshFilter:
   m_ObjectHideFlags: 0
