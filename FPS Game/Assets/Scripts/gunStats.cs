@@ -7,8 +7,8 @@ public class gunStats : ScriptableObject
     public Sprite weaponIcon;
     public Sprite weaponImage;
 
-    [SerializeField] AudioClip[] shootSound;    
-    [SerializeField][Range(0f, 1f)] float shootVol = 1f;
+    [SerializeField] public AudioClip[] shootSound;    
+    [SerializeField][Range(0f, 1f)] public float shootVol = 1f;
 
     public WeaponType weaponType = WeaponType.Rifle;
 

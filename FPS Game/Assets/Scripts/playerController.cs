@@ -32,6 +32,9 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
     [SerializeField] Transform gunModelPos;
     [SerializeField] bool reloadTimes;
+    [SerializeField] AudioSource reloadSound;
+    [SerializeField] AudioSource gunStereo;
+
 
 
 
@@ -170,12 +173,13 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     void shoot()
     {
-        if (gunList.Count > 0)
+        if (gunList.Count > 0 && !reloadUI)
         {
             shootTimer = 0;
             gunList[gunListPos].ammoCur--;
             updateAmmoUI();
-
+            gunStereo.clip = gunList[gunListPos].shootSound[0];
+            gunStereo.Play();
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
             {
@@ -196,8 +200,9 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     void reload()
     {
-        if (Input.GetButtonDown("Reload") && gunList.Count > 0)
+        if (Input.GetButtonDown("Reload") && gunList.Count > 0 && !reloadUI)
         {
+            reloadSound.Play();
             if (reloadTimes)
             {
                 gamemanager.instance.reloadBar.fillAmount = 1;
@@ -330,7 +335,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         speed = speedOriginal * gunList[gunListPos].moveSpeed;
         
         updateAmmoUI();
-
+        gunStereo.volume = gunList[gunListPos].shootVol;
         if (curGun != null)
         {
             Destroy(curGun);
