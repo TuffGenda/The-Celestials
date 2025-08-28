@@ -4,7 +4,6 @@ public class cameraController : MonoBehaviour
 {
     [SerializeField] int sens;
     [SerializeField] int lockVertMin, lockVertMax;
-    [SerializeField] bool invertY;
     [SerializeField] float zoomFOV = 30f;
     [SerializeField] float zoomSpeed = 10f;
 
@@ -12,6 +11,7 @@ public class cameraController : MonoBehaviour
     float originalFOV;
     Camera cam;
     bool isZoomed = false;
+    public bool invertY;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
