@@ -1050,8 +1050,32 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
+      propertyPath: activeEnemies.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
+      propertyPath: 'activeEnemies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8015314413821620190, guid: 5df87440f470c41448dbb252e95e5f02, type: 3}
+    - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
+      propertyPath: 'activeEnemies.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8144598499828633238, guid: 4e3e69ffd022c6041bf75ce5ebe1c0fb, type: 3}
+    - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
+      propertyPath: 'activeEnemies.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2914136547419628199, guid: e1f1d3b92e169ab458cf9b6d824a5239, type: 3}
+    - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
+      propertyPath: 'activeEnemies.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2889738945940854670, guid: 8d873772a9049624fbbb4c9fb821d3ff, type: 3}
+    - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
+      propertyPath: waves.Array.data[0].timeBetweenEnemies
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
       propertyPath: waves.Array.data[1].timeBetweenEnemies
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
       propertyPath: waves.Array.data[0].enemiesToSpawn.Array.size
@@ -1059,7 +1083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
       propertyPath: waves.Array.data[1].enemiesToSpawn.Array.size
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
       propertyPath: 'waves.Array.data[0].enemiesToSpawn.Array.data[0]'
@@ -1088,15 +1112,15 @@ PrefabInstance:
     - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
       propertyPath: 'waves.Array.data[1].enemiesToSpawn.Array.data[0]'
       value: 
-      objectReference: {fileID: 2889738945940854670, guid: 8d873772a9049624fbbb4c9fb821d3ff, type: 3}
+      objectReference: {fileID: 8015314413821620190, guid: 5df87440f470c41448dbb252e95e5f02, type: 3}
     - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
       propertyPath: 'waves.Array.data[1].enemiesToSpawn.Array.data[1]'
       value: 
-      objectReference: {fileID: 2889738945940854670, guid: 8d873772a9049624fbbb4c9fb821d3ff, type: 3}
+      objectReference: {fileID: 2914136547419628199, guid: e1f1d3b92e169ab458cf9b6d824a5239, type: 3}
     - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
       propertyPath: 'waves.Array.data[1].enemiesToSpawn.Array.data[2]'
       value: 
-      objectReference: {fileID: 2889738945940854670, guid: 8d873772a9049624fbbb4c9fb821d3ff, type: 3}
+      objectReference: {fileID: 8144598499828633238, guid: 4e3e69ffd022c6041bf75ce5ebe1c0fb, type: 3}
     - target: {fileID: 299219487337070797, guid: acf05b3977e8fa24e883b060ff13502c, type: 3}
       propertyPath: 'waves.Array.data[1].enemiesToSpawn.Array.data[3]'
       value: 
@@ -2330,6 +2354,10 @@ PrefabInstance:
       propertyPath: EnemySpawnPOS
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4225200689377589137, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
+      propertyPath: enemyTurretSpawnPOS
+      value: 
+      objectReference: {fileID: 4742896472950305719}
     - target: {fileID: 4978127868361503702, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
