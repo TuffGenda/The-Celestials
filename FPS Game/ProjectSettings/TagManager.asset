@@ -6,9 +6,7 @@ TagManager:
   tags:
   - Player Spawnpoint
   - EnemyTurret Spawnpoint
-  - EnemyMelee Spawnpoint
-  - EnemyShooter Spawnpoint
-  - EnemyAnkle Spawnpoint
+  - Enemy Spawnpoint
   layers:
   - Default
   - TransparentFX
