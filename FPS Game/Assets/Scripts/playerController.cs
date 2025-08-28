@@ -173,7 +173,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     void shoot()
     {
-        if (gunList.Count > 0 && !reloadUI)
+        if (gunList.Count > 0 && !reloadUI && !gamemanager.instance.isPaused)
         {
             shootTimer = 0;
             gunList[gunListPos].ammoCur--;
