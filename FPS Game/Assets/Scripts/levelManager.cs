@@ -10,21 +10,21 @@ public class levelManager : MonoBehaviour
     [SerializeField] int currentLevel; // Current level player is on
     [SerializeField] int maxLevels; // Total number of levels in the game
 
-    [Header("Level Requirements")]
-    [SerializeField] int requiredItemsPerLevel; // Items needed for each level
-
     [Header("Current Progress")]
     [SerializeField] int itemsCollected; // Items collected in current level
     [SerializeField] int enemiesKilled; // Enemies killed in current level
 
-    [Header("Level Objects")]
-    [SerializeField] GameObject[] requiredItems; // Array of items that can be collected
+    // I commented this out since it was not needed for the items.
+    /*[Header("Level Objects")]
+    [SerializeField] GameObject[] requiredItems; // Array of items that can be collected*/
 
     // Flag to check if current level objectives are complete
     private bool levelComplete = false;
 
     // I made this private so that no one has to set it each time they add an enemy. - Tuff Genda
-    private int requiredEnemiesPerLevel; // Enemies to kill per level
+    // I also added the requiredItemsPerLevel here for it's own thing.
+    private int requiredEnemiesPerLevel = 0; // Enemies to kill per level
+    private int requiredItemsPerLevel = 0; // Items needed for each level
 
     // Initialize singleton pattern
     void Awake()
@@ -117,6 +117,12 @@ public class levelManager : MonoBehaviour
         // Update UI elements showing progress
         Debug.Log($"Level {currentLevel}: Items {itemsCollected}, " +
                   $"Enemies {enemiesKilled}");
+    }
+
+    // I added this function to update the required items automatically. - Tuff Genda
+    public void updateRequiredItems()
+    {
+        ++requiredItemsPerLevel;
     }
 
     // Return whether current level is complete

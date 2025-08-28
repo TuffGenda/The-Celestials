@@ -15,6 +15,14 @@ public class pickups : MonoBehaviour
     [Header("For Money")]
     [SerializeField] int moneyAmount = 10;
 
+    private void Start()
+    {
+        if (type == pickupType.objective)
+        {
+            levelManager.instance.updateRequiredItems();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         IAllowPickup pickupable = other.GetComponent<IAllowPickup>();
