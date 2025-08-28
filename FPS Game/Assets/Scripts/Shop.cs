@@ -25,7 +25,7 @@ public class Shop : MonoBehaviour
             if (shopManager != null)
             {
                 shopManager.openShopWithoutPause();
-
+                gamemanager.instance.statePause(); //I just added a pause here, you can remove it if you'd like! -Evan Arjona
                 
                 if (gamemanager.instance?.buttonInteract != null)
                     gamemanager.instance.buttonInteract.SetActive(false);
