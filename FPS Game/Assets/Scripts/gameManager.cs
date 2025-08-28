@@ -129,7 +129,8 @@ public class gamemanager : MonoBehaviour
 
         gameGoalCountText.text = gameGoalCount.ToString("F0");
 
-        if (gameGoalCount <= 0)
+        // I added the GetItemsCollected to check the amount of items collected.
+        if (gameGoalCount <= 0 && levelManager.instance.GetItemsCollected() >= levelManager.instance.GetRequiredItems())
         {
             levelManager.instance.NextLevel();
 

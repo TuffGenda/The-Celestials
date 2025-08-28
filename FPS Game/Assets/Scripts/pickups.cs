@@ -4,7 +4,7 @@ public class pickups : MonoBehaviour
 {
     enum pickupType
     {
-        guns, money
+        guns, money, objective
     }
     [Header("Components")]
     [SerializeField] pickupType type;
@@ -28,13 +28,22 @@ public class pickups : MonoBehaviour
             Destroy(gameObject);
         }
 
-        else if (other.CompareTag("Player") && type == pickupType.money)
+        else if (pickupable != null && other.CompareTag("Player") && type == pickupType.money)
         {
             currencyManager cm = Object.FindFirstObjectByType<currencyManager>();
             if (cm != null)
             {
                 cm.AddMoney(moneyAmount);
             }
+
+            Destroy(gameObject);
+        }
+
+        else if (pickupable != null && other.CompareTag("Player") && type == pickupType.objective)
+        {
+            levelManager.instance.CollectItem();
+
+            gamemanager.instance.updateGameGoal(0);
 
             Destroy(gameObject);
         }
