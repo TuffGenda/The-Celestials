@@ -54,6 +54,9 @@ public class gamemanager : MonoBehaviour
     //Time Management
     float timeScaleOrig;
 
+    //Temporary Patch Variables
+    public bool shopOpen;
+
     int gameGoalCount;
 
     // I created this so that level manager can see it and use it at the start.
@@ -82,7 +85,7 @@ public class gamemanager : MonoBehaviour
         if(Input.GetButtonDown("Cancel"))
         {
             
-           if (menuActive == null)
+           if (menuActive == null && !shopOpen)
            {
                 statePause();
                 menuActive = menuPause;

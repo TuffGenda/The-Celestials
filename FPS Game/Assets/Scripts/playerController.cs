@@ -349,6 +349,22 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         curGun = Instantiate(gunList[gunListPos].model, gunModelPos.position, gunModelPos.rotation, gunModelPos);
     }
 
+    
+
+    public List<gunStats> getGunList() {
+        return gunList;
+    }
+    public void removeGun(gunStats gun) {
+        if (gunList.Count > 0) {
+            gunListPos--;
+            if (gunListPos < 0) {
+                gunListPos = 0;
+            }
+            gunList.Remove(gun);
+        }
+    }
+
+    
     void selectGun()
     {
         
