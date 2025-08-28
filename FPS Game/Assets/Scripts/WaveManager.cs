@@ -37,11 +37,11 @@ public class WaveManager : MonoBehaviour
     {
         if (gameManagerReady)
         {
-            if (gamemanager.instance.gameGoalTotal == 0 && !isSpawning)
+            if (gamemanager.instance.gameGoalTotal <= 0 && !isSpawning)
             {
-                if (currentWaveIndex + 1 < waves.Length)
+                currentWaveIndex++;
+                if (currentWaveIndex <= waves.Length)
                 {
-                    currentWaveIndex++;
                     StartCoroutine(StartWave());
                 }
                 else
