@@ -35,7 +35,6 @@ public class shopManager : MonoBehaviour
     public int playerLevel = 1;
 
     public gunStats selectedWeapon;
-    public List<gunStats> ownedWeapons = new List<gunStats>();
     public List<GameObject> weaponUIItems = new List<GameObject>();
 
     public CanvasGroup messageCanvasGroup;
@@ -54,7 +53,7 @@ public class shopManager : MonoBehaviour
         else
         {
 
-            player = GameObject.FindGameObjectWithTag("Player");
+            player = gamemanager.instance.player;
             if (player != null)
                 playerPickupInterface = player.GetComponent<IAllowPickup>();
         }
@@ -80,7 +79,7 @@ public class shopManager : MonoBehaviour
         shopPanel.SetActive(true);
         PopulateWeaponList();
         ClearWeaponInfo();
-
+        gamemanager.instance.shopOpen = true;
         // Enable cursor for shop UI
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -94,7 +93,9 @@ public class shopManager : MonoBehaviour
         // Hide cursor again
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
+        gamemanager.instance.stateUnpause();
+        gamemanager.instance.isPaused = false;
+        gamemanager.instance.shopOpen = false;
         if (messageText != null)
             messageText.text = "";
     }
@@ -136,7 +137,7 @@ public class shopManager : MonoBehaviour
         priceText.text = "$" + weapon.price.ToString();
         rarityBorder.color = weapon.GetRarityColor();
 
-        bool isOwned = ownedWeapons.Contains(weapon);
+        bool isOwned = GetOwnedWeapons().Contains(weapon);
         bool isUnlocked = playerLevel >= weapon.unlockLevel;
 
         if (isOwned)
@@ -208,7 +209,7 @@ public class shopManager : MonoBehaviour
     {
         if (selectedWeapon == null) return;
 
-        bool isOwned = ownedWeapons.Contains(selectedWeapon);
+        bool isOwned = GetOwnedWeapons().Contains(selectedWeapon);
         bool canAfford = currencyManager.instance.GetMoney() >= selectedWeapon.price;
         bool isUnlocked = playerLevel >= selectedWeapon.unlockLevel;
 
@@ -239,17 +240,17 @@ public class shopManager : MonoBehaviour
 
         bool canAfford = currencyManager.instance.GetMoney() >= selectedWeapon.price;
         bool isUnlocked = playerLevel >= selectedWeapon.unlockLevel;
-        bool isOwned = ownedWeapons.Contains(selectedWeapon);
+        bool isOwned = GetOwnedWeapons().Contains(selectedWeapon);
 
         if (!isOwned && canAfford && isUnlocked)
         {
 
             currencyManager.instance.SpendMoney(selectedWeapon.price);
-            ownedWeapons.Add(selectedWeapon);
+            
 
             if (playerPickupInterface != null)
             {
-                selectedWeapon.ammoCur = selectedWeapon.ammoMax;
+                
                 playerPickupInterface.GetGunStats(selectedWeapon);
                 Debug.Log("Purchased and equipped: " + GetWeaponDisplayName(selectedWeapon));
             }
@@ -271,23 +272,23 @@ public class shopManager : MonoBehaviour
     {
         if (selectedWeapon == null) return;
 
-        bool isOwned = ownedWeapons.Contains(selectedWeapon);
+        bool isOwned = GetOwnedWeapons().Contains(selectedWeapon);
 
-        if (isOwned && ownedWeapons.Count > 1)
+        if (isOwned && GetOwnedWeapons().Count > 1)
         {
 
             int sellValue = Mathf.RoundToInt(selectedWeapon.price * 0.6f);
             currencyManager.instance.AddMoney(sellValue);
-            ownedWeapons.Remove(selectedWeapon);
+            //GetOwnedWeapons().Remove(selectedWeapon);
+            gamemanager.instance.playerScript.removeGun(selectedWeapon);
 
 
-            
             PopulateWeaponList();
             UpdatePurchaseButton();
 
             Debug.Log("Sold: " + GetWeaponDisplayName(selectedWeapon) + " for $" + sellValue);
         }
-        else if (isOwned && ownedWeapons.Count <= 1)
+        else if (isOwned && GetOwnedWeapons().Count <= 1)
         {
             ShowMessage("Cannot sell your only weapon!");
         }
@@ -341,7 +342,7 @@ public class shopManager : MonoBehaviour
 
     public List<gunStats> GetOwnedWeapons()
     {
-        return ownedWeapons;
+        return gamemanager.instance.playerScript.getGunList();
     }
 
 
@@ -353,6 +354,7 @@ public class shopManager : MonoBehaviour
             PopulateWeaponList();
         }
     }
+    
 
 
 
