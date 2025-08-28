@@ -34,11 +34,7 @@ public class gamemanager : MonoBehaviour
     public GameObject playerSpawnPOS;
 
     // I added this enemy spawn object so that Elijah's enemy manager does not use playerSpawnPOS. - Tuff Genda
-    public GameObject enemyTurretSpawnPOS;
-    //public GameObject enemyTurret2SpawnPOS;
-    public GameObject enemyMeleeSpawnPOS;
-    public GameObject enemyShooterSpawnPOS;
-    public GameObject enemyAnkleSpawnPOS;
+    //public GameObject enemySpawnPOS;
 
     // Player Healing
     public GameObject playerHealScreen;
@@ -75,10 +71,7 @@ public class gamemanager : MonoBehaviour
 
         // I added these for the spawning of players and enemies.
         playerSpawnPOS = GameObject.FindGameObjectWithTag("Player Spawnpoint");
-        enemyTurretSpawnPOS = GameObject.FindGameObjectWithTag("EnemyTurret Spawnpoint");
-        enemyMeleeSpawnPOS = GameObject.FindGameObjectWithTag("EnemyMelee Spawnpoint");
-        enemyShooterSpawnPOS = GameObject.FindGameObjectWithTag("EnemyShooter Spawnpoint");
-        enemyAnkleSpawnPOS = GameObject.FindGameObjectWithTag("EnemyAnkle Spawnpoint");
+        //enemySpawnPOS = GameObject.FindGameObjectWithTag("Enemy Spawnpoint");
     }
 
 
