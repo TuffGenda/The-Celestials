@@ -61,8 +61,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         exactStamina = stamina;
         staminaOriginal = stamina;
 
-        updateStaminaUI();
-        updateHealthUI();
+        spawnPlayer();
     }
 
     // Update is called once per frame
@@ -221,7 +220,14 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     public void spawnPlayer()
     {
         HP = HPOriginal;
-
+        stamina = staminaOriginal;
+        controller.enabled = false;
+        if (gamemanager.instance.playerSpawnPOS != null) {
+            transform.position = gamemanager.instance.playerSpawnPOS.transform.position;
+        }
+        controller.enabled = true;
+        updateHealthUI();
+        updateStaminaUI();
     }
 
     public void TakeDamage(int amount)
