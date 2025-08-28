@@ -19,14 +19,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0dbe91efb8ee94e6695ef0f552d202ce, type: 3}
   shootVol: 1
   weaponType: 2
-  shootDamage: 30
-  shootDist: 5
+  shootDamage: 17
+  shootDist: 25
   shootRate: 0.75
-  critChance: 70
+  critChance: 50
   ammoCur: 6
   ammoMax: 8
   reloadTime: 2
-  recoil: 0.000025521205
+  recoil: 0.000013066858
   moveSpeed: 0.9
   price: 2000
   unlockLevel: 1
