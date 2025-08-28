@@ -15,15 +15,18 @@ MonoBehaviour:
   model: {fileID: 1913830197270561714, guid: 4abc3c09230fb1b4fa2fa4f943f44f34, type: 3}
   weaponIcon: {fileID: 21300000, guid: b2521daa46bdfb34aa6ea06eda7daac8, type: 3}
   weaponImage: {fileID: 21300000, guid: 62f73608b2b56d94a9d943a692933aa4, type: 3}
+  shootSound:
+  - {fileID: 8300000, guid: 4d6281aa604094f04839cffa502096c0, type: 3}
+  shootVol: 1
   weaponType: 2
-  shootDamage: 20
+  shootDamage: 50
   shootDist: 10
   shootRate: 1.5
-  critChance: 50
+  critChance: 80
   ammoCur: 8
   ammoMax: 8
   reloadTime: 2
-  recoil: 0.0000047383865
+  recoil: 1.0394584e-10
   moveSpeed: 0.9
   price: 3000
   unlockLevel: 1

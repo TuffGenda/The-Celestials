@@ -7,6 +7,9 @@ public class gunStats : ScriptableObject
     public Sprite weaponIcon;
     public Sprite weaponImage;
 
+    [SerializeField] public AudioClip[] shootSound;    
+    [SerializeField][Range(0f, 1f)] public float shootVol = 1f;
+
     public WeaponType weaponType = WeaponType.Rifle;
 
     [Range(1, 100)] public int shootDamage = 25;
@@ -65,11 +68,21 @@ public class gunStats : ScriptableObject
         }
     }
 
+    public void PlayRandomShootSound(AudioSource audioSource)
+    {
+        if (audioSource != null && shootSound.Length > 0)
+        {
+            audioSource.PlayOneShot(shootSound[Random.Range(0, shootSound.Length)], shootVol);
+        }
+    }
+
     void OnEnable()
     {
         ApplyRarityBonus();
     }
 }
+
+
 
 public enum WeaponType
 {

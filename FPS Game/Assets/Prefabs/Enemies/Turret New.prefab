@@ -302,13 +302,17 @@ MonoBehaviour:
   model: {fileID: 7819943281876912177}
   agent: {fileID: 4156930101429996847}
   faceTargetSpeed: 8
-  HP: 100
+  HP: 25
   FOV: 360
   roamDistance: 0
   roamPauseTime: 0
   bullet: {fileID: 8615386853437988833, guid: af1e7d7ab1787f4479a42742f2a04a26, type: 3}
   shootRate: 0.5
   shootPos: {fileID: 4942667604650553441}
+  lootDrops:
+  - {fileID: 6249300833344195509, guid: 300395e880875894fbf5649699d24d88, type: 3}
+  - {fileID: 1294851164820021041, guid: 0fefe249973e5104b8b598af9c46a7b3, type: 3}
+  lootDropChance: 25
 --- !u!195 &4156930101429996847
 NavMeshAgent:
   m_ObjectHideFlags: 0

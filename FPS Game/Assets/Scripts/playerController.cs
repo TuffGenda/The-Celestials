@@ -32,6 +32,9 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
     [SerializeField] Transform gunModelPos;
     [SerializeField] bool reloadTimes;
+    [SerializeField] AudioSource reloadSound;
+    [SerializeField] AudioSource gunStereo;
+
 
 
 
@@ -47,6 +50,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     bool isSprinting = false;
     float speedOriginal;
     int gunListPos;
+    bool reloadUI = false;
 
     GameObject curGun;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -89,6 +93,11 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             updateStaminaUI();
         }
         //I know it looks weird, but this is the best way to prevent errors when using float math with deltaTime while also keeping the stamina as an int
+        if (reloadUI) {
+            float curr = Mathf.MoveTowards(gamemanager.instance.reloadBar.fillAmount, 0, Time.deltaTime / reloadTime);
+            gamemanager.instance.reloadBar.fillAmount = curr;
+        }
+        
 
     }
 
@@ -164,37 +173,46 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     void shoot()
     {
-        shootTimer = 0;
-        gunList[gunListPos].ammoCur--;
-
-
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+        if (gunList.Count > 0 && !reloadUI && !gamemanager.instance.isPaused)
         {
-            //Debug.Log(hit.collider.name);
-            //Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
-
-            IAllowDamage dmg = hit.collider.GetComponent<IAllowDamage>();
-
-            if (dmg != null)
+            shootTimer = 0;
+            gunList[gunListPos].ammoCur--;
+            updateAmmoUI();
+            gunStereo.clip = gunList[gunListPos].shootSound[0];
+            gunStereo.Play();
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
             {
+                //Debug.Log(hit.collider.name);
+                //Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
 
-                //Adding statistical crits do not make any sense in the context of this game, so I'm removing this code. Please don't touch the player script.
-                dmg.TakeDamage(shootDamage);
+                IAllowDamage dmg = hit.collider.GetComponent<IAllowDamage>();
+
+                if (dmg != null)
+                {
+
+                    //Adding statistical crits do not make any sense in the context of this game, so I'm removing this code. Please don't touch the player script.
+                    dmg.TakeDamage(shootDamage);
+                }
             }
-        }
+        }  
     }
 
     void reload()
     {
-        if (Input.GetButtonDown("Reload") && gunList.Count > 0)
+        if (Input.GetButtonDown("Reload") && gunList.Count > 0 && !reloadUI)
         {
+            reloadSound.Play();
             if (reloadTimes)
             {
+                gamemanager.instance.reloadBar.fillAmount = 1;
+                reloadUI = true;
                 StartCoroutine(reloadDebounce());
+                
             }
             else {
                 gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+                updateAmmoUI();
             }
             
         }
@@ -203,8 +221,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     public void spawnPlayer()
     {
         HP = HPOriginal;
-        //tp player to spawn point
-        //give them basic weaponary
+
     }
 
     public void TakeDamage(int amount)
@@ -254,6 +271,18 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         }
     }
 
+
+    public void updateAmmoUI()
+    {
+        if (gamemanager.instance != null)
+        {
+            gamemanager.instance.ammoCountUI.text = gunList[gunListPos].ammoCur + " / " + gunList[gunListPos].ammoMax;
+        }
+    }
+
+    
+
+
     IEnumerator flashDamageScreen()
     {
         if (gamemanager.instance != null)
@@ -279,14 +308,19 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     IEnumerator reloadDebounce()
     {
         Debug.Log("RELOAD");
+        
         yield return new WaitForSeconds(reloadTime);
         gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+        updateAmmoUI();
+        reloadUI = false;
+        gamemanager.instance.reloadBar.fillAmount = 0;
     }
 
     public void GetGunStats(gunStats gun)
     {
         gunList.Add(gun);
         gunListPos = gunList.Count - 1;
+        gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
         changeGun();
 
     }
@@ -299,8 +333,9 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         reloadTime = gunList[gunListPos].reloadTime;
 
         speed = speedOriginal * gunList[gunListPos].moveSpeed;
-
-
+        
+        updateAmmoUI();
+        gunStereo.volume = gunList[gunListPos].shootVol;
         if (curGun != null)
         {
             Destroy(curGun);
@@ -311,12 +346,12 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     void selectGun()
     {
         
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1 && !reloadUI)
         {
             gunListPos++;
             changeGun();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0 && !reloadUI)
         {
             gunListPos--;
             changeGun();
