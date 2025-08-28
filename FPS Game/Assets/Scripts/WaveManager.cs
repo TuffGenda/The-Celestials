@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class WaveManager : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class WaveManager : MonoBehaviour
         isSpawning = true;
 
         // This is the key change: Wait for playerSpawnPOS to be assigned.
-        while (gamemanager.instance.enemySpawnPOS == null)
+        while (gamemanager.instance.enemyTurretSpawnPOS == null || gamemanager.instance.enemyShooterSpawnPOS || gamemanager.instance.enemyMeleeSpawnPOS || gamemanager.instance.enemyAnkleSpawnPOS)
         {
             isSpawning = false;
             yield return null;
@@ -71,12 +72,38 @@ public class WaveManager : MonoBehaviour
 
         for (int i = 0; i < waves[currentWaveIndex].enemiesToSpawn.Length; i++)
         {
-            Instantiate(waves[currentWaveIndex].enemiesToSpawn[i], gamemanager.instance.enemySpawnPOS.transform.position, Quaternion.identity);
+            GameObject spawnPoint = GetSpawnPointForEnemy(waves[currentWaveIndex].enemiesToSpawn[i]);
+            Instantiate(waves[currentWaveIndex].enemiesToSpawn[i], spawnPoint.transform.position, Quaternion.identity);
 
             yield return new WaitForSeconds(waves[currentWaveIndex].timeBetweenEnemies);
         }
 
         isSpawning = false;
+    }
+
+    GameObject GetSpawnPointForEnemy(GameObject enemy)
+    {
+        string enemyName = enemy.name.ToLower();
+
+        if (enemyName.Contains("turret"))
+        {
+            return gamemanager.instance.enemyTurretSpawnPOS;
+        }
+        else if (enemyName.Contains("melee"))
+        {
+            return gamemanager.instance.enemyMeleeSpawnPOS;
+        }
+        else if (enemyName.Contains("shooter"))
+        {
+            return gamemanager.instance.enemyShooterSpawnPOS;
+        }
+        else if (enemyName.Contains("ankle"))
+        {
+            return gamemanager.instance.enemyAnkleSpawnPOS;
+        }
+
+        // Default to shooter spawn if no match found
+        return gamemanager.instance.enemyShooterSpawnPOS;
     }
 }
 

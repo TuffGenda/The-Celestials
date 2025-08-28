@@ -39,7 +39,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     void Start()
     {
         colorOriginal = model.material.color;
-        gamemanager.instance.updateGameGoal(1);
+        //gamemanager.instance.updateGameGoal(1);
         startingPos = transform.position;
         stoppingDistanceOriginal = agent.stoppingDistance;
     }
