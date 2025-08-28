@@ -1086,7 +1086,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ecfe8f0e98e8ec74db84bbd92fcfc6c8, type: 2}
   playerLevel: 1
   selectedWeapon: {fileID: 0}
-  ownedWeapons: []
   weaponUIItems: []
   messageCanvasGroup: {fileID: 0}
 --- !u!1 &1103553199420381824
@@ -11330,13 +11329,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2558444617930685899}
+  - {fileID: 6270029825563288271}
   - {fileID: 4230084664747971434}
   - {fileID: 4807958423468291614}
   - {fileID: 1482087819720491306}
   - {fileID: 2321620515202528072}
   - {fileID: 8587883003260896344}
   - {fileID: 504267186011534354}
-  - {fileID: 5871556022092870000}
   - {fileID: 8140419337008423485}
   - {fileID: 6303029816892099666}
   - {fileID: 3298858251796348311}
@@ -11345,7 +11344,7 @@ RectTransform:
   - {fileID: 7649332908777991919}
   - {fileID: 3942052976776621193}
   - {fileID: 5557083951181182337}
-  - {fileID: 6270029825563288271}
+  - {fileID: 5871556022092870000}
   - {fileID: 5884800916719523432}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
