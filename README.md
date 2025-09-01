@@ -3,8 +3,6 @@ This is a first-person shooter game that we created for our Game Development cou
 # Team Members
 #### Sorted by Username/First name last name:
 HappiHatts/Evan Arjona  
-Guildar_/Tuff Genda  
-JennieBlu/Jennifer Harkless  
+Guildar_/Tuff Genda
 misscheviousgamming/Sarah Vanbrocklin  
-TerminatingTaco/Diego Alonso  
-EmperorAltros/Elijah Martin
+TerminatingTaco/Diego Alonso
