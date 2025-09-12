@@ -18,8 +18,8 @@ MonoBehaviour:
   shootSound: []
   shootVol: 1
   weaponType: 1
-  shootDamage: 100
-  shootDist: 5
+  shootDamage: 5
+  shootDist: 4
   shootRate: 1
   critChance: 8.9
   ammoCur: 5
