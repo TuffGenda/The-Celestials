@@ -210,7 +210,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     void reload()
     {
-        if (Input.GetButtonDown("Reload") && gunList.Count > 0 && !reloadUI)
+        if (Input.GetButtonDown("Reload") && gunList.Count > 0 && !reloadUI && !melee)
         {
             reloadSound.Play();
             if (reloadTimes)
@@ -343,17 +343,26 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
-            //Debug.Log(hit.collider.name);
-            //Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
-
             //Play Windup for melee
             //Play punch animation/sound here
+            
             IAllowDamage dmg = hit.collider.GetComponent<IAllowDamage>();
-
+            if (gunList.Count > 0) {
+                gunStereo.clip = gunList[gunListPos].missSound[0];
+                gunStereo.Play();
+            }
+            
             if (dmg != null)
             {
+                if (gunList.Count > 0)
+                {
+                    gunStereo.clip = gunList[gunListPos].hitSound[0];
+                    gunStereo.Play();
+                }
+            
                 dmg.TakeDamage(shootDamage);
             }
+            
 
         }
     }
@@ -373,7 +382,8 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         shootDist = gunList[gunListPos].shootDist;
         shootRate = gunList[gunListPos].shootRate;
         reloadTime = gunList[gunListPos].reloadTime;
-        melee = false;
+        melee = gunList[gunListPos].Melee;
+        windup = gunList[gunListPos].windup;
 
         speed = speedOriginal * gunList[gunListPos].moveSpeed;
         
@@ -405,12 +415,12 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     void selectGun()
     {
         
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1 && !reloadUI)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1 && !reloadUI && notWinding)
         {
             gunListPos++;
             changeGun();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0 && !reloadUI)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0 && !reloadUI && notWinding)
         {
             gunListPos--;
             changeGun();

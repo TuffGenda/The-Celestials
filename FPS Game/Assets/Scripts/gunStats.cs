@@ -13,7 +13,7 @@ public class gunStats : ScriptableObject
     public WeaponType weaponType = WeaponType.Rifle;
 
     [Range(1, 100)] public int shootDamage = 25;
-    [Range(5, 1000)] public int shootDist = 200;
+    [Range(1, 1000)] public int shootDist = 200;
     [Range(0.1f, 5f)] public float shootRate = 1f;
     [Range(0f, 50f)] public float critChance = 5f;
 
@@ -27,8 +27,11 @@ public class gunStats : ScriptableObject
     [Range(0, 20000)] public int price = 1000;
     [Range(1, 50)] public int unlockLevel = 1;
     public WeaponRarity rarity = WeaponRarity.Common;
+    public bool Melee = false;
+    [SerializeField] public AudioClip[] missSound;
+    [SerializeField] public AudioClip[] hitSound;
+    [Range(0.1f, 5f)] public float windup = 1f;
 
-    
 
     void ApplyRarityBonus()
     {
