@@ -264,10 +264,13 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         if (data == null) return;
         //We dont have more levels, So I can't really do the level stuff yet.
         HP = data.health;
-        stamina = data.stamina;
         gunList = data.gunList;
         gunListPos = 0;
         currencyManager.instance.SetMoney(data.money);
+        updateAmmoUI();
+        updateHealthUI();
+        updateStaminaUI();
+        changeGun();
 
     }
     public gameData givePlayerData()
@@ -275,9 +278,9 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         gameData data = new gameData();
         data.playerLevel = levelManager.instance.GetCurrentLevel();
         data.health = HP;
-        data.stamina = stamina;
         data.gunList = gunList;
         data.money = currencyManager.instance.GetMoney();
+        
         return data;
     }
 
@@ -328,7 +331,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     public void updateAmmoUI()
     {
-        if (gamemanager.instance != null)
+        if (gamemanager.instance != null && gunList.Count > 0)
         {
             gamemanager.instance.ammoCountUI.enabled = !melee;
             gamemanager.instance.ammoCountUI.text = gunList[gunListPos].ammoCur + " / " + gunList[gunListPos].ammoMax;

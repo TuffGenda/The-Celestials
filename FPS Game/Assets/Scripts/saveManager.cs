@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class saveManager : MonoBehaviour
 {
-    string saveFilePath = Application.persistentDataPath + "/saveFile.json";
+    string saveFilePath => Application.persistentDataPath + "/saveFile.json";
     public static saveManager instance;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -60,7 +60,6 @@ public class gameData
 {
     public int playerLevel; // as in unlocked levels (1-8 for what levels are unlocked. 1 is nothing, 8 is everything)
     public int health;
-    public int stamina;
     public List<gunStats> gunList;
     public int money;
 }
