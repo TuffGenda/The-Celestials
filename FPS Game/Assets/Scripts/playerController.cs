@@ -254,6 +254,36 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             }
         }
     }
+    public void loadPlayerData(gameData data) {
+        if (data == null) return;
+        //We dont have more levels, So I can't really do the level stuff yet.
+        HP = data.health;
+        stamina = data.stamina;
+        gunList = data.gunList;
+        gunListPos = 0;
+        currencyManager.instance.SetMoney(data.money);
+
+    }
+    public gameData givePlayerData() { 
+        gameData data = new gameData();
+        data.playerLevel = levelManager.instance.GetCurrentLevel();
+        data.health = HP;
+        data.stamina = stamina;
+        data.gunList = gunList;
+        data.money = currencyManager.instance.GetMoney();
+        return data;
+    }
+
+    /*
+     * public class gameData
+{
+    public int playerLevel; // as in unlocked levels (1-8 for what levels are unlocked. 1 is nothing, 8 is everything)
+    public int health;
+    public int stamina;
+    public List<gunStats> gunList;
+    public int money;
+}
+     */
 
     public void HealDamage(int amount, bool onCooldown)
     {

@@ -33,6 +33,12 @@ public class currencyManager : MonoBehaviour
         UpdateMoneyDisplay();
     }
 
+    public void SetMoney(int amount)
+    {
+        currentMoney = amount;
+        UpdateMoneyDisplay();
+    }
+
     public bool SpendMoney(int amount)
     {
         if (currentMoney >= amount)

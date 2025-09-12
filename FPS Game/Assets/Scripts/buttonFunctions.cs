@@ -15,6 +15,24 @@ public class buttonFunctions : MonoBehaviour
         gamemanager.instance.stateUnpause();
     }
 
+    public void saveButton()
+    {
+        gameData data = gamemanager.instance.playerScript.givePlayerData();
+        saveManager.instance.SaveGame(data);
+    }
+
+    public void loadButton()
+    {
+        gameData data = saveManager.instance.LoadGame();
+        gamemanager.instance.playerScript.loadPlayerData(data);
+        gamemanager.instance.stateUnpause();
+    }
+
+    public void deleteSave()
+    {
+        saveManager.instance.DeleteSave();
+    }
+
     public void quit()
     {
 #if !UNITY_EDITOR
