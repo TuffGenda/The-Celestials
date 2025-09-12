@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 {
@@ -34,6 +35,8 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     [SerializeField] bool reloadTimes;
     [SerializeField] AudioSource reloadSound;
     [SerializeField] AudioSource gunStereo;
+    [SerializeField] bool melee;
+    [SerializeField] float windup;
 
 
 
@@ -51,6 +54,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     float speedOriginal;
     int gunListPos;
     bool reloadUI = false;
+    bool notWinding = true;
 
     GameObject curGun;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -60,7 +64,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         HPOriginal = HP;
         exactStamina = stamina;
         staminaOriginal = stamina;
-
+        melee = true; //Default to melee until a gun is picked up
         spawnPlayer();
     }
 
@@ -117,7 +121,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         controller.Move(moveDirection * speed * Time.deltaTime);
         jump();
         controller.Move(playerVelocity * Time.deltaTime);
-        if (Input.GetButton("Fire1") && gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer >= shootRate)
+        if (Input.GetButton("Fire1") && (melee || (gunList.Count > 0 && gunList[gunListPos].ammoCur > 0)) && shootTimer >= shootRate)
         {
             shoot();
         }
@@ -172,27 +176,34 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     void shoot()
     {
-        if (gunList.Count > 0 && !reloadUI && !gamemanager.instance.isPaused)
+        if ((melee || (gunList.Count > 0)) && !reloadUI && !gamemanager.instance.isPaused)
         {
             shootTimer = 0;
-            gunList[gunListPos].ammoCur--;
-            updateAmmoUI();
-            gunStereo.clip = gunList[gunListPos].shootSound[0];
-            gunStereo.Play();
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+            if (!melee)
             {
-                //Debug.Log(hit.collider.name);
-                //Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
-
-                IAllowDamage dmg = hit.collider.GetComponent<IAllowDamage>();
-
-                if (dmg != null)
+                gunList[gunListPos].ammoCur--;
+                updateAmmoUI();
+                gunStereo.clip = gunList[gunListPos].shootSound[0];
+                gunStereo.Play();
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
                 {
+                    //Debug.Log(hit.collider.name);
+                    //Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
 
-                    //Adding statistical crits do not make any sense in the context of this game, so I'm removing this code. Please don't touch the player script.
-                    dmg.TakeDamage(shootDamage);
+                    //Play Windup for melee
+
+                    IAllowDamage dmg = hit.collider.GetComponent<IAllowDamage>();
+
+                    if (dmg != null)
+                    {
+                        dmg.TakeDamage(shootDamage);
+                    }
+
                 }
+            }
+            else if (notWinding) {
+                StartCoroutine(windupDebounce());
             }
         }  
     }
@@ -321,6 +332,31 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         reloadUI = false;
         gamemanager.instance.reloadBar.fillAmount = 0;
     }
+    IEnumerator windupDebounce()
+    {
+        Debug.Log("Winding...");
+        notWinding = false;
+        //Play windup animation/sound here
+        yield return new WaitForSeconds(windup);
+        notWinding = true;
+        Debug.Log("PUNCH!");
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+        {
+            //Debug.Log(hit.collider.name);
+            //Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
+
+            //Play Windup for melee
+            //Play punch animation/sound here
+            IAllowDamage dmg = hit.collider.GetComponent<IAllowDamage>();
+
+            if (dmg != null)
+            {
+                dmg.TakeDamage(shootDamage);
+            }
+
+        }
+    }
 
     public void GetGunStats(gunStats gun)
     {
@@ -337,6 +373,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         shootDist = gunList[gunListPos].shootDist;
         shootRate = gunList[gunListPos].shootRate;
         reloadTime = gunList[gunListPos].reloadTime;
+        melee = false;
 
         speed = speedOriginal * gunList[gunListPos].moveSpeed;
         
