@@ -197,16 +197,24 @@ PrefabInstance:
       value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 7440650788070187551, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
+      propertyPath: melee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440650788070187551, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
+      propertyPath: windup
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440650788070187551, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: stamina
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7440650788070187551, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: shootDist
-      value: 17
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7440650788070187551, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: shootRate
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7440650788070187551, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: shootDamage
