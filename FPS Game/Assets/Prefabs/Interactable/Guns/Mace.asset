@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
-  m_Name: Bat
+  m_Name: Mace
   m_EditorClassIdentifier: 
-  model: {fileID: 1198963736830798419, guid: d8b9c23da8414c344a716d3f89bb90dc, type: 3}
+  model: {fileID: 7178487085385231871, guid: b9a6af4ec62fc894689e972d2d65f00b, type: 3}
   weaponIcon: {fileID: 0}
   weaponImage: {fileID: 0}
   shootSound: []
   shootVol: 1
   weaponType: 1
-  shootDamage: 5
+  shootDamage: 12
   shootDist: 4
-  shootRate: 1.2
-  critChance: 8.9
+  shootRate: 2
+  critChance: 5
   ammoCur: 5
   ammoMax: 5
   reloadTime: 2
   recoil: 0.3
-  moveSpeed: 1
+  moveSpeed: 0.9
   price: 1000
   unlockLevel: 1
   rarity: 0
@@ -35,4 +35,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bb02f0f71abb43549a5ba3299130b046, type: 3}
   hitSound:
   - {fileID: 8300000, guid: 7383492dbca79e54cb32b2942beb50aa, type: 3}
-  windup: 1
+  windup: 1.5
