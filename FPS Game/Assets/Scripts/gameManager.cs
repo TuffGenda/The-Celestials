@@ -16,9 +16,12 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuSettings;
 
-    [Header("Enemies left to win")]
+    // I changed this to allow enemies, waves, and items to be tracked by the UI. - Tuff Genda
+    [Header("Waves, Enemies, and Items left in level")]
     // UI Elements for game information
-    [SerializeField] TMP_Text gameGoalCountText;
+    [SerializeField] TMP_Text WavesLeftText;
+    [SerializeField] TMP_Text EnemiesText;
+    [SerializeField] TMP_Text ItemsLeftText;
 
     [Header("Player UI Settings")]
     // Player UI Elements
@@ -57,11 +60,13 @@ public class gamemanager : MonoBehaviour
     //Temporary Patch Variables
     public bool shopOpen;
 
-    int gameGoalCount;
+    // I changed this to be able to track waves, enemies, and items. - Tuff Genda
+    private int waveCount;
+    private int enemyCount;
+    private int itemCount;
 
-    // I created this so that level manager can see it and use it at the start.
-    public int gameGoalTotal;
-
+    // I added this so that waveManager could find the enemy count. - Tuff Genda
+    public int totalEnemyCount;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -72,9 +77,8 @@ public class gamemanager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
 
-        // I added these for the spawning of players and enemies.
+        // I added these for the spawning of players. - Tuff Genda
         playerSpawnPOS = GameObject.FindGameObjectWithTag("Player Spawnpoint");
-        //enemySpawnPOS = GameObject.FindGameObjectWithTag("Enemy Spawnpoint");
     }
 
 
@@ -120,22 +124,33 @@ public class gamemanager : MonoBehaviour
         }
     }
 
-    public void updateGameGoal(int amount)
+    // I split UpdateGameGoal into three separate functions for use with waveManager and LevelManager. That way we can keep items
+    // as a game goal and not enemies. - Tuff Genda
+    public void updateWaves(int amount)
     {
-        gameGoalCount += amount;
+        waveCount += amount;
 
-        // I added this so that it updates the total amount of enemies so that we do not have to keep track and update it. - Tuff Genda
-        gameGoalTotal = gameGoalCount;
+        WavesLeftText.text = waveCount.ToString("F0");
+    }
 
-        gameGoalCountText.text = gameGoalCount.ToString("F0");
+    public void updateEnemies(int amount)
+    {
+        enemyCount += amount;
 
-        // I added the GetItemsCollected to check the amount of items collected.
-        if (gameGoalCount <= 0 && levelManager.instance.GetItemsCollected() >= levelManager.instance.GetRequiredItems())
+        totalEnemyCount = enemyCount;
+
+        EnemiesText.text = totalEnemyCount.ToString("F0");
+    }
+
+    public void updateItems(int amount)
+    {
+        itemCount += amount;
+
+        ItemsLeftText.text = itemCount.ToString("F0");
+
+        if (levelManager.instance.GetItemsCollected() >= levelManager.instance.GetRequiredItems())
         {
             levelManager.instance.NextLevel();
-
-            //You won!
-            //youWin();
         }
     }
 
@@ -175,6 +190,4 @@ public class gamemanager : MonoBehaviour
         }
 
     }
-
-
 }

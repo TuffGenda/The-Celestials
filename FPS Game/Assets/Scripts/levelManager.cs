@@ -10,20 +10,14 @@ public class levelManager : MonoBehaviour
     [SerializeField] int currentLevel; // Current level player is on
     [SerializeField] int maxLevels; // Total number of levels in the game
 
+    // I removed the enemies from this enirely that way wave manager handles the enemies and this handles the items instead - Tuff Genda
     [Header("Current Progress")]
     [SerializeField] int itemsCollected; // Items collected in current level
-    [SerializeField] int enemiesKilled; // Enemies killed in current level
-
-    // I commented this out since it was not needed for the items.
-    /*[Header("Level Objects")]
-    [SerializeField] GameObject[] requiredItems; // Array of items that can be collected*/
 
     // Flag to check if current level objectives are complete
     private bool levelComplete = false;
 
-    // I made this private so that no one has to set it each time they add an enemy. - Tuff Genda
-    // I also added the requiredItemsPerLevel here for it's own thing.
-    private int requiredEnemiesPerLevel = 0; // Enemies to kill per level
+    // I added the requiredItemsPerLevel here for it's own thing.  - Tuff Genda
     private int requiredItemsPerLevel = 0; // Items needed for each level
 
     // Initialize singleton pattern
@@ -50,9 +44,6 @@ public class levelManager : MonoBehaviour
     // Check level completion every frame
     void Update()
     {
-        // I added this code so that this can be a private number instead of being set every time. - Tuff Genda
-        requiredEnemiesPerLevel = gamemanager.instance.gameGoalTotal;
-
         CheckLevelCompletion();
     }
 
@@ -64,14 +55,6 @@ public class levelManager : MonoBehaviour
         CheckLevelCompletion();
     }
 
-    // Called by enemy scripts when an enemy is killed
-    public void EnemyKilled()
-    {
-        enemiesKilled++;
-        UpdateLevelUI();
-        CheckLevelCompletion();
-    }
-
     // Check if level objectives are complete and unlock elevator if so
     void CheckLevelCompletion()
     {
@@ -79,10 +62,9 @@ public class levelManager : MonoBehaviour
         {
             // Get requirements for current level
             int requiredItems = requiredItemsPerLevel;
-            int requiredEnemies = requiredEnemiesPerLevel;
 
             // Check if all objectives are met
-            if (itemsCollected >= requiredItems && enemiesKilled >= requiredEnemies)
+            if (itemsCollected >= requiredItems)
             {
                 levelComplete = true;
             }
@@ -97,7 +79,6 @@ public class levelManager : MonoBehaviour
             // Move to next level
             currentLevel++;
             itemsCollected = 0;
-            enemiesKilled = 0;
             levelComplete = false;
 
             // Load next scene or reset level
@@ -115,8 +96,7 @@ public class levelManager : MonoBehaviour
     void UpdateLevelUI()
     {
         // Update UI elements showing progress
-        Debug.Log($"Level {currentLevel}: Items {itemsCollected}, " +
-                  $"Enemies {enemiesKilled}");
+        Debug.Log($"Level {currentLevel}: Items {itemsCollected}");
     }
 
     // I added this function to update the required items automatically. - Tuff Genda
@@ -143,21 +123,9 @@ public class levelManager : MonoBehaviour
         return itemsCollected;
     }
 
-    // Get number of enemies killed in current level
-    public int GetEnemiesKilled()
-    {
-        return enemiesKilled;
-    }
-
     // Get number of items required for current level
     public int GetRequiredItems()
     {
         return requiredItemsPerLevel;
-    }
-
-    // Get number of enemies required for current level
-    public int GetRequiredEnemies()
-    {
-        return requiredEnemiesPerLevel;
     }
 }

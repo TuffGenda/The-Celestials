@@ -35,6 +35,9 @@ public class WaveManager : MonoBehaviour
         enemyPos = 0;
         wavePos = 0;
         isSpawning = true;
+
+        // This updates the wave count for the UI at the start.
+        gamemanager.instance.updateWaves(waves.Count);
     }
 
     // Update is called once per frame
@@ -47,7 +50,7 @@ public class WaveManager : MonoBehaviour
         }
 
         // This makes sure the spawn timer only increases when spawning is allowed.
-        if (isSpawning)
+        if (isSpawning && gamemanager.instance.totalEnemyCount < waves[wavePos].enemies.Count && enemyPos < waves[wavePos].enemies.Count)
         {
             spawnTimer += Time.deltaTime;
         }
@@ -55,9 +58,14 @@ public class WaveManager : MonoBehaviour
         // This checks to see if spawning is allowed, if it is then it goes to a function which checks to see if there are enemies left in the
         // wave. If there are then it starts the wave timer in seconds. Once that reaches the desired time, it iterates the waves and the index
         // of enemies goes to zero.
-        if (isSpawning)
+        if (isSpawning && gamemanager.instance.totalEnemyCount <= 0 && enemyPos >= waves[wavePos].enemies.Count)
         {
-            NextWave();
+            waveTimer += Time.deltaTime;
+
+            if (waveTimer >= waveRate)
+            {
+                NextWave();
+            }
         }
 
         // This spawns the enemies only if the spawn timer reaches the desired time.
@@ -78,15 +86,11 @@ public class WaveManager : MonoBehaviour
     // This is the function that changes to a new wave through different checks.
     void NextWave()
     {
-        if (enemyPos >= waves[wavePos].enemies.Count)
-        {
-            waveTimer += Time.deltaTime;
+        ++wavePos;
+        enemyPos = 0;
+        waveTimer = 0;
 
-            if (waveTimer >= waveRate)
-            {
-                ++wavePos;
-                enemyPos = 0;
-            }
-        }
+        // This lowers the remaining waves by one each time for the UI.
+        gamemanager.instance.updateWaves(-1);
     }
 }
