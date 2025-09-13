@@ -29,7 +29,7 @@ public class gamemanager : MonoBehaviour
     public Image playerStaminaBar;
     public Image reloadBar;
     public TMP_Text ammoCountUI;
-
+    public GameObject currentWaypoint;
     public GameObject playerDamageScreen;
 
     [Header("Player and Enemy Spawn")]
