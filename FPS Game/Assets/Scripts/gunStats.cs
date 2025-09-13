@@ -33,29 +33,7 @@ public class gunStats : ScriptableObject
     [Range(0.1f, 5f)] public float windup = 1f;
 
 
-    void ApplyRarityBonus()
-    {
-        switch (rarity)
-        {
-            case WeaponRarity.Common:
-                break; // No bonus
-            case WeaponRarity.Rare:
-                shootDamage += 5;
-                critChance += 5f;
-                break;
-            case WeaponRarity.Epic:
-                shootDamage += 10;
-                critChance += 10f;
-                recoil *= 0.8f;
-                break;
-            case WeaponRarity.Legendary:
-                shootDamage += 20;
-                critChance += 15f;
-                recoil *= 0.6f;
-                break;
-        }
     
-    }
 
     public Color GetRarityColor()
     {
@@ -81,7 +59,7 @@ public class gunStats : ScriptableObject
 
     void OnEnable()
     {
-        ApplyRarityBonus();
+        
     }
 }
 
