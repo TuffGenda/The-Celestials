@@ -15,6 +15,9 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuSettings;
+    // I added this one so that I could define the buttons for the main menu. - Tuff Genda
+    [SerializeField] GameObject menuMain;
+    [SerializeField] GameObject menuCredits;
 
     // I changed this to allow enemies, waves, and items to be tracked by the UI. - Tuff Genda
     [Header("Waves, Enemies, and Items left in level")]
@@ -59,6 +62,9 @@ public class gamemanager : MonoBehaviour
 
     //Temporary Patch Variables
     public bool shopOpen;
+
+    // This tells gamemanager whether the player is in the main menu or the pause menu. - Tuff Genda
+    public bool onTitle;
 
     // I changed this to be able to track waves, enemies, and items. - Tuff Genda
     private int waveCount;
@@ -117,6 +123,10 @@ public class gamemanager : MonoBehaviour
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        // This happens when anything unpasues the game since anytime the title screen is up, it pauses the game. - Tuff Genda
+        onTitle = false;
+
         if(menuActive != null)
         {
             menuActive.SetActive(false);
@@ -154,6 +164,26 @@ public class gamemanager : MonoBehaviour
         }
     }
 
+    // This allows for the title screen to appear when starting the game. - Tuff Genda
+    public void titleMenu()
+    {
+        statePause();
+
+        menuActive = menuMain;
+        menuActive.SetActive(true);
+
+        onTitle = true;
+    }
+
+    // This allows for seeing the credits of the game. - Tuff Genda
+    public void credits()
+    {
+        statePause();
+
+        menuActive = menuCredits;
+        menuActive.SetActive(true);
+    }
+
     public void youLose()
     {
         statePause();
@@ -180,12 +210,23 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
-    public void closeSettings()
+    public void closeMenu()
     {
-        if (menuActive == menuSettings)
+        // I added the credits part sos that this worked with the credits. - Tuff Genda
+        if (menuActive == menuSettings || menuActive == menuCredits)
         {
             menuActive.SetActive(false);
-            menuActive = menuPause;
+
+            // I changed this to check if the player is on the title screen. If so, then redirect them there. If not, then switch
+            // to the pause menu instead. - Tuff Genda
+            if (onTitle)
+            {
+                menuActive = menuMain;
+            }
+            else
+            {
+                menuActive = menuPause;
+            }
             menuActive.SetActive(true);
         }
 

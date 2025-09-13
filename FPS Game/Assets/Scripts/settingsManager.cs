@@ -95,6 +95,9 @@ public class settingsManager : MonoBehaviour
 
         // Load and apply audio settings
         LoadAudioSettings();
+
+        // This loads in the main menu at the earliest point. - Tuff Genda
+        gamemanager.instance.titleMenu();
     }
 
     // Handle key detection for remapping
@@ -218,7 +221,8 @@ public class settingsManager : MonoBehaviour
     // Returns the player back to the pause menu
     public void BackToPauseMenu()
     {
-        gamemanager.instance.closeSettings();
+        // I changed this to close menu since it is a more general function for credits and settings now. - Tuff Genda
+        gamemanager.instance.closeMenu();
     }
 
     // Check if a custom control key is currently held down
