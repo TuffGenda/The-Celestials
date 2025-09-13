@@ -171,8 +171,6 @@ public class gamemanager : MonoBehaviour
 
         menuActive = menuMain;
         menuActive.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
 
         onTitle = true;
     }

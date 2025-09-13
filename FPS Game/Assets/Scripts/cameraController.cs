@@ -16,9 +16,6 @@ public class cameraController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
-
         cam = GetComponent<Camera>();
         originalFOV = cam.fieldOfView;
     }
