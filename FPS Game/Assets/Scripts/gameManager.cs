@@ -8,7 +8,7 @@ public class gamemanager : MonoBehaviour
     public static gamemanager instance;
     [Header("Menus")]
     // Currently active menu (null when no menu is open)
-    [SerializeField] GameObject menuActive;
+    [SerializeField] public GameObject menuActive;
 
     // Menu GameObjects for diffrent game states
     [SerializeField] GameObject menuPause;
@@ -171,6 +171,8 @@ public class gamemanager : MonoBehaviour
 
         menuActive = menuMain;
         menuActive.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         onTitle = true;
     }

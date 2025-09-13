@@ -181,7 +181,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     void shoot()
     {
-        if ((melee || (gunList.Count > 0)) && !reloadUI && !gamemanager.instance.isPaused)
+        if ((melee || (gunList.Count > 0)) && !reloadUI && gamemanager.instance.menuActive == null)
         {
             shootTimer = 0;
             if (!melee)
@@ -229,7 +229,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     void reload()
     {
-        if (Input.GetButtonDown("Reload") && gunList.Count > 0 && !reloadUI && !melee)
+        if (Input.GetButtonDown("Reload") && gunList.Count > 0 && !reloadUI && !melee && gamemanager.instance.menuActive == null)
         {
             reloadSound.Play();
             if (reloadTimes)
