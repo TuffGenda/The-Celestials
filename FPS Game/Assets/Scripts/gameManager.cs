@@ -34,6 +34,8 @@ public class gamemanager : MonoBehaviour
     public TMP_Text ammoCountUI;
     public GameObject currentWaypoint;
     public GameObject playerDamageScreen;
+    public AudioSource menuClick;
+    public AudioSource menuHover;
 
     [Header("Player and Enemy Spawn")]
     // Public spawn object

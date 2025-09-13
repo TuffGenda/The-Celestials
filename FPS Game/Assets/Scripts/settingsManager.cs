@@ -179,6 +179,7 @@ public class settingsManager : MonoBehaviour
         keyToChange = action;
         // Update UI to show we're waiting for input
         GetControlText(action).text = "Press any key...";
+        gamemanager.instance.menuClick.Play();
     }
 
     // Apply a new key mapping
@@ -190,6 +191,7 @@ public class settingsManager : MonoBehaviour
         SaveControls();
         // Update the UI display
         UpdateControlTexts();
+        gamemanager.instance.menuClick.Play();
     }
 
     // Update all control text displays with current key mappings
@@ -223,6 +225,7 @@ public class settingsManager : MonoBehaviour
     {
         // I changed this to close menu since it is a more general function for credits and settings now. - Tuff Genda
         gamemanager.instance.closeMenu();
+        gamemanager.instance.menuClick.Play();
     }
 
     // Check if a custom control key is currently held down
@@ -272,6 +275,7 @@ public class settingsManager : MonoBehaviour
         SaveControls();
         UpdateControlTexts();
         ResetAudioToDefaults();
+        gamemanager.instance.menuClick.Play();
     }
 
     // Audio volume control methods
