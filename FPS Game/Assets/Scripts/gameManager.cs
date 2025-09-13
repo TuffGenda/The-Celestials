@@ -60,7 +60,7 @@ public class gamemanager : MonoBehaviour
     public bool isPaused;
 
     //Time Management
-    float timeScaleOrig;
+    public float timeScaleOrig;
 
     //Temporary Patch Variables
     public bool shopOpen;

@@ -41,6 +41,12 @@ public class buttonFunctions : MonoBehaviour
     public void quit()
     {
         gamemanager.instance.menuClick.Play();
+        Time.timeScale = gamemanager.instance.timeScaleOrig;
+        Invoke("actuallyQuit", 0.1f);
+        
+    }
+
+    public void actuallyQuit() {
 #if !UNITY_EDITOR
               Application.Quit();
 
@@ -48,10 +54,6 @@ public class buttonFunctions : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 
 #endif
-    }
-
-    public void hoverSound() { 
-        gamemanager.instance.menuHover.Play();
     }
 
     public void respawnPlayer()
