@@ -8,7 +8,6 @@ public class buttonFunctions : MonoBehaviour
         gamemanager.instance.stateUnpause();
     }
 
-
     public void restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -61,8 +60,27 @@ public class buttonFunctions : MonoBehaviour
         gamemanager.instance.openSettings();
     }
 
+    // This starts a new game starting at the first level. - Tuff Genda
+    public void newGame()
+    {
+        resume(); // This needs to be changed once we have levels to start at the tutorial. - Tuff Genda
+    }
 
+    // This loads into a level based off of a save file. - Tuff Genda
+    public void loadGame()
+    {
+        // This needs to be added to once we have the save system so that we can laod each level. - Tuff Genda
+    }
 
+    // This loads into the credits menu. - Tuff Genda
+    public void credits()
+    { 
+        gamemanager.instance.credits();
+    }
 
-
+    // This goes back to the main menu from the credits. - Tuff Genda
+    public void back()
+    {
+        gamemanager.instance.closeMenu();
+    }
 }
