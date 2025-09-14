@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8619153788562333223, guid: caec4a4016af3b74dbaf5c89b30c80da, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.4854317
+      value: -1.7645683
       objectReference: {fileID: 0}
     - target: {fileID: 8619153788562333223, guid: caec4a4016af3b74dbaf5c89b30c80da, type: 3}
       propertyPath: m_LocalRotation.w
@@ -841,6 +841,18 @@ PrefabInstance:
     - target: {fileID: 2352493693635850758, guid: 50a7a22a36ad3434a9d97eda4e906376, type: 3}
       propertyPath: m_Name
       value: Cure
+      objectReference: {fileID: 0}
+    - target: {fileID: 3499993083370700828, guid: 50a7a22a36ad3434a9d97eda4e906376, type: 3}
+      propertyPath: m_Size.x
+      value: 0.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 3499993083370700828, guid: 50a7a22a36ad3434a9d97eda4e906376, type: 3}
+      propertyPath: m_Size.y
+      value: 0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 3499993083370700828, guid: 50a7a22a36ad3434a9d97eda4e906376, type: 3}
+      propertyPath: m_Size.z
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 6504727004832008596, guid: 50a7a22a36ad3434a9d97eda4e906376, type: 3}
       propertyPath: m_LocalScale.x

@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8215442062246441650, guid: c29ea7f102791d24193f5e29c6f2d123, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2297764
+      value: 0.9797764
       objectReference: {fileID: 0}
     - target: {fileID: 8215442062246441650, guid: c29ea7f102791d24193f5e29c6f2d123, type: 3}
       propertyPath: m_LocalPosition.z
@@ -739,7 +739,7 @@ PrefabInstance:
     - target: {fileID: 746803355687378247, guid: e1f1d3b92e169ab458cf9b6d824a5239, type: 3}
       propertyPath: 'lootDrops.Array.data[0]'
       value: 
-      objectReference: {fileID: 2420937220516881770, guid: df1ceb3484199af45b46445f3e44ec08, type: 3}
+      objectReference: {fileID: 9016169452721659674, guid: 682f77c0007d2954c8e04b5c2078da18, type: 3}
     - target: {fileID: 919276448348565536, guid: e1f1d3b92e169ab458cf9b6d824a5239, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.35
@@ -924,7 +924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4619445867497122852, guid: df1ceb3484199af45b46445f3e44ec08, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.291
+      value: -18.291
       objectReference: {fileID: 0}
     - target: {fileID: 4619445867497122852, guid: df1ceb3484199af45b46445f3e44ec08, type: 3}
       propertyPath: m_LocalPosition.y
@@ -932,7 +932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4619445867497122852, guid: df1ceb3484199af45b46445f3e44ec08, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.26
+      value: -14.01
       objectReference: {fileID: 0}
     - target: {fileID: 4619445867497122852, guid: df1ceb3484199af45b46445f3e44ec08, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1229,6 +1229,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerObjectAndCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 7440650788070187551, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
+      propertyPath: jumpMax
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8300019698269819084, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1339,6 +1343,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3896337068458846721, guid: 4e3e69ffd022c6041bf75ce5ebe1c0fb, type: 3}
+      propertyPath: lootDropChance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5842191975422817607, guid: 4e3e69ffd022c6041bf75ce5ebe1c0fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.4194314

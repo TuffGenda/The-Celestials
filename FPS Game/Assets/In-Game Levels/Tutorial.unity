@@ -1787,14 +1787,16 @@ MonoBehaviour:
     Space to jump
 
     E
-    to interact
+    to interact (Try the panel in an elevator sometime)
 
-    Mouse to look around
+    R to reload
+
+    Mouse
+    to look around
 
     Left click to fire
 
-    Right click
-    to zoom'
+    Right click to zoom'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2262,6 +2264,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1640512644581925236, guid: c80bbe465ba8a6640abf10d123374de0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.040007
+      objectReference: {fileID: 0}
+    - target: {fileID: 1640512644581925236, guid: c80bbe465ba8a6640abf10d123374de0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.350019
+      objectReference: {fileID: 0}
     - target: {fileID: 2379235112097758701, guid: c80bbe465ba8a6640abf10d123374de0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2329,6 +2339,14 @@ PrefabInstance:
     - target: {fileID: 5884173811325242915, guid: c80bbe465ba8a6640abf10d123374de0, type: 3}
       propertyPath: m_VersionIndex
       value: 459
+      objectReference: {fileID: 0}
+    - target: {fileID: 6884808880767346839, guid: c80bbe465ba8a6640abf10d123374de0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.539999
+      objectReference: {fileID: 0}
+    - target: {fileID: 6884808880767346839, guid: c80bbe465ba8a6640abf10d123374de0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.8500185
       objectReference: {fileID: 0}
     - target: {fileID: 7390545084844976864, guid: c80bbe465ba8a6640abf10d123374de0, type: 3}
       propertyPath: m_Mesh
