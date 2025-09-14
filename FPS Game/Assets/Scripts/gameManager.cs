@@ -40,6 +40,7 @@ public class gamemanager : MonoBehaviour
     public AudioSource menuHover;
     public GameObject realDeleteButton;
     public GameObject fakeDeleteButton;
+    public TMP_Text gameActionText;
 
     [Header("Button Settings")]
     public GameObject firstButtonPause;

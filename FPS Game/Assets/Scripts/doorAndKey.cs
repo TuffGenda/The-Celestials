@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class doorAndKey : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class doorAndKey : MonoBehaviour
             {
                 Destroy(doorObject);
             }
+            gamemanager.instance.playerScript.sendActionText("You heard a door open!");
         }
     }
+
+    
 }

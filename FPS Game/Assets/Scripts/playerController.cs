@@ -310,6 +310,17 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     public int money;
 }
      */
+    public void sendActionText(string text) { 
+        StartCoroutine(feedback(text));
+        
+    }
+
+    IEnumerator feedback(string text)
+    {
+        gamemanager.instance.gameActionText.text = text;
+        yield return new WaitForSeconds(2f);
+        gamemanager.instance.gameActionText.text = "";
+    }
 
     public void HealDamage(int amount, bool onCooldown)
     {

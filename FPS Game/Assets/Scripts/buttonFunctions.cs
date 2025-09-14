@@ -100,6 +100,9 @@ public class buttonFunctions : MonoBehaviour
         loadButton();
     }
 
+    public void returnToTitle() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     // This loads into the credits menu. - Tuff Genda
     public void credits()
     {
