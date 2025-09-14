@@ -74,6 +74,8 @@ public class buttonFunctions : MonoBehaviour
     public void openSettings()
     {
         gamemanager.instance.menuClick.Play();
+        gamemanager.instance.realDeleteButton.SetActive(false);
+        gamemanager.instance.fakeDeleteButton.SetActive(true);
         gamemanager.instance.openSettings();
         EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonSettings);
     }
@@ -85,10 +87,17 @@ public class buttonFunctions : MonoBehaviour
         resume(); // This needs to be changed once we have levels to start at the tutorial. - Tuff Genda
     }
 
+    public void revealRealDelete()
+    {
+        gamemanager.instance.menuClick.Play();
+        gamemanager.instance.realDeleteButton.SetActive(true);
+        gamemanager.instance.fakeDeleteButton.SetActive(false);
+    }
+
     // This loads into a level based off of a save file. - Tuff Genda
     public void loadGame()
     {
-        // This needs to be added to once we have the save system so that we can laod each level. - Tuff Genda
+        loadButton();
     }
 
     // This loads into the credits menu. - Tuff Genda

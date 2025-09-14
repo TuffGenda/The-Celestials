@@ -52,6 +52,8 @@ public class saveManager : MonoBehaviour
         else
         {
             Debug.LogWarning("No save file found to delete at " + saveFilePath);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            gamemanager.instance.stateUnpause();
         }
     }
 }

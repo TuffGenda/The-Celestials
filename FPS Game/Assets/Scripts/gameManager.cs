@@ -38,6 +38,8 @@ public class gamemanager : MonoBehaviour
     public GameObject playerDamageScreen;
     public AudioSource menuClick;
     public AudioSource menuHover;
+    public GameObject realDeleteButton;
+    public GameObject fakeDeleteButton;
 
     [Header("Button Settings")]
     public GameObject firstButtonPause;
