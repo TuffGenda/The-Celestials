@@ -10426,6 +10426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ca69f0734f37f48bccc1d5a736f6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starupMainMenu: 0
   backButton: {fileID: 7597632115516636337}
   forwardKeyButton: {fileID: 4388405832701806270}
   backKeyButton: {fileID: 1547339359524731552}
@@ -18103,7 +18104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6303029816892099666
 RectTransform:
   m_ObjectHideFlags: 0

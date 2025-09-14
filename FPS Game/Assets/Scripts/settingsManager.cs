@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 public class settingsManager : MonoBehaviour
 {
     // Singleton instance for global access to settings
+
+    [SerializeField] bool starupMainMenu;
     public static settingsManager instance;
 
     [Header("Settings UI")]
@@ -98,7 +100,10 @@ public class settingsManager : MonoBehaviour
         LoadAudioSettings();
 
         // This loads in the main menu at the earliest point. - Tuff Genda
-        gamemanager.instance.titleMenu();
+        if (starupMainMenu) {
+            gamemanager.instance.titleMenu();
+        }
+        
     }
 
     // Handle key detection for remapping

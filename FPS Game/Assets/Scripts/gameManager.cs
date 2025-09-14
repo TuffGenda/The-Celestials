@@ -100,6 +100,8 @@ public class gamemanager : MonoBehaviour
 
         // I added these for the spawning of players. - Tuff Genda
         playerSpawnPOS = GameObject.FindGameObjectWithTag("Player Spawnpoint");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 
@@ -198,6 +200,8 @@ public class gamemanager : MonoBehaviour
         {
             menuActive.SetActive(false);
         }
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         menuActive = menuMain;
         menuActive.SetActive(true);
 

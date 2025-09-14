@@ -29,6 +29,7 @@ public class buttonFunctions : MonoBehaviour
     {
         gameData data = saveManager.instance.LoadGame();
         gamemanager.instance.playerScript.loadPlayerData(data);
+        //SceneManager.LoadScene(data.playerLevel); If the levels are numbered with the level manager, this should work
         gamemanager.instance.stateUnpause();
         gamemanager.instance.menuClick.Play();
     }
@@ -83,8 +84,7 @@ public class buttonFunctions : MonoBehaviour
     // This starts a new game starting at the first level. - Tuff Genda
     public void newGame()
     {
-
-        resume(); // This needs to be changed once we have levels to start at the tutorial. - Tuff Genda
+        loadLevel(1); // For now, it reloads to the test level, but change this to the tutorial when ready
     }
 
     public void revealRealDelete()
@@ -98,11 +98,12 @@ public class buttonFunctions : MonoBehaviour
     public void loadGame()
     {
         loadButton();
+        
     }
 
     public void returnToTitle() {
         gamemanager.instance.menuClick.Play();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        loadLevel(0);
         gamemanager.instance.stateUnpause();
     }
     // This loads into the credits menu. - Tuff Genda
