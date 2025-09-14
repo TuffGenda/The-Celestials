@@ -571,6 +571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   gun: {fileID: 11400000, guid: a7ab9edcad26dff428e03bf3dac20112, type: 2}
+  moneyAmount: 10
 --- !u!135 &6914163886405589041
 SphereCollider:
   m_ObjectHideFlags: 0

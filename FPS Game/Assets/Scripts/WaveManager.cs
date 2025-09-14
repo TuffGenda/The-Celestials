@@ -38,11 +38,19 @@ public class WaveManager : MonoBehaviour
         // This sets the default values for each variable.
         enemyPos = 0;
         wavePos = 0;
-        spawnNumber = waves[wavePos].enemies.Count / spawners.Count;
-        isSpawning = true;
+        if (waves.Count > 0)
+        {
+            spawnNumber = waves[wavePos].enemies.Count / spawners.Count;
+            isSpawning = true;
+        }
+        else
+        {
+            spawnNumber = 0;
+            isSpawning = false;
+        }
 
-        // This updates the wave count for the UI at the start.
-        gamemanager.instance.updateWaves(waves.Count);
+            // This updates the wave count for the UI at the start.
+            gamemanager.instance.updateWaves(waves.Count);
     }
 
     // Update is called once per frame

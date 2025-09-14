@@ -23,10 +23,10 @@ public class checkpoints : MonoBehaviour
 
     IEnumerator checkpointFeedback()
     {
-        model.material.color = Color.red;
-        //gamemanager.instance.checkpointPopup.SetActive(true);
+        model.material.color = Color.yellow;
+        gamemanager.instance.checkpointPopup.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        //gamemanager.instance.checkpointPopup.SetActive(false);
+        gamemanager.instance.checkpointPopup.SetActive(false);
         model.material.color = colorOriginal;
     }
 }
