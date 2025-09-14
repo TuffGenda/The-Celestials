@@ -15,6 +15,18 @@ EditorBuildSettings:
     path: Assets/In-Game Levels/Tutorial.unity
     guid: 6475db6c81009254a859a546555b8eda
   - enabled: 1
+    path: Assets/In-Game Levels/General Patient Ward.unity
+    guid: d4d73c95cfd107d42a985df460f0088e
+  - enabled: 1
+    path: Assets/In-Game Levels/Sick Patient Ward.unity
+    guid: 91e12cb22697d184c83db007c96d7bc5
+  - enabled: 1
+    path: Assets/In-Game Levels/Injured Patient Ward.unity
+    guid: deac11cc2e5991947843f873634f3872
+  - enabled: 1
+    path: Assets/In-Game Levels/Emergency Room.unity
+    guid: a1ef3cac54afa094ab6374170273a15b
+  - enabled: 1
     path: Assets/In-Game Levels/Director's Office.unity
     guid: a198a91786597f34fb5180b52b639c12
   - enabled: 1

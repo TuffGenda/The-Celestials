@@ -40,8 +40,19 @@ public class WaveManager : MonoBehaviour
         wavePos = 0;
         if (waves.Count > 0)
         {
-            spawnNumber = waves[wavePos].enemies.Count / spawners.Count;
-            isSpawning = true;
+            if (waves[wavePos].enemies.Count >= spawners.Count && spawners.Count > 0)
+            {
+                spawnNumber = waves[wavePos].enemies.Count / spawners.Count;
+            }
+            else if(waves[wavePos].enemies.Count < spawners.Count && waves[wavePos].enemies.Count > 0)
+            {
+                spawnNumber = spawners.Count / waves[wavePos].enemies.Count;
+            }
+            else
+            {
+                spawnNumber = 0;
+            }
+                isSpawning = true;
         }
         else
         {
