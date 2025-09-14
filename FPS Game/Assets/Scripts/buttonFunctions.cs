@@ -101,7 +101,9 @@ public class buttonFunctions : MonoBehaviour
     }
 
     public void returnToTitle() {
+        gamemanager.instance.menuClick.Play();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gamemanager.instance.stateUnpause();
     }
     // This loads into the credits menu. - Tuff Genda
     public void credits()

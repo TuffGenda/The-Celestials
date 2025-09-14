@@ -769,6 +769,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3710299151486318997, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
+      propertyPath: m_Name
+      value: Return to title
+      objectReference: {fileID: 0}
     - target: {fileID: 4225200689377589137, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
       propertyPath: gameActionText
       value: 
@@ -776,6 +780,20 @@ PrefabInstance:
     - target: {fileID: 4539556859940564910, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609506779249336828, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755771101422734974, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
+      propertyPath: m_text
+      value: 'Return to Title
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5083377165598716124, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: returnToTitle
       objectReference: {fileID: 0}
     - target: {fileID: 7709815686861699439, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
       propertyPath: m_Name
