@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class gamemanager : MonoBehaviour
 {
@@ -36,6 +37,14 @@ public class gamemanager : MonoBehaviour
     public GameObject playerDamageScreen;
     public AudioSource menuClick;
     public AudioSource menuHover;
+
+    [Header("Button Settings")]
+    public GameObject firstButtonPause;
+    public GameObject firstButtonSettings;
+    public GameObject firstButtonMain;
+    public GameObject firstButtonCredits;
+    public GameObject firstButtonLose;
+    public GameObject firstButtonWin;
 
     [Header("Player and Enemy Spawn")]
     // Public spawn object
@@ -101,6 +110,7 @@ public class gamemanager : MonoBehaviour
            {
                 statePause();
                 menuActive = menuPause;
+                EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonPause);
                 menuActive.SetActive(true);
            }
             else if (menuActive == menuPause)
@@ -117,6 +127,7 @@ public class gamemanager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        
     }
 
     public void stateUnpause()
@@ -170,7 +181,10 @@ public class gamemanager : MonoBehaviour
     public void titleMenu()
     {
         statePause();
-
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+        }
         menuActive = menuMain;
         menuActive.SetActive(true);
 
@@ -180,16 +194,20 @@ public class gamemanager : MonoBehaviour
     // This allows for seeing the credits of the game. - Tuff Genda
     public void credits()
     {
-        statePause();
-
+        
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+        }
         menuActive = menuCredits;
         menuActive.SetActive(true);
+        
     }
 
     public void youLose()
     {
         statePause();
-
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonLose);
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
@@ -197,7 +215,7 @@ public class gamemanager : MonoBehaviour
     public void youWin()
     {
         statePause();
-
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonWin);
         menuActive = menuWin;
         menuActive.SetActive(true);
     }
@@ -221,13 +239,16 @@ public class gamemanager : MonoBehaviour
 
             // I changed this to check if the player is on the title screen. If so, then redirect them there. If not, then switch
             // to the pause menu instead. - Tuff Genda
+
             if (onTitle)
             {
                 menuActive = menuMain;
+                EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonMain);
             }
             else
             {
                 menuActive = menuPause;
+                EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonPause);
             }
             menuActive.SetActive(true);
         }

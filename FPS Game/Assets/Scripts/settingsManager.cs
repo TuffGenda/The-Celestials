@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class settingsManager : MonoBehaviour
 {
@@ -110,7 +111,7 @@ public class settingsManager : MonoBehaviour
             foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
             {
                 // If a key is pressed (except Escape)
-                if (Input.GetKeyDown(key) && key != KeyCode.Escape)
+                if (Input.GetKeyDown(key) && key != KeyCode.Escape && key != KeyCode.Return)
                 {
                     // Assign the new key and stop waiting
                     ChangeKey(keyToChange, key);
@@ -191,6 +192,7 @@ public class settingsManager : MonoBehaviour
         SaveControls();
         // Update the UI display
         UpdateControlTexts();
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonSettings);
         gamemanager.instance.menuClick.Play();
     }
 
@@ -219,6 +221,7 @@ public class settingsManager : MonoBehaviour
             default: return null;
         }
     }
+    //EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonPause);
 
     // Returns the player back to the pause menu
     public void BackToPauseMenu()

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class buttonFunctions : MonoBehaviour
 {
@@ -74,6 +75,7 @@ public class buttonFunctions : MonoBehaviour
     {
         gamemanager.instance.menuClick.Play();
         gamemanager.instance.openSettings();
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonSettings);
     }
 
     // This starts a new game starting at the first level. - Tuff Genda
@@ -94,6 +96,7 @@ public class buttonFunctions : MonoBehaviour
     {
         gamemanager.instance.menuClick.Play();
         gamemanager.instance.credits();
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonCredits);
     }
 
     // This goes back to the main menu from the credits. - Tuff Genda
@@ -101,5 +104,6 @@ public class buttonFunctions : MonoBehaviour
     {
         gamemanager.instance.menuClick.Play();
         gamemanager.instance.closeMenu();
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonMain);
     }
 }
