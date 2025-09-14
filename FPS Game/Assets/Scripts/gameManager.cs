@@ -16,9 +16,10 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuSettings;
-    // I added this one so that I could define the buttons for the main menu. - Tuff Genda
+    // I added these so that I could define the buttons for the main menu and the change floors. - Tuff Genda
     [SerializeField] GameObject menuMain;
     [SerializeField] GameObject menuCredits;
+    [SerializeField] GameObject menuFloors;
 
     // I changed this to allow enemies, waves, and items to be tracked by the UI. - Tuff Genda
     [Header("Waves, Enemies, and Items left in level")]
@@ -175,6 +176,15 @@ public class gamemanager : MonoBehaviour
         {
             levelManager.instance.NextLevel();
         }
+    }
+
+    // This allows for ChangeFloors to activate a menu which allows you to select floors. - Tuff Genda
+    public void floorsMenu()
+    {
+        statePause();
+
+        menuActive = menuFloors;
+        menuActive.SetActive(true);
     }
 
     // This allows for the title screen to appear when starting the game. - Tuff Genda
