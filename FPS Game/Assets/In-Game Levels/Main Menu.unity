@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 0
-  maxLevels: 3
+  maxLevels: 4
   itemsCollected: 0
 --- !u!4 &1486657069
 Transform:

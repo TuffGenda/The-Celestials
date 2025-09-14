@@ -13,7 +13,6 @@ public class Event : MonoBehaviour
     [SerializeField] objectWindow eventType;
     [SerializeField] List<GameObject> objectsToHide;
     [SerializeField] GameObject gameWindowToShow;
-    [SerializeField] int secondsTillWindowDisappears;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -75,6 +74,6 @@ public class Event : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Destroy(gameObject, secondsTillWindowDisappears);
+        Destroy(gameObject, 0);
     }
 }

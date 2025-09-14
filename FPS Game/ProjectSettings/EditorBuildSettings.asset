@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/In-Game Levels/Director's Office.unity
     guid: a198a91786597f34fb5180b52b639c12
+  - enabled: 1
+    path: Assets/In-Game Levels/Basement.unity
+    guid: 209bd398403cc6543b1f8bd295743217
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: bcd2030a402e30248a82186ab2f51556, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

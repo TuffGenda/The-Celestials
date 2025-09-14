@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 {
@@ -277,7 +278,11 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     }
     public void loadPlayerData(gameData data)
     {
-        if (data == null) return;
+        if (data == null)
+        {
+            SceneManager.LoadScene(levelManager.instance.GetCurrentLevel());
+            return;
+        }
         //We dont have more levels, So I can't really do the level stuff yet.
         HP = data.health;
         gunList = data.gunList;
