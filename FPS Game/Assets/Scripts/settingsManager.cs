@@ -286,7 +286,14 @@ public class settingsManager : MonoBehaviour
     {
         if (audioMixer != null)
         {
-            audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+            if (volume == 0)
+            {
+                audioMixer.SetFloat("Master", -80f);
+            }
+            else {
+                audioMixer.SetFloat("Master", Mathf.Log10(volume) * 40);
+            }
+                
             PlayerPrefs.SetFloat("MasterVolume", volume);
         }
     }
@@ -295,7 +302,14 @@ public class settingsManager : MonoBehaviour
     {
         if (audioMixer != null)
         {
-            audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+            if (volume == 0)
+            {
+                audioMixer.SetFloat("SFX", -80f);
+            }
+            else
+            {
+                audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 40);
+            }
             PlayerPrefs.SetFloat("SFXVolume", volume);
         }
     }
@@ -304,7 +318,14 @@ public class settingsManager : MonoBehaviour
     {
         if (audioMixer != null)
         {
-            audioMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
+            if (volume == 0)
+            {
+                audioMixer.SetFloat("Music", -80f);
+            }
+            else
+            {
+                audioMixer.SetFloat("Music", Mathf.Log10(volume) * 40);
+            }
             PlayerPrefs.SetFloat("MusicVolume", volume);
         }
     }
