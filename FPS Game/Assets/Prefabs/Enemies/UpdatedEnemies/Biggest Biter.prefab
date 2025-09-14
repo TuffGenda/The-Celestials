@@ -83,13 +83,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6113603857bfb44bd752905f892d74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 6223128386466340832}
   agent: {fileID: 2881632245567900282}
   faceTargetSpeed: 10
-  HP: 50
+  HP: 999
   FOV: 360
   bullet: {fileID: 8615386853437988833, guid: af1e7d7ab1787f4479a42742f2a04a26, type: 3}
   shootRate: 0.5
   shootPos: {fileID: 8237455275665544867}
+  lootDrops:
+  - {fileID: 2352493693635850758, guid: 50a7a22a36ad3434a9d97eda4e906376, type: 3}
+  lootDropChance: 100
   shootTimer: 0
   angleToPlayer: 0
   stoppingDistanceOriginal: 0

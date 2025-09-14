@@ -31,6 +31,12 @@ public class saveManager : MonoBehaviour
             string json = File.ReadAllText(saveFilePath);
             gameData data = JsonUtility.FromJson<gameData>(json);
             Debug.Log("Game Loaded from " + saveFilePath);
+
+            // I added this so that it loads the correct level. - Tuff Genda
+            gamemanager.instance.menuClick.Play();
+            SceneManager.LoadScene(data.level);
+            gamemanager.instance.stateUnpause();
+
             return data;
         }
         else
@@ -60,8 +66,10 @@ public class saveManager : MonoBehaviour
 
 public class gameData
 {
-    public int playerLevel; // as in unlocked levels (1-8 for what levels are unlocked. 1 is nothing, 8 is everything)
     public int health;
     public List<gunStats> gunList;
     public int money;
+
+    // I added this so that we can save the correct level each time. - Tuff Genda
+    public int level;
 }

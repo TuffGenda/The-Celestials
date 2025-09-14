@@ -84,6 +84,7 @@ public class buttonFunctions : MonoBehaviour
     // This starts a new game starting at the first level. - Tuff Genda
     public void newGame()
     {
+        Debug.Log("New Game!");
         loadLevel(1); // For now, it reloads to the test level, but change this to the tutorial when ready
     }
 
@@ -98,7 +99,6 @@ public class buttonFunctions : MonoBehaviour
     public void loadGame()
     {
         loadButton();
-        
     }
 
     public void returnToTitle() {
@@ -120,5 +120,53 @@ public class buttonFunctions : MonoBehaviour
         gamemanager.instance.menuClick.Play();
         gamemanager.instance.closeMenu();
         EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonMain);
+    }
+
+    // Loads to tutorial level for now. - Tuff Genda
+    public void loadCamp()
+    {
+        loadLevel(1);
+    }
+
+    // Loads to test level for now. Will be replaced by Raider Camp in beta. - Tuff Genda
+    public void loadDebug()
+    {
+        loadLevel(1);
+    }
+
+    // Loads to first level. - Tuff Genda
+    public void loadLevel1()
+    {
+        loadLevel(1);
+    }
+
+    // Loads to second level. - Tuff Genda
+    public void loadLevel2()
+    {
+        loadLevel(1);
+    }
+
+    // Loads to third level - Tuff Genda
+    public void loadLevel3()
+    {
+        loadLevel(1);
+    }
+
+    // Loads to fourth level - Tuff Genda
+    public void loadLevel4()
+    {
+        loadLevel(1);
+    }
+
+    // Loads to director's office. - Tuff Genda
+    public void loadOffice()
+    {
+        loadLevel(2);
+    }
+
+    // Loads to basement - Tuff Genda
+    public void loadBasement()
+    {
+        loadLevel(1);
     }
 }

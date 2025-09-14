@@ -37,7 +37,7 @@ public class elevatorManager : MonoBehaviour
         {
             moveUp();
         }
-        else if (controls.doorsClosed && !parentScript.playerParented)
+        else if (controls.doorsClosed)
         {
             moveDown();
         }
@@ -52,9 +52,13 @@ public class elevatorManager : MonoBehaviour
                 StartCoroutine(controls.open(secondsTillDoorsClose, doorSpeed));
             }
         }
-        else if (atDestination && controls.doorsOpen && !parentScript.playerParented)
+        else if (atDestination && controls.doorsOpen)
         {
             StartCoroutine(controls.close(secondsTillDoorsClose, doorSpeed));
+        }
+        else if (!atDestination && parentScript.playerParented)
+        {
+            moveUp();
         }
     }
 

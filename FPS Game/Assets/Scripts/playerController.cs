@@ -292,7 +292,10 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     public gameData givePlayerData()
     {
         gameData data = new gameData();
-        data.playerLevel = levelManager.instance.GetCurrentLevel();
+
+        // I changed this since I edited it to add level. All I really did was change the name, sorry. - Tuff Genda
+        data.level = levelManager.instance.GetCurrentLevel();
+
         data.health = HP;
         data.gunList = gunList;
         data.money = currencyManager.instance.GetMoney();
@@ -447,23 +450,37 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     void changeGun()
     {
-        shootDamage = gunList[gunListPos].shootDamage;
-        shootDist = gunList[gunListPos].shootDist;
-        shootRate = gunList[gunListPos].shootRate;
-        reloadTime = gunList[gunListPos].reloadTime;
-        melee = gunList[gunListPos].Melee;
-        windup = gunList[gunListPos].windup;
-
-
-        speed = speedOriginal * gunList[gunListPos].moveSpeed;
-
-        updateAmmoUI();
-        gunStereo.volume = gunList[gunListPos].shootVol;
-        if (curGun != null)
+        // I added this if statement to make sure that loading works. - Tuff Genda
+        if (gunList.Count > 0)
         {
-            Destroy(curGun);
+            shootDamage = gunList[gunListPos].shootDamage;
+            shootDist = gunList[gunListPos].shootDist;
+            shootRate = gunList[gunListPos].shootRate;
+            reloadTime = gunList[gunListPos].reloadTime;
+            melee = gunList[gunListPos].Melee;
+            windup = gunList[gunListPos].windup;
+
+
+            speed = speedOriginal * gunList[gunListPos].moveSpeed;
+
+            updateAmmoUI();
+            gunStereo.volume = gunList[gunListPos].shootVol;
+            if (curGun != null)
+            {
+                Destroy(curGun);
+            }
+            curGun = Instantiate(gunList[gunListPos].model, gunModelPos.position, gunModelPos.rotation, gunModelPos);
         }
-        curGun = Instantiate(gunList[gunListPos].model, gunModelPos.position, gunModelPos.rotation, gunModelPos);
+        else
+        {
+            shootDamage = 1;
+            shootDist = 5;
+            shootRate = 1;
+            reloadTime = 0;
+            speed = 5;
+
+            updateAmmoUI();
+        }
     }
 
 

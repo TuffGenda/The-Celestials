@@ -256,7 +256,6 @@ public class gamemanager : MonoBehaviour
 
             // I changed this to check if the player is on the title screen. If so, then redirect them there. If not, then switch
             // to the pause menu instead. - Tuff Genda
-
             if (onTitle)
             {
                 menuActive = menuMain;

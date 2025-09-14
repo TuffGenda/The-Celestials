@@ -22,7 +22,7 @@ MonoBehaviour:
   shootDamage: 37
   shootDist: 209
   shootRate: 0.1
-  critChance: 85
+  critChance: 50
   ammoCur: 30
   ammoMax: 30
   reloadTime: 1
@@ -30,7 +30,7 @@ MonoBehaviour:
   moveSpeed: 0.9
   price: 2000
   unlockLevel: 1
-  rarity: 1
+  rarity: 0
   Melee: 0
   missSound: []
   hitSound: []

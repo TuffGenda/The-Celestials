@@ -22,15 +22,15 @@ MonoBehaviour:
   shootDamage: 97
   shootDist: 25
   shootRate: 0.75
-  critChance: 120
-  ammoCur: 6
+  critChance: 50
+  ammoCur: 8
   ammoMax: 8
   reloadTime: 2
   recoil: 0.0000021922554
   moveSpeed: 0.9
   price: 2000
   unlockLevel: 1
-  rarity: 2
+  rarity: 0
   Melee: 0
   missSound: []
   hitSound: []
