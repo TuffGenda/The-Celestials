@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class gamemanager : MonoBehaviour
 {
@@ -42,6 +43,13 @@ public class gamemanager : MonoBehaviour
     public GameObject fakeDeleteButton;
     public TMP_Text gameActionText;
 
+    [Header("Collectible Icons")]
+    public GameObject collectible1;
+    public GameObject collectible2;
+    public GameObject collectible3;
+    public GameObject collectible4;
+    public GameObject collectible5;
+
     [Header("Button Settings")]
     public GameObject firstButtonPause;
     public GameObject firstButtonSettings;
@@ -53,9 +61,6 @@ public class gamemanager : MonoBehaviour
     [Header("Player and Enemy Spawn")]
     // Public spawn object
     public GameObject playerSpawnPOS;
-
-    // I added this enemy spawn object so that Elijah's enemy manager does not use playerSpawnPOS. - Tuff Genda
-    //public GameObject enemySpawnPOS;
 
     // Player Healing
     public GameObject playerHealScreen;
@@ -88,6 +93,8 @@ public class gamemanager : MonoBehaviour
 
     // I added this so that waveManager could find the enemy count. - Tuff Genda
     public int totalEnemyCount;
+
+     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -180,6 +187,50 @@ public class gamemanager : MonoBehaviour
         if (levelManager.instance.GetItemsCollected() >= levelManager.instance.GetRequiredItems())
         {
             levelManager.instance.NextLevel();
+        }
+    }
+
+    public void updateCollectibles(int collectible) { 
+        switch (collectible)
+        {
+            case 1:
+                collectible1.SetActive(true);
+                break;
+            case 2:
+                collectible2.SetActive(true);
+                break;
+            case 3:
+                collectible3.SetActive(true);
+                break;
+            case 4:
+                collectible4.SetActive(true);
+                break;
+            case 5:
+                collectible5.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public bool[] sendCollectibleData()
+    {
+        bool[] collectibles = new bool[5];
+        collectibles[0] = collectible1.activeSelf;
+        collectibles[1] = collectible2.activeSelf;
+        collectibles[2] = collectible3.activeSelf;
+        collectibles[3] = collectible2.activeSelf;
+        collectibles[4] = collectible2.activeSelf;
+        return collectibles;
+    }
+
+    public void readCollectibleData(bool[] collectibleData) { 
+        for (int i = 0; i < 5; i++)
+        {
+            if (collectibleData[i])
+            {
+                updateCollectibles(i + 1);
+            }
         }
     }
 

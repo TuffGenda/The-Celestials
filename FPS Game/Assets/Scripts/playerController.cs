@@ -300,7 +300,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
         // I changed this since I edited it to add level. All I really did was change the name, sorry. - Tuff Genda
         data.level = levelManager.instance.GetCurrentLevel();
-
+        data.collectibles = gamemanager.instance.sendCollectibleData();
         data.health = HP;
         data.gunList = gunList;
         data.money = currencyManager.instance.GetMoney();

@@ -72,4 +72,5 @@ public class gameData
 
     // I added this so that we can save the correct level each time. - Tuff Genda
     public int level;
+    public bool[] collectibles;
 }
