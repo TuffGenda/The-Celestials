@@ -20,6 +20,9 @@ public class AllyAI : MonoBehaviour
 
     float shootTimer;
 
+    int health;
+    int damage;
+
     enum AllyState { Follow, Hold }
     AllyState currentState = AllyState.Follow;
 
@@ -128,5 +131,13 @@ public class AllyAI : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         model.material.color = colorOriginal;
     }
+
+    public void AllyStats(int newHealth, int newDamage)
+    {
+        health = newHealth;
+        damage = newDamage;
+    }
+
+
 }
 
