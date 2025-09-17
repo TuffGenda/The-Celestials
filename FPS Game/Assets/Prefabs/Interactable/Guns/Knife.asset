@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
+  m_Name: Knife
+  m_EditorClassIdentifier: 
+  model: {fileID: 1007499990081138569, guid: 4a6724ebc240c8348a397d424401a5f9, type: 3}
+  weaponIcon: {fileID: 0}
+  weaponImage: {fileID: 0}
+  shootSound: []
+  shootVol: 1
+  weaponType: 1
+  shootDamage: 7
+  shootDist: 4
+  shootRate: 1
+  critChance: 5
+  ammoCur: 5
+  ammoMax: 5
+  reloadTime: 2
+  recoil: 0.3
+  moveSpeed: 1
+  price: 1000
+  unlockLevel: 1
+  rarity: 0
+  Melee: 1
+  missSound:
+  - {fileID: 8300000, guid: bb02f0f71abb43549a5ba3299130b046, type: 3}
+  hitSound:
+  - {fileID: 8300000, guid: d65479c3b5c7a4044ad5aa0fde736222, type: 3}
+  windup: 0.5

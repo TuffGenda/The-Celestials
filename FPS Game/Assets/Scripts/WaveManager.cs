@@ -1,88 +1,149 @@
-/*using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
+// WaveManager script created by Tuff Genda.
 public class WaveManager : MonoBehaviour
 {
-    [Header("--- Wave Settings ---")]
-    [SerializeField] Wave[] waves;
-    [SerializeField] float timeBetweenWaves = 5f;
+    // This is a serialized struct for keeping a list of enemies.
+    [System.Serializable]
+    public struct Enemies
+    {
+        public List<GameObject> enemies;
+    }
 
-    private int currentWaveIndex = 0;
-    private bool isSpawning = false;
+    // This is the list of waves and the list of transforms for where the spawners are located.
+    [Header("Waves and Spawner")]
+    [SerializeField] List<Enemies> waves = new List<Enemies>();
+    [SerializeField] List<Transform> spawners = new List<Transform>();
 
-    private bool gameManagerReady = false;
+    // This is the time in seconds before each wave and enemy spawns in.
+    [Header("Spawn Rate for Waves and Enemies")]
+    [SerializeField] float waveRate;
+    [SerializeField] float spawnRate;
 
+    // These help keep track of the index of each wave and enemy, track whether wave manager should spawn, and the timers for waves and enemies.
+    private int wavePos;
+    private int enemyPos;
+    private bool isSpawning;
+    private float spawnTimer;
+    private float waveTimer;
+
+    // These help determine how many enemies to spawn and the total enemies for tracking when to spawn a wave.
+    private int spawnNumber;
+    private int enemyTotal;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        StartCoroutine(WaitForGameManager());
+        // This sets the default values for each variable.
+        enemyPos = 0;
+        wavePos = 0;
+        if (waves.Count > 0)
+        {
+            if (waves[wavePos].enemies.Count >= spawners.Count && spawners.Count > 0)
+            {
+                spawnNumber = waves[wavePos].enemies.Count / spawners.Count;
+            }
+            else if(waves[wavePos].enemies.Count < spawners.Count && waves[wavePos].enemies.Count > 0)
+            {
+                spawnNumber = spawners.Count / waves[wavePos].enemies.Count;
+            }
+            else
+            {
+                spawnNumber = 0;
+            }
+                isSpawning = true;
+        }
+        else
+        {
+            spawnNumber = 0;
+            isSpawning = false;
+        }
+
+            // This updates the wave count for the UI at the start.
+            gamemanager.instance.updateWaves(waves.Count);
     }
 
-    IEnumerator WaitForGameManager()
-    {
-        while (gamemanager.instance == null)
-        {
-            yield return null;
-        }
-        gameManagerReady = true;
-
-        if (waves.Length > 0)
-        {
-            StartCoroutine(StartWave());
-        }
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        if (gameManagerReady)
+        // This allows for spawning only if the current index is an active wave.
+        if (wavePos >= waves.Count)
         {
-            if (gamemanager.instance.gameGoalTotal <= 0 && !isSpawning)
+            isSpawning = false;
+        }
+
+        // This checks to see if the number of enemies in the current wave and the spawners are both even. If they are, it then
+        // just multiplies the number of enemies in the wave by itself to get the total enemies. Otherwise, it multiplies the
+        // number of enemies in the current wave by the number of enemies spawned in each spawner times the number of spawners to
+        // get the total enemies spawned.
+        if (isSpawning)
+        {
+            if (waves[wavePos].enemies.Count % 2 == 0 && spawners.Count % 2 == 0)
             {
-                currentWaveIndex++;
-                if (currentWaveIndex <= waves.Length)
+                enemyTotal = waves[wavePos].enemies.Count * waves[wavePos].enemies.Count;
+            }
+            else
+            {
+                enemyTotal = waves[wavePos].enemies.Count * (spawnNumber * spawners.Count);
+            }
+        }
+
+        // This makes sure the spawn timer only increases when spawning is allowed along with the total number of enemies alive
+        // being less than the total enemies spawned as well as the current index of the enemy being less than the total index.
+        if (isSpawning && gamemanager.instance.totalEnemyCount < enemyTotal && enemyPos < waves[wavePos].enemies.Count)
+        {
+            spawnTimer += Time.deltaTime;
+        }
+
+        // This checks to see if spawning is allowed, if it is then it goes to a function which checks to see if there are enemies left in the
+        // wave. If there are then it starts the wave timer in seconds. Once that reaches the desired time, it iterates the waves and the index
+        // of enemies goes to zero. It also changes the spawn namber each time a new wave starts.
+        if (isSpawning && gamemanager.instance.totalEnemyCount <= 0 && enemyPos >= waves[wavePos].enemies.Count)
+        {
+            waveTimer += Time.deltaTime;
+
+            if (waveTimer >= waveRate)
+            {
+                NextWave();
+
+                if (wavePos <  waves.Count)
                 {
-                    StartCoroutine(StartWave());
-                }
-                else
-                {
-                    gamemanager.instance.youWin();
+                    spawnNumber = waves[wavePos].enemies.Count / spawners.Count;
                 }
             }
         }
+
+        // This spawns the enemies only if the spawn timer reaches the desired time.
+        if (spawnTimer >= spawnRate)
+        {
+            Spawn();
+        }
     }
 
-    IEnumerator StartWave()
+    // This is the function that spawns the enemies. It makes sure to spawn them as evenly as possible between spawners.
+    void Spawn()
     {
-        isSpawning = true;
-
-        // This is the key change: Wait for playerSpawnPOS to be assigned.
-        while (gamemanager.instance.enemySpawnPOS == null)
+        foreach (var spawnPos in spawners)
         {
-            isSpawning = false;
-            yield return null;
+            for (int i = 0; i < spawnNumber; i++)
+            {
+                Instantiate(waves[wavePos].enemies[enemyPos], spawnPos.position, spawnPos.rotation);
+            }
         }
 
-        if (gamemanager.instance != null)
-        {
-            gamemanager.instance.updateGameGoal(waves[currentWaveIndex].enemiesToSpawn.Length);
-        }
+        ++enemyPos;
+        spawnTimer = 0;
+    }
 
-        yield return new WaitForSeconds(timeBetweenWaves);
+    // This is the function that changes to a new wave through different checks.
+    void NextWave()
+    {
+        ++wavePos;
+        enemyPos = 0;
+        waveTimer = 0;
 
-        for (int i = 0; i < waves[currentWaveIndex].enemiesToSpawn.Length; i++)
-        {
-            Instantiate(waves[currentWaveIndex].enemiesToSpawn[i], gamemanager.instance.enemySpawnPOS.transform.position, Quaternion.identity);
-
-            yield return new WaitForSeconds(waves[currentWaveIndex].timeBetweenEnemies);
-        }
-
-        isSpawning = false;
+        // This lowers the remaining waves by one each time for the UI.
+        gamemanager.instance.updateWaves(-1);
     }
 }
-
-[System.Serializable]
-public class Wave
-{
-    public GameObject[] enemiesToSpawn;
-    public float timeBetweenEnemies;
-}*/

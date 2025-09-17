@@ -3,10 +3,13 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class settingsManager : MonoBehaviour
 {
     // Singleton instance for global access to settings
+
+    [SerializeField] bool starupMainMenu;
     public static settingsManager instance;
 
     [Header("Settings UI")]
@@ -95,6 +98,12 @@ public class settingsManager : MonoBehaviour
 
         // Load and apply audio settings
         LoadAudioSettings();
+
+        // This loads in the main menu at the earliest point. - Tuff Genda
+        if (starupMainMenu) {
+            gamemanager.instance.titleMenu();
+        }
+        
     }
 
     // Handle key detection for remapping
@@ -107,7 +116,7 @@ public class settingsManager : MonoBehaviour
             foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
             {
                 // If a key is pressed (except Escape)
-                if (Input.GetKeyDown(key) && key != KeyCode.Escape)
+                if (Input.GetKeyDown(key) && key != KeyCode.Escape && key != KeyCode.Return)
                 {
                     // Assign the new key and stop waiting
                     ChangeKey(keyToChange, key);
@@ -176,6 +185,7 @@ public class settingsManager : MonoBehaviour
         keyToChange = action;
         // Update UI to show we're waiting for input
         GetControlText(action).text = "Press any key...";
+        gamemanager.instance.menuClick.Play();
     }
 
     // Apply a new key mapping
@@ -187,6 +197,8 @@ public class settingsManager : MonoBehaviour
         SaveControls();
         // Update the UI display
         UpdateControlTexts();
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonSettings);
+        gamemanager.instance.menuClick.Play();
     }
 
     // Update all control text displays with current key mappings
@@ -214,11 +226,14 @@ public class settingsManager : MonoBehaviour
             default: return null;
         }
     }
+    //EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonPause);
 
     // Returns the player back to the pause menu
     public void BackToPauseMenu()
     {
-        gamemanager.instance.closeSettings();
+        // I changed this to close menu since it is a more general function for credits and settings now. - Tuff Genda
+        gamemanager.instance.closeMenu();
+        gamemanager.instance.menuClick.Play();
     }
 
     // Check if a custom control key is currently held down
@@ -268,6 +283,7 @@ public class settingsManager : MonoBehaviour
         SaveControls();
         UpdateControlTexts();
         ResetAudioToDefaults();
+        gamemanager.instance.menuClick.Play();
     }
 
     // Audio volume control methods
@@ -275,7 +291,14 @@ public class settingsManager : MonoBehaviour
     {
         if (audioMixer != null)
         {
-            audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+            if (volume == 0)
+            {
+                audioMixer.SetFloat("Master", -80f);
+            }
+            else {
+                audioMixer.SetFloat("Master", Mathf.Log10(volume) * 40);
+            }
+                
             PlayerPrefs.SetFloat("MasterVolume", volume);
         }
     }
@@ -284,7 +307,14 @@ public class settingsManager : MonoBehaviour
     {
         if (audioMixer != null)
         {
-            audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+            if (volume == 0)
+            {
+                audioMixer.SetFloat("SFX", -80f);
+            }
+            else
+            {
+                audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 40);
+            }
             PlayerPrefs.SetFloat("SFXVolume", volume);
         }
     }
@@ -293,7 +323,14 @@ public class settingsManager : MonoBehaviour
     {
         if (audioMixer != null)
         {
-            audioMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
+            if (volume == 0)
+            {
+                audioMixer.SetFloat("Music", -80f);
+            }
+            else
+            {
+                audioMixer.SetFloat("Music", Mathf.Log10(volume) * 40);
+            }
             PlayerPrefs.SetFloat("MusicVolume", volume);
         }
     }

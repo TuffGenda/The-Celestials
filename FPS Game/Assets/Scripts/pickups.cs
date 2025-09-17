@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Pickups script by Tuff Genda.
 public class pickups : MonoBehaviour
 {
     enum pickupType
@@ -20,6 +21,8 @@ public class pickups : MonoBehaviour
         if (type == pickupType.objective)
         {
             levelManager.instance.updateRequiredItems();
+            // I changed this to updateEnemies instead since that is the new function in gamemanager.
+            gamemanager.instance.updateItems(1);
         }
     }
 
@@ -51,7 +54,8 @@ public class pickups : MonoBehaviour
         {
             levelManager.instance.CollectItem();
 
-            gamemanager.instance.updateGameGoal(0);
+            // This lowers the items in the UI by one.
+            gamemanager.instance.updateItems(-1);
 
             Destroy(gameObject);
         }

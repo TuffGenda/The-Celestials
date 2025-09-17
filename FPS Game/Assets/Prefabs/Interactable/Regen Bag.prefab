@@ -131,9 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4619445867497122852}
   - component: {fileID: 4727989214445377807}
-  - component: {fileID: 6984608963830005293}
   - component: {fileID: 1163217487263550030}
-  - component: {fileID: 6244023855081525170}
   m_Layer: 0
   m_Name: Regen Bag
   m_TagString: Untagged
@@ -171,38 +169,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  rb: {fileID: 6984608963830005293}
+  rb: {fileID: 0}
   healingAmount: 20
   cooldown: 1
   healingRate: 0.5
   uses: 0
---- !u!54 &6984608963830005293
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2420937220516881770}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &1163217487263550030
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -224,38 +195,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5, y: 3, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!205 &6244023855081525170
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2420937220516881770}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.23221208, y: 0.17144743, z: -0.32216918}
-  m_Size: 1.1851923
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.25
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2164642519956109524}
-    - renderer: {fileID: 5464104122964580128, guid: e3e45397ba4943f41b29ecf5f926aa39, type: 3}
-  - screenRelativeHeight: 0.125
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2055800220333710250}
-  - screenRelativeHeight: 0.0625
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1085196654496749144}
-  - screenRelativeHeight: 0.01
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 4739632241615215696}
-  m_Enabled: 1
 --- !u!1 &5133610450967062430
 GameObject:
   m_ObjectHideFlags: 0

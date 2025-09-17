@@ -443,8 +443,6 @@ GameObject:
   m_Component:
   - component: {fileID: 63574572728804915}
   - component: {fileID: 3697881296139993357}
-  - component: {fileID: 6590581765708159121}
-  - component: {fileID: 3442672021245594410}
   - component: {fileID: 8071036485995457898}
   m_Layer: 0
   m_Name: Medkit
@@ -463,7 +461,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 27.31857, y: 1.375, z: 27.58879}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3859779200113281502}
@@ -483,70 +481,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  rb: {fileID: 6590581765708159121}
+  rb: {fileID: 0}
   healingAmount: 15
   cooldown: 1
   healingRate: 0
   uses: 1
---- !u!54 &6590581765708159121
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9016169452721659674}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!205 &3442672021245594410
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9016169452721659674}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.77975434, y: 0.15748194, z: 0.4784477}
-  m_Size: 1.9322599
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.25
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 6597853471696040237}
-    - renderer: {fileID: 1383057796395272948, guid: 3a371c4a69d85d44690fee22df7a6533, type: 3}
-  - screenRelativeHeight: 0.125
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 3615788544076108028}
-  - screenRelativeHeight: 0.0625
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 5109606782603658684}
-  - screenRelativeHeight: 0.01
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 7243269855392049217}
-  m_Enabled: 1
 --- !u!65 &8071036485995457898
 BoxCollider:
   m_ObjectHideFlags: 0

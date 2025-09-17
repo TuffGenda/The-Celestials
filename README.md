@@ -4,7 +4,4 @@ This is a first-person shooter game that we created for our Game Development cou
 #### Sorted by Username/First name last name:
 HappiHatts/Evan Arjona  
 Guildar_/Tuff Genda  
-JennieBlu/Jennifer Harkless  
-misscheviousgamming/Sarah Vanbrocklin  
-TerminatingTaco/Diego Alonso  
-EmperorAltros/Elijah Martin
+TerminatingTaco/Diego Alonso

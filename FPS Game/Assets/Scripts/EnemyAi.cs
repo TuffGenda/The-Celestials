@@ -39,7 +39,8 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     void Start()
     {
         colorOriginal = model.material.color;
-        gamemanager.instance.updateGameGoal(1);
+        // I changed this to updateEnemies instead since that is the new function in gamemanager. - Tuff Genda
+        gamemanager.instance.updateEnemies(1);
         startingPos = transform.position;
         stoppingDistanceOriginal = agent.stoppingDistance;
     }
@@ -160,7 +161,8 @@ public class enemyAI : MonoBehaviour, IAllowDamage
 
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(-1);
+            // I changed this to updateEnemies instead since that is the new function in gamemanager. - Tuff Genda
+            gamemanager.instance.updateEnemies(-1);
             dropLoot(); // Call the dropLoot function on death
             Destroy(gameObject);
         }
