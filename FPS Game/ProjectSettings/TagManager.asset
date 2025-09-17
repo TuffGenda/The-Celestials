@@ -7,6 +7,7 @@ TagManager:
   - Player Spawnpoint
   - EnemyTurret Spawnpoint
   - Enemy Spawnpoint
+  - Ally
   layers:
   - Default
   - TransparentFX
