@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c90cdfae983f349b28d797b3b84370, type: 3}
+  m_Name: Tank
+  m_EditorClassIdentifier: 
+  model: {fileID: 0}
+  HP: 125
+  FaceTargetSpeed: 25
+  FOV: 120
+  ShootRate: 0.5
+  DetectionRadius: 15
+  Speed: 5
+  Acceleration: 8
+  Bullet: {fileID: 1760950585416176603, guid: e2d74562f6e07dd42b4d1f4748132844, type: 3}

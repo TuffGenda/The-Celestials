@@ -40,6 +40,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     [SerializeField] float windup;
     [Header("--- Ally ---")]
     [SerializeField] GameObject waypointObj;
+    [SerializeField] GameObject ally;
 
 
 
@@ -521,5 +522,9 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             gunListPos--;
             changeGun();
         }
+    }
+
+    public void GetAllyStats(SurvivorStats survivorStats)
+    {
     }
 }

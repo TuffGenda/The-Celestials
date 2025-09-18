@@ -193,13 +193,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 990565572407403031}
   agent: {fileID: 1526119382115718909}
-  faceTargetSpeed: 7
+  faceTargetSpeed: 25
   HP: 25
   FOV: 120
-  bullet: {fileID: 1760950585416176603, guid: e2d74562f6e07dd42b4d1f4748132844, type: 3}
-  shootRate: 0.3
+  bullet: {fileID: 1760950585416176603, guid: dddabb23848ce67448ee8391ae6999f5, type: 3}
+  shootRate: 0.5
   shootPos: {fileID: 3944049850134229477}
-  detectionRadius: 20
+  detectionRadius: 15
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 64

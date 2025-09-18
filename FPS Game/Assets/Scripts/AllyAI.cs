@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AllyAI : MonoBehaviour
+public class AllyAI : MonoBehaviour, IAllowPickup
 {
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
@@ -20,8 +20,7 @@ public class AllyAI : MonoBehaviour
 
     float shootTimer;
 
-    int health;
-    int damage;
+    // I removed these ints in favor of using the serialized field ones. - Tuff Genda.
 
     enum AllyState { Follow, Hold }
     AllyState currentState = AllyState.Follow;
@@ -132,12 +131,20 @@ public class AllyAI : MonoBehaviour
         model.material.color = colorOriginal;
     }
 
-    public void AllyStats(int newHealth, int newDamage)
+    public void GetGunStats(gunStats gun)
     {
-        health = newHealth;
-        damage = newDamage;
     }
 
-
+    public void GetAllyStats(SurvivorStats survivorStats)
+    {
+        HP = survivorStats.HP;
+        FOV = survivorStats.FOV;
+        faceTargetSpeed = survivorStats.FaceTargetSpeed;
+        shootRate = survivorStats.ShootRate;
+        detectionRadius = survivorStats.DetectionRadius;
+        bullet = survivorStats.Bullet;
+        agent.speed = survivorStats.Speed;
+        agent.acceleration = survivorStats.Acceleration;
+    }
 }
 
