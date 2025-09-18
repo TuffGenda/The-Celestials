@@ -29,6 +29,7 @@ public class buttonFunctions : MonoBehaviour
     {
         gameData data = saveManager.instance.LoadGame();
         gamemanager.instance.playerScript.loadPlayerData(data);
+        gamemanager.instance.readCollectibleData(data.collectibles);
         //SceneManager.LoadScene(data.playerLevel); If the levels are numbered with the level manager, this should work
         gamemanager.instance.stateUnpause();
         gamemanager.instance.menuClick.Play();

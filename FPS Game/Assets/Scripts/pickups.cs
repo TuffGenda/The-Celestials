@@ -5,7 +5,7 @@ public class pickups : MonoBehaviour
 {
     enum pickupType
     {
-        guns, money, objective
+        guns, money, objective, collectible
     }
     [Header("Components")]
     [SerializeField] pickupType type;
@@ -15,6 +15,9 @@ public class pickups : MonoBehaviour
 
     [Header("For Money")]
     [SerializeField] int moneyAmount = 10;
+
+    [Header("For Collectibles")]
+    [SerializeField] int collectibleID;
 
     private void Start()
     {
@@ -57,6 +60,12 @@ public class pickups : MonoBehaviour
             // This lowers the items in the UI by one.
             gamemanager.instance.updateItems(-1);
 
+            Destroy(gameObject);
+        }
+
+        else if (pickupable != null && other.CompareTag("Player") && type == pickupType.collectible)
+        {
+            gamemanager.instance.updateCollectibles(collectibleID);
             Destroy(gameObject);
         }
     }
