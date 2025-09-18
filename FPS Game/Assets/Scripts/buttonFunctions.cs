@@ -13,9 +13,13 @@ public class buttonFunctions : MonoBehaviour
 
     public void restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Invoke("actuallyRestart", 0.05f);
         gamemanager.instance.stateUnpause();
         gamemanager.instance.menuClick.Play();
+    }
+
+    public void actuallyRestart() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void saveButton()
@@ -30,9 +34,8 @@ public class buttonFunctions : MonoBehaviour
         gameData data = saveManager.instance.LoadGame();
         gamemanager.instance.playerScript.loadPlayerData(data);
         gamemanager.instance.readCollectibleData(data.collectibles);
-        //SceneManager.LoadScene(data.playerLevel); If the levels are numbered with the level manager, this should work
-        gamemanager.instance.stateUnpause();
-        gamemanager.instance.menuClick.Play();
+
+        loadLevel(data.level);
     }
 
     public void deleteSave()
@@ -59,17 +62,24 @@ public class buttonFunctions : MonoBehaviour
 #endif
     }
 
+    IEnumerator actuallyLoadlevel(int lvl)
+    {
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadScene(lvl);
+    }
+
     public void respawnPlayer()
     {
         gamemanager.instance.playerScript.spawnPlayer();
         gamemanager.instance.stateUnpause();
         gamemanager.instance.menuClick.Play();
+        
     }
 
     public void loadLevel(int lvl)
     {
         gamemanager.instance.menuClick.Play();
-        SceneManager.LoadScene(lvl);
+        StartCoroutine(actuallyLoadlevel(lvl));
         gamemanager.instance.stateUnpause();
     }
 

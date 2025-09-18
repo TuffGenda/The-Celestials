@@ -57,6 +57,7 @@ public class gamemanager : MonoBehaviour
     public GameObject firstButtonCredits;
     public GameObject firstButtonLose;
     public GameObject firstButtonWin;
+    public GameObject firstButtonLevel;
 
     [Header("Player and Enemy Spawn")]
     // Public spawn object
@@ -238,7 +239,7 @@ public class gamemanager : MonoBehaviour
     public void floorsMenu()
     {
         statePause();
-
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonLevel);
         menuActive = menuFloors;
         menuActive.SetActive(true);
     }
