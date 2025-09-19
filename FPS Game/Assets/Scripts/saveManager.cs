@@ -33,9 +33,7 @@ public class saveManager : MonoBehaviour
             Debug.Log("Game Loaded from " + saveFilePath);
 
             // I added this so that it loads the correct level. - Tuff Genda
-            gamemanager.instance.menuClick.Play();
-            SceneManager.LoadScene(data.level);
-            gamemanager.instance.stateUnpause();
+            ;
 
             return data;
         }
