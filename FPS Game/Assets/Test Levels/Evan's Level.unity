@@ -1163,7 +1163,7 @@ PrefabInstance:
       objectReference: {fileID: 574229442}
     - target: {fileID: 262111183140165363, guid: 3c325217bfb03c04e91106d6e5cc366f, type: 3}
       propertyPath: m_VersionIndex
-      value: 480
+      value: 483
       objectReference: {fileID: 0}
     - target: {fileID: 935078437734881534, guid: 3c325217bfb03c04e91106d6e5cc366f, type: 3}
       propertyPath: m_Mesh
@@ -1171,7 +1171,7 @@ PrefabInstance:
       objectReference: {fileID: 1070618358}
     - target: {fileID: 935078437734881534, guid: 3c325217bfb03c04e91106d6e5cc366f, type: 3}
       propertyPath: m_VersionIndex
-      value: 418
+      value: 421
       objectReference: {fileID: 0}
     - target: {fileID: 1153845900662395795, guid: 3c325217bfb03c04e91106d6e5cc366f, type: 3}
       propertyPath: m_Mesh
@@ -1199,7 +1199,7 @@ PrefabInstance:
       objectReference: {fileID: 908998657}
     - target: {fileID: 4306186284567870525, guid: 3c325217bfb03c04e91106d6e5cc366f, type: 3}
       propertyPath: m_VersionIndex
-      value: 489
+      value: 492
       objectReference: {fileID: 0}
     - target: {fileID: 4946130106488019789, guid: 3c325217bfb03c04e91106d6e5cc366f, type: 3}
       propertyPath: m_Mesh
@@ -1820,6 +1820,8 @@ MonoBehaviour:
   gun: {fileID: 0}
   moneyAmount: 10
   collectibleID: 0
+  survivorStats: {fileID: 0}
+  ally: {fileID: 0}
 --- !u!23 &1915681456
 MeshRenderer:
   m_ObjectHideFlags: 0
