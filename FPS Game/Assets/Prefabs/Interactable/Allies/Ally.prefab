@@ -193,11 +193,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 990565572407403031}
   agent: {fileID: 1526119382115718909}
-  faceTargetSpeed: 25
-  HP: 25
+  faceTargetSpeed: 50
+  HP: 15
   FOV: 120
-  bullet: {fileID: 1760950585416176603, guid: dddabb23848ce67448ee8391ae6999f5, type: 3}
-  shootRate: 0.5
+  bullet: {fileID: 1760950585416176603, guid: e2d74562f6e07dd42b4d1f4748132844, type: 3}
+  shootRate: 0.8
   shootPos: {fileID: 3944049850134229477}
   detectionRadius: 15
   enemyLayerMask:
@@ -213,8 +213,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 5
-  m_Acceleration: 8
+  m_Speed: 10
+  m_Acceleration: 16
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 1
