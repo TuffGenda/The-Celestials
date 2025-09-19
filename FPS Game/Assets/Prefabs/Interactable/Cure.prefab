@@ -274,8 +274,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
+  pickupSound: {fileID: 8300000, guid: 1ab048c7047374d4b807203f992d00db, type: 3}
   gun: {fileID: 0}
   moneyAmount: 0
+  collectibleID: 0
+  survivorStats: {fileID: 0}
+  ally: {fileID: 0}
 --- !u!65 &3499993083370700828
 BoxCollider:
   m_ObjectHideFlags: 0
