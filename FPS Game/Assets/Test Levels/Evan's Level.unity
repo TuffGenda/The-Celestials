@@ -1582,10 +1582,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 465281842698351670, guid: 0fefe249973e5104b8b598af9c46a7b3, type: 3}
-      propertyPath: pickupSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 1ab048c7047374d4b807203f992d00db, type: 3}
     - target: {fileID: 1294851164820021041, guid: 0fefe249973e5104b8b598af9c46a7b3, type: 3}
       propertyPath: m_Name
       value: Cash

@@ -48,8 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  pickupSound: {fileID: 8300000, guid: 1ab048c7047374d4b807203f992d00db, type: 3}
   gun: {fileID: 0}
   moneyAmount: 1000
+  collectibleID: 0
+  survivorStats: {fileID: 0}
+  ally: {fileID: 0}
 --- !u!33 &8784098041159756744
 MeshFilter:
   m_ObjectHideFlags: 0
