@@ -15,6 +15,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     [SerializeField] GameObject playerCamera;
     [Header("--- Health ---")]
     [SerializeField] int HP; //The current health of the player
+    [SerializeField] AudioClip healSound; //The sound played when the player heals
     [Header("--- Movement ---")]
     [SerializeField] float speed; //The base speed of the player
     [SerializeField] int sprintMod; //The amount the speed is multiplied by when sprinting
@@ -42,6 +43,8 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     [Header("--- Ally ---")]
     [SerializeField] GameObject waypointObj;
     [SerializeField] GameObject ally;
+    [Header("--- Sound ---")]
+    [SerializeField] public AudioSource plrSoundSource;
 
 
 
@@ -230,6 +233,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     public void startTransition()
     {
         inTransition = true;
+        gamemanager.instance.fadeScreen.SetActive(true);
         Color c = gamemanager.instance.fadeScreen.GetComponent<Image>().color;
         c.a = 1;
         controller.enabled = false;
@@ -361,7 +365,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     {
         if (onCooldown == false && HP < HPOriginal)
         {
-
+            plrSoundSource.PlayOneShot(healSound);
             HP += amount;
             updateHealthUI();
             StartCoroutine(flashHealingScreen());

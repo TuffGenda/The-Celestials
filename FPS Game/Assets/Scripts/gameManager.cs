@@ -134,6 +134,42 @@ public class gamemanager : MonoBehaviour
                 stateUnpause();
             }
         }
+        if (settingsManager.instance.GetAxis("Horizontal") > 0 || settingsManager.instance.GetAxis("Vertical") > 0) { 
+            if (menuActive != null)
+            {
+                if (EventSystem.current.currentSelectedGameObject == null)
+                {
+                    if (menuActive == menuPause)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonPause);
+                    }
+                    else if (menuActive == menuSettings)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonSettings);
+                    }
+                    else if (menuActive == menuMain)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonMain);
+                    }
+                    else if (menuActive == menuCredits)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonCredits);
+                    }
+                    else if (menuActive == menuLose)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonLose);
+                    }
+                    else if (menuActive == menuWin)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonWin);
+                    }
+                    else if (menuActive == menuFloors)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonLevel);
+                    }
+                }
+            }
+        }
 
     }
 

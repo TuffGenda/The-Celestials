@@ -10,6 +10,7 @@ public class pickups : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] pickupType type;
+    [SerializeField] AudioClip pickupSound;
 
     [Header("For Guns")]
     [SerializeField] gunStats gun;
@@ -56,6 +57,8 @@ public class pickups : MonoBehaviour
             }
 
             Destroy(gameObject);
+            if (pickupSound != null)
+                gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(pickupSound);
         }
 
         else if (pickupable != null && other.CompareTag("Player") && type == pickupType.objective)
@@ -66,12 +69,16 @@ public class pickups : MonoBehaviour
             gamemanager.instance.updateItems(-1);
 
             Destroy(gameObject);
+            if (pickupSound != null)
+                gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(pickupSound);
         }
 
         else if (pickupable != null && other.CompareTag("Player") && type == pickupType.collectible)
         {
             gamemanager.instance.updateCollectibles(collectibleID);
             Destroy(gameObject);
+            if (pickupSound != null)
+                gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(pickupSound);
         }
 
         else if (pickupable != null && other.CompareTag("Player") && type == pickupType.allies)
@@ -82,6 +89,8 @@ public class pickups : MonoBehaviour
             allyAIScript.GetAllyStats(survivorStats);
 
             Destroy(gameObject);
+            if (pickupSound != null)
+                gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(pickupSound);
         }
     }
 }
