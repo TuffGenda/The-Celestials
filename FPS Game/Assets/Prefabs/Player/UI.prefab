@@ -1992,7 +1992,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Instructions:
 
-    The hspoital is infested, and your goal is to make
+    The hospital is infested, and your goal is to make
     a cure! Shoot your way through each level to find the cure ingredient in each.
     Once all are collected, you can head to the basement to make the cure and save
     humanity!
@@ -10171,6 +10171,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &4059828808881552338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3996466931919253351}
+  - component: {fileID: 1888773653287627678}
+  - component: {fileID: 7803666651540993216}
+  m_Layer: 5
+  m_Name: FadeScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3996466931919253351
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4059828808881552338}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8183854634829477145}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1888773653287627678
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4059828808881552338}
+  m_CullTransparentMesh: 1
+--- !u!114 &7803666651540993216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4059828808881552338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4222842923913355794
 GameObject:
   m_ObjectHideFlags: 0
@@ -12060,6 +12135,7 @@ MonoBehaviour:
   menuMain: {fileID: 3863312758435466313}
   menuCredits: {fileID: 3692810713838415659}
   menuFloors: {fileID: 892699667069952537}
+  fadeSpeed: 0.1
   WavesLeftText: {fileID: 2750725416447846110}
   EnemiesText: {fileID: 2772121367176901653}
   ItemsLeftText: {fileID: 5915059943017352839}
@@ -12074,6 +12150,7 @@ MonoBehaviour:
   realDeleteButton: {fileID: 9044369496635472001}
   fakeDeleteButton: {fileID: 6248966550832659629}
   gameActionText: {fileID: 2303126272276709818}
+  fadeScreen: {fileID: 4059828808881552338}
   collectible1: {fileID: 8149470289060287728}
   collectible2: {fileID: 707613342815042387}
   collectible3: {fileID: 5345170169040719458}
@@ -18148,6 +18225,7 @@ RectTransform:
   - {fileID: 386634278921411494}
   - {fileID: 3298858251796348311}
   - {fileID: 965203437208548972}
+  - {fileID: 3996466931919253351}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

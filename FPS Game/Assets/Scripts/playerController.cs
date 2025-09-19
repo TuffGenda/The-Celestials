@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 {
@@ -49,7 +50,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     float shootTimer;
     float exactStamina;
-
+    bool inTransition = false;
     int jumpcount;
     int HPOriginal;
     int staminaOriginal;
@@ -75,8 +76,12 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     void Update()
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
-        movement();
-        sprint();
+
+        if (controller.enabled) {
+            movement();
+            sprint();
+        }
+        
         if (!isSprinting && stamina != -1 && stamina < staminaOriginal)
         {
             //If the player is not sprinting and has less stamina than original, gain stamina
@@ -104,7 +109,13 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             float curr = Mathf.MoveTowards(gamemanager.instance.reloadBar.fillAmount, 0, Time.deltaTime / reloadTime);
             gamemanager.instance.reloadBar.fillAmount = curr;
         }
-
+        if (inTransition)
+        {
+            Color c = gamemanager.instance.fadeScreen.GetComponent<Image>().color;
+            c.a = Mathf.MoveTowards(c.a, 1, Time.deltaTime / gamemanager.instance.fadeSpeed);
+            
+            gamemanager.instance.fadeScreen.GetComponent<Image>().color = c;
+        }
 
     }
 
@@ -215,12 +226,23 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         }
     }
 
-    void placeWaypoint() {
-        if (Input.GetButtonDown("Waypoint")) {
+    public void startTransition()
+    {
+        inTransition = true;
+        Color c = gamemanager.instance.fadeScreen.GetComponent<Image>().color;
+        c.a = 1;
+        controller.enabled = false;
+    }
+
+    void placeWaypoint()
+    {
+        if (Input.GetButtonDown("Waypoint"))
+        {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100, ~ignoreLayer))
             {
-                if (gamemanager.instance.currentWaypoint != null) {
+                if (gamemanager.instance.currentWaypoint != null)
+                {
                     Destroy(gamemanager.instance.currentWaypoint);
                 }
                 gamemanager.instance.currentWaypoint = Instantiate(waypointObj, hit.point, transform.rotation);
@@ -265,14 +287,17 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     public void TakeDamage(int amount)
     {
-        HP -= amount;
-        updateHealthUI();
-        StartCoroutine(flashDamageScreen());
-        if (HP <= 0)
+        if (!inTransition)
         {
-            if (gamemanager.instance != null)
+            HP -= amount;
+            updateHealthUI();
+            StartCoroutine(flashDamageScreen());
+            if (HP <= 0)
             {
-                gamemanager.instance.youLose();
+                if (gamemanager.instance != null)
+                {
+                    gamemanager.instance.youLose();
+                }
             }
         }
     }
@@ -304,7 +329,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         data.health = HP;
         data.gunList = gunList;
         data.money = currencyManager.instance.GetMoney();
-        
+
         return data;
     }
 
@@ -318,9 +343,10 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     public int money;
 }
      */
-    public void sendActionText(string text) { 
+    public void sendActionText(string text)
+    {
         StartCoroutine(feedback(text));
-        
+
     }
 
     IEnumerator feedback(string text)

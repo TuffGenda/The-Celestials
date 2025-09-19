@@ -21,6 +21,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuMain;
     [SerializeField] GameObject menuCredits;
     [SerializeField] GameObject menuFloors;
+    [SerializeField] public float fadeSpeed = 0.1f;
 
     // I changed this to allow enemies, waves, and items to be tracked by the UI. - Tuff Genda
     [Header("Waves, Enemies, and Items left in level")]
@@ -42,6 +43,7 @@ public class gamemanager : MonoBehaviour
     public GameObject realDeleteButton;
     public GameObject fakeDeleteButton;
     public TMP_Text gameActionText;
+    public GameObject fadeScreen;
 
     [Header("Collectible Icons")]
     public GameObject collectible1;
@@ -159,6 +161,16 @@ public class gamemanager : MonoBehaviour
             menuActive.SetActive(false);
             menuActive = null;
         }
+    }
+    public void stateUnpauseWithScreen()
+    {
+        isPaused = !isPaused;
+        Time.timeScale = timeScaleOrig;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        // This happens when anything unpasues the game since anytime the title screen is up, it pauses the game. - Tuff Genda
+        onTitle = false;
     }
 
     // I split UpdateGameGoal into three separate functions for use with waveManager and LevelManager. That way we can keep items

@@ -13,7 +13,8 @@ public class buttonFunctions : MonoBehaviour
 
     public void restart()
     {
-        Invoke("actuallyRestart", 0.05f);
+        Invoke("actuallyRestart", 0.1f);
+        gamemanager.instance.playerScript.startTransition();
         gamemanager.instance.stateUnpause();
         gamemanager.instance.menuClick.Play();
     }
@@ -48,6 +49,7 @@ public class buttonFunctions : MonoBehaviour
     {
         gamemanager.instance.menuClick.Play();
         Time.timeScale = gamemanager.instance.timeScaleOrig;
+        gamemanager.instance.playerScript.startTransition();
         Invoke("actuallyQuit", 0.1f);
         
     }
@@ -80,7 +82,8 @@ public class buttonFunctions : MonoBehaviour
     {
         gamemanager.instance.menuClick.Play();
         StartCoroutine(actuallyLoadlevel(lvl));
-        gamemanager.instance.stateUnpause();
+        gamemanager.instance.playerScript.startTransition();
+        gamemanager.instance.stateUnpauseWithScreen();
     }
 
     public void openSettings()
@@ -95,8 +98,8 @@ public class buttonFunctions : MonoBehaviour
     // This starts a new game starting at the first level. - Tuff Genda
     public void newGame()
     {
-        Debug.Log("New Game!");
         loadLevel(2); // For now, it reloads to the test level, but change this to the tutorial when ready
+
     }
 
     public void revealRealDelete()
