@@ -580,6 +580,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 892699667069952537, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7709815686861699439, guid: 20ffac76521c63b4aafb5f64210e5972, type: 3}
       propertyPath: m_Name
       value: UI
@@ -1484,6 +1488,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fefe249973e5104b8b598af9c46a7b3, type: 3}
+--- !u!1001 &1359842159
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2054247100114017766, guid: 7629123c14300cc4897672b416088e9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.839899
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054247100114017766, guid: 7629123c14300cc4897672b416088e9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054247100114017766, guid: 7629123c14300cc4897672b416088e9f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -27.877497
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054247100114017766, guid: 7629123c14300cc4897672b416088e9f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054247100114017766, guid: 7629123c14300cc4897672b416088e9f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054247100114017766, guid: 7629123c14300cc4897672b416088e9f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054247100114017766, guid: 7629123c14300cc4897672b416088e9f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054247100114017766, guid: 7629123c14300cc4897672b416088e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054247100114017766, guid: 7629123c14300cc4897672b416088e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054247100114017766, guid: 7629123c14300cc4897672b416088e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7020131484659467717, guid: 7629123c14300cc4897672b416088e9f, type: 3}
+      propertyPath: m_Name
+      value: Elevator-shaft
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7629123c14300cc4897672b416088e9f, type: 3}
 --- !u!1001 &1461425457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2732,3 +2793,4 @@ SceneRoots:
   - {fileID: 7574376531346007979}
   - {fileID: 8172646438908743234}
   - {fileID: 5723555052573584775}
+  - {fileID: 1359842159}

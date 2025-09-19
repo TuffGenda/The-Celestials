@@ -98,7 +98,7 @@ public class buttonFunctions : MonoBehaviour
     // This starts a new game starting at the first level. - Tuff Genda
     public void newGame()
     {
-        loadLevel(2); // For now, it reloads to the test level, but change this to the tutorial when ready
+        loadLevel(1); // For now, it reloads to the test level, but change this to the tutorial when ready
 
     }
 

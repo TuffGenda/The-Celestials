@@ -491,8 +491,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff147a8f16c36d46bc37e2f54a2371d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 3
-  maxLevels: 3
+  currentLevel: 2
+  maxLevels: 7
   itemsCollected: 0
 --- !u!1 &3670701513632398659
 GameObject:

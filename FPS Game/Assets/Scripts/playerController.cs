@@ -79,7 +79,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
+        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
 
         if (controller.enabled) {
             movement();
@@ -318,6 +318,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         gunList = data.gunList;
         gunListPos = 0;
         currencyManager.instance.SetMoney(data.money);
+        gamemanager.instance.readCollectibleData(data.collectibles);
         updateAmmoUI();
         updateHealthUI();
         updateStaminaUI();
@@ -431,7 +432,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     IEnumerator reloadDebounce()
     {
-        Debug.Log("RELOAD");
+        
 
         yield return new WaitForSeconds(reloadTime);
         gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
@@ -441,12 +442,12 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     }
     IEnumerator windupDebounce()
     {
-        Debug.Log("Winding...");
+        
         notWinding = false;
         //Play windup animation/sound here
         yield return new WaitForSeconds(windup);
         notWinding = true;
-        Debug.Log("PUNCH!");
+        
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {

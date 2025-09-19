@@ -21,7 +21,7 @@ public class saveManager : MonoBehaviour
     {
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(saveFilePath, json);
-        Debug.Log("Game Saved to " + saveFilePath);
+        
     }
 
     public gameData LoadGame()
@@ -30,7 +30,7 @@ public class saveManager : MonoBehaviour
         {
             string json = File.ReadAllText(saveFilePath);
             gameData data = JsonUtility.FromJson<gameData>(json);
-            Debug.Log("Game Loaded from " + saveFilePath);
+            
 
             // I added this so that it loads the correct level. - Tuff Genda
             ;
@@ -39,7 +39,7 @@ public class saveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No save file found at " + saveFilePath);
+            
             return null;
         }
     }
@@ -49,13 +49,13 @@ public class saveManager : MonoBehaviour
         if (File.Exists(saveFilePath))
         {
             File.Delete(saveFilePath);
-            Debug.Log("Save file deleted at " + saveFilePath);
+            
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             gamemanager.instance.stateUnpause();
         }
         else
         {
-            Debug.LogWarning("No save file found to delete at " + saveFilePath);
+            
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             gamemanager.instance.stateUnpause();
         }

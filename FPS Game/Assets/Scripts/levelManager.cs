@@ -36,10 +36,6 @@ public class levelManager : MonoBehaviour
     }
 
     // Initialize level progress on start
-    void Start()
-    {
-        UpdateLevelUI();
-    }
 
     // Check level completion every frame
     void Update()
@@ -51,7 +47,6 @@ public class levelManager : MonoBehaviour
     public void CollectItem()
     {
         itemsCollected++;
-        UpdateLevelUI();
         CheckLevelCompletion();
     }
 
@@ -87,17 +82,12 @@ public class levelManager : MonoBehaviour
         else if (currentLevel >= maxLevels)
         {
             // Game completed
-            Debug.Log("All levels completed!");
             gamemanager.instance.youWin();
         }
     }
 
     // Update UI elements showing current progress
-    void UpdateLevelUI()
-    {
-        // Update UI elements showing progress
-        Debug.Log($"Level {currentLevel}: Items {itemsCollected}");
-    }
+    
 
     // I added this function to update the required items automatically. - Tuff Genda
     public void updateRequiredItems()
