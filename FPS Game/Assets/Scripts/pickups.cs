@@ -5,8 +5,9 @@ public class pickups : MonoBehaviour
 {
     enum pickupType
     {
-        guns, money, objective, collectible
+        guns, money, objective, collectible, allies
     }
+
     [Header("Components")]
     [SerializeField] pickupType type;
 
@@ -19,9 +20,13 @@ public class pickups : MonoBehaviour
     [Header("For Collectibles")]
     [SerializeField] int collectibleID;
 
+    [Header("For Allies")]
+    [SerializeField] SurvivorStats survivorStats;
+    [SerializeField] GameObject ally;
+
     private void Start()
     {
-        if (type == pickupType.objective)
+    if (type == pickupType.objective)
         {
             levelManager.instance.updateRequiredItems();
             // I changed this to updateEnemies instead since that is the new function in gamemanager.
@@ -66,6 +71,16 @@ public class pickups : MonoBehaviour
         else if (pickupable != null && other.CompareTag("Player") && type == pickupType.collectible)
         {
             gamemanager.instance.updateCollectibles(collectibleID);
+            Destroy(gameObject);
+        }
+
+        else if (pickupable != null && other.CompareTag("Player") && type == pickupType.allies)
+        {
+            Instantiate(ally, transform.position, transform.rotation);
+
+            AllyAI allyAIScript = ally.GetComponent<AllyAI>();
+            allyAIScript.GetAllyStats(survivorStats);
+
             Destroy(gameObject);
         }
     }
