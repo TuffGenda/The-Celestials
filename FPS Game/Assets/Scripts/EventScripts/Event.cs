@@ -11,6 +11,7 @@ public class Event : MonoBehaviour
     }
 
     [SerializeField] objectWindow eventType;
+    [SerializeField] List<GameObject> objectsToShow;
     [SerializeField] List<GameObject> objectsToHide;
     [SerializeField] GameObject gameWindowToShow;
 
@@ -19,16 +20,26 @@ public class Event : MonoBehaviour
     {
         if (eventType == objectWindow.Object)
         {
-            foreach (GameObject item in objectsToHide)
+            foreach (GameObject item in objectsToShow)
             {
                 item.SetActive(false);
+            }
+
+            foreach (GameObject item in objectsToHide)
+            {
+                item?.SetActive(true);
             }
         }
         else if (eventType == objectWindow.both)
         {
-            foreach (GameObject item in objectsToHide)
+            foreach (GameObject item in objectsToShow)
             {
                 item.SetActive(false);
+            }
+
+            foreach (GameObject item in objectsToHide)
+            {
+                item?.SetActive(true);
             }
 
             gamemanager.instance.stateUnpause();
@@ -47,16 +58,26 @@ public class Event : MonoBehaviour
         {
             if (eventType == objectWindow.Object)
             {
-                foreach (GameObject item in objectsToHide)
+                foreach (GameObject item in objectsToShow)
                 {
                     item.SetActive(true);
+                }
+
+                foreach (GameObject item in objectsToHide)
+                {
+                    item.SetActive(false);
                 }
             }
             else if (eventType == objectWindow.both)
             {
-                foreach (GameObject item in objectsToHide)
+                foreach (GameObject item in objectsToShow)
                 {
                     item.SetActive(true);
+                }
+
+                foreach (GameObject item in objectsToHide)
+                {
+                    item.SetActive(false);
                 }
 
                 gamemanager.instance.statePause();
