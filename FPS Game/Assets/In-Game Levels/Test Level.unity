@@ -815,6 +815,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brass Knuckles
       objectReference: {fileID: 0}
+    - target: {fileID: 6229253424459763377, guid: 8ee7fc486eee4424994e0c3026c4410d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6229253424459763377, guid: 8ee7fc486eee4424994e0c3026c4410d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6229253424459763377, guid: 8ee7fc486eee4424994e0c3026c4410d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -30.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
