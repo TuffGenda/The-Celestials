@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
   m_Name: Club
   m_EditorClassIdentifier: 
-  model: {fileID: 6581581234476130077, guid: 0f97d09e36c1c0b4995fb4bae2df3194, type: 3}
+  model: {fileID: 6419924112847831862, guid: 0f97d09e36c1c0b4995fb4bae2df3194, type: 3}
   weaponIcon: {fileID: 0}
   weaponImage: {fileID: 0}
   shootSound: []
@@ -34,5 +34,5 @@ MonoBehaviour:
   missSound:
   - {fileID: 8300000, guid: bb02f0f71abb43549a5ba3299130b046, type: 3}
   hitSound:
-  - {fileID: 8300000, guid: 7383492dbca79e54cb32b2942beb50aa, type: 3}
+  - {fileID: 8300000, guid: 2d6d6aca76c0fe742b41aa5dede747e0, type: 3}
   windup: 1

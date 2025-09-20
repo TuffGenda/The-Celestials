@@ -184,6 +184,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1689373003103981907, guid: 0e31444177e81204ba3ce0e1ba435c92, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689373003103981907, guid: 0e31444177e81204ba3ce0e1ba435c92, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689373003103981907, guid: 0e31444177e81204ba3ce0e1ba435c92, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -28.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2710821811606245019, guid: 0e31444177e81204ba3ce0e1ba435c92, type: 3}
       propertyPath: m_Name
       value: Club
@@ -821,7 +833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6229253424459763377, guid: 8ee7fc486eee4424994e0c3026c4410d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.351
       objectReference: {fileID: 0}
     - target: {fileID: 6229253424459763377, guid: 8ee7fc486eee4424994e0c3026c4410d, type: 3}
       propertyPath: m_LocalPosition.z
