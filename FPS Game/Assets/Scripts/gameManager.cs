@@ -268,8 +268,8 @@ public class gamemanager : MonoBehaviour
         collectibles[0] = collectible1.activeSelf;
         collectibles[1] = collectible2.activeSelf;
         collectibles[2] = collectible3.activeSelf;
-        collectibles[3] = collectible2.activeSelf;
-        collectibles[4] = collectible2.activeSelf;
+        collectibles[3] = collectible4.activeSelf;
+        collectibles[4] = collectible5.activeSelf;
         return collectibles;
     }
 
