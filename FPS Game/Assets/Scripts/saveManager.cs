@@ -49,15 +49,6 @@ public class saveManager : MonoBehaviour
         if (File.Exists(saveFilePath))
         {
             File.Delete(saveFilePath);
-            
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            gamemanager.instance.stateUnpause();
-        }
-        else
-        {
-            
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            gamemanager.instance.stateUnpause();
         }
     }
 }

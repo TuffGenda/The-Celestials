@@ -43,6 +43,7 @@ public class buttonFunctions : MonoBehaviour
     {
         gamemanager.instance.menuClick.Play();
         saveManager.instance.DeleteSave();
+        loadLevel(0);
     }
 
     public void quit()
@@ -81,6 +82,8 @@ public class buttonFunctions : MonoBehaviour
     public void loadLevel(int lvl)
     {
         gamemanager.instance.menuClick.Play();
+        gameData data = gamemanager.instance.playerScript.givePlayerData();
+        saveManager.instance.SaveGame(data);
         StartCoroutine(actuallyLoadlevel(lvl));
         gamemanager.instance.playerScript.startTransition();
         gamemanager.instance.stateUnpauseWithScreen();
@@ -98,6 +101,7 @@ public class buttonFunctions : MonoBehaviour
     // This starts a new game starting at the first level. - Tuff Genda
     public void newGame()
     {
+        saveManager.instance.DeleteSave();
         loadLevel(1); // For now, it reloads to the test level, but change this to the tutorial when ready
 
     }
