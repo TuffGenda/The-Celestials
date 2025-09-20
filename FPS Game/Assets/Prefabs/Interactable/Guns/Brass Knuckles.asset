@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
   m_Name: Brass Knuckles
   m_EditorClassIdentifier: 
-  model: {fileID: 1174595555400285173, guid: e3b32f2d5e3eaa842a33206de08daa65, type: 3}
+  model: {fileID: 1129561259135086358, guid: e3b32f2d5e3eaa842a33206de08daa65, type: 3}
   weaponIcon: {fileID: 0}
   weaponImage: {fileID: 0}
   shootSound: []
@@ -34,5 +34,5 @@ MonoBehaviour:
   missSound:
   - {fileID: 8300000, guid: bb02f0f71abb43549a5ba3299130b046, type: 3}
   hitSound:
-  - {fileID: 8300000, guid: 7383492dbca79e54cb32b2942beb50aa, type: 3}
+  - {fileID: 8300000, guid: eb7e2a65c079cf94089d48cb2c1de3ea, type: 3}
   windup: 0.4
