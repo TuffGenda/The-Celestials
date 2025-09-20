@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a2c980141a084aa5c1e740c2f9c4c, type: 3}
   m_Name: Bat
   m_EditorClassIdentifier: 
-  model: {fileID: 1198963736830798419, guid: d8b9c23da8414c344a716d3f89bb90dc, type: 3}
+  model: {fileID: 3356260703565007237, guid: d7021bf52fa48c3439d3c96d5845e788, type: 3}
   weaponIcon: {fileID: 0}
   weaponImage: {fileID: 0}
   shootSound: []
