@@ -6,15 +6,15 @@ public class TurnToPlayer : IBossInterface
     {
         faceTarget(boss);
 
-        if (boss.shootTimer >= boss.shootRate && boss.canSeePlayer())
+        if (boss.shootTimer >= boss.shootRate && boss.playerInTrigger && !boss.death)
         {
             return boss.attack;
         }
-        else if (boss.canSeePlayer())
+        else if (boss.playerInTrigger && !boss.death)
         {
             return boss.moveToPlayer;
         }
-        else if (boss.agent.remainingDistance <= boss.agent.stoppingDistance)
+        else if (boss.agent.remainingDistance <= boss.agent.stoppingDistance && !boss.death)
         {
             return boss.turnToPlayer;
         }
