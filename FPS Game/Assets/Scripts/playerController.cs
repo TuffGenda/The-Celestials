@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 {
@@ -286,6 +287,10 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             transform.position = gamemanager.instance.playerSpawnPOS.transform.position;
         }
         controller.enabled = true;
+        gameData data = saveManager.instance.LoadGame();
+        if (data != null && SceneManager.GetActiveScene().buildIndex != 0) { 
+            loadPlayerData(data);
+        }
         updateHealthUI();
         updateStaminaUI();
     }
@@ -314,7 +319,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             return;
         }
         //We dont have more levels, So I can't really do the level stuff yet.
-        HP = data.health;
+        
         gunList = data.gunList;
         gunListPos = 0;
         currencyManager.instance.SetMoney(data.money);

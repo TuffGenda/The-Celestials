@@ -77,11 +77,14 @@ public class levelManager : MonoBehaviour
             levelComplete = false;
 
             // Load next scene or reset level
+            gameData data = gamemanager.instance.playerScript.givePlayerData();
+            saveManager.instance.SaveGame(data);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else if (currentLevel >= maxLevels)
         {
             // Game completed
+            
             gamemanager.instance.youWin();
         }
     }
