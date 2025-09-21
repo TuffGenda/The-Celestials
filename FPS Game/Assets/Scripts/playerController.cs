@@ -41,6 +41,8 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     [SerializeField] AudioSource gunStereo;
     [SerializeField] bool melee;
     [SerializeField] float windup;
+    [SerializeField] Transform raiseWindupPos;
+    [SerializeField] Transform lowerWindupPos;
     [Header("--- Ally ---")]
     [SerializeField] GameObject waypointObj;
     [SerializeField] GameObject ally;
@@ -52,6 +54,8 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     Vector3 moveDirection;
     Vector3 playerVelocity;
+    Vector3 shootPosOrig;
+    Quaternion shootRotOrig;
 
     float shootTimer;
     float exactStamina;
@@ -64,6 +68,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     int gunListPos;
     bool reloadUI = false;
     bool notWinding = true;
+    bool recovery = false;
 
     GameObject curGun;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -73,6 +78,8 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         HPOriginal = HP;
         exactStamina = stamina;
         staminaOriginal = stamina;
+        shootPosOrig = gunModelPos.localPosition;
+        shootRotOrig = gunModelPos.localRotation;
         melee = true; //Default to melee until a gun is picked up
         spawnPlayer();
     }
@@ -82,11 +89,12 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     {
         //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
 
-        if (controller.enabled) {
+        if (controller.enabled)
+        {
             movement();
             sprint();
         }
-        
+
         if (!isSprinting && stamina != -1 && stamina < staminaOriginal)
         {
             //If the player is not sprinting and has less stamina than original, gain stamina
@@ -118,9 +126,21 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         {
             Color c = gamemanager.instance.fadeScreen.GetComponent<Image>().color;
             c.a = Mathf.MoveTowards(c.a, 1, Time.deltaTime / gamemanager.instance.fadeSpeed);
-            
+
             gamemanager.instance.fadeScreen.GetComponent<Image>().color = c;
         }
+
+        if (notWinding && gunList.Count > 0 && melee)
+        {
+            gunModelPos.localPosition = Vector3.MoveTowards(gunModelPos.localPosition, lowerWindupPos.localPosition, Time.deltaTime * 10);
+            gunModelPos.localRotation = Quaternion.RotateTowards(gunModelPos.localRotation, lowerWindupPos.localRotation, Time.deltaTime * 400);
+        } 
+        else if (!notWinding)
+        {
+            gunModelPos.localPosition = Vector3.MoveTowards(gunModelPos.localPosition, raiseWindupPos.localPosition, Time.deltaTime / gunList[gunListPos].windup);
+            gunModelPos.localRotation = Quaternion.RotateTowards(gunModelPos.localRotation, raiseWindupPos.localRotation, Time.deltaTime * 400);
+        }
+        
 
     }
 
@@ -288,7 +308,8 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         }
         controller.enabled = true;
         gameData data = saveManager.instance.LoadGame();
-        if (data != null && SceneManager.GetActiveScene().buildIndex != 0) { 
+        if (data != null && SceneManager.GetActiveScene().buildIndex != 0)
+        {
             loadPlayerData(data);
         }
         updateHealthUI();
@@ -319,7 +340,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             return;
         }
         //We dont have more levels, So I can't really do the level stuff yet.
-        
+
         gunList = data.gunList;
         gunListPos = 0;
         currencyManager.instance.SetMoney(data.money);
@@ -437,7 +458,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     IEnumerator reloadDebounce()
     {
-        
+
 
         yield return new WaitForSeconds(reloadTime);
         gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
@@ -447,12 +468,13 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     }
     IEnumerator windupDebounce()
     {
-        
+
         notWinding = false;
         //Play windup animation/sound here
+
         yield return new WaitForSeconds(windup);
         notWinding = true;
-        
+
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
@@ -501,8 +523,16 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             reloadTime = gunList[gunListPos].reloadTime;
             melee = gunList[gunListPos].Melee;
             windup = gunList[gunListPos].windup;
-
-
+            if (melee)
+            {
+                gunModelPos.localPosition = lowerWindupPos.localPosition;
+                gunModelPos.localRotation = lowerWindupPos.localRotation;
+            }
+            else
+            {
+                gunModelPos.localPosition = shootPosOrig;
+                gunModelPos.localRotation = shootRotOrig;
+            }
             speed = speedOriginal * gunList[gunListPos].moveSpeed;
 
             updateAmmoUI();

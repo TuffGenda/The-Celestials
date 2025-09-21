@@ -12286,7 +12286,7 @@ MonoBehaviour:
   realDeleteButton: {fileID: 9044369496635472001}
   fakeDeleteButton: {fileID: 6248966550832659629}
   gameActionText: {fileID: 2303126272276709818}
-  fadeScreen: {fileID: 4059828808881552338}
+  fadeScreen: {fileID: 5560880291769931860}
   collectible1: {fileID: 8149470289060287728}
   collectible2: {fileID: 707613342815042387}
   collectible3: {fileID: 5345170169040719458}
@@ -17493,8 +17493,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e279617fce3bd4a4e870cec013efd298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadingScreen: {fileID: 5560880291769931860}
-  loadingBarFill: {fileID: 2531730638838466166}
 --- !u!1 &7145928825997044965
 GameObject:
   m_ObjectHideFlags: 0
