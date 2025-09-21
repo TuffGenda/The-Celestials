@@ -14,7 +14,8 @@ public class gamemanager : MonoBehaviour
 
     // Menu GameObjects for diffrent game states
     [SerializeField] GameObject menuPause;
-    [SerializeField] GameObject menuWin;
+    [SerializeField] GameObject menuWinBad;
+    [SerializeField] GameObject menuWinGood;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuSettings;
     // I added these so that I could define the buttons for the main menu and the change floors. - Tuff Genda
@@ -159,7 +160,11 @@ public class gamemanager : MonoBehaviour
                     {
                         EventSystem.current.SetSelectedGameObject(firstButtonLose);
                     }
-                    else if (menuActive == menuWin)
+                    else if (menuActive == menuWinBad)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonWin);
+                    }
+                    else if (menuActive == menuWinGood)
                     {
                         EventSystem.current.SetSelectedGameObject(firstButtonWin);
                     }
@@ -329,11 +334,19 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
-    public void youWin()
+    public void youWinBad()
     {
         statePause();
         EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonWin);
-        menuActive = menuWin;
+        menuActive = menuWinBad;
+        menuActive.SetActive(true);
+    }
+
+    public void youWinGood()
+    {
+        statePause();
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonWin);
+        menuActive = menuWinGood;
         menuActive.SetActive(true);
     }
 

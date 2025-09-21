@@ -28,10 +28,20 @@ public class pickups : MonoBehaviour
     private void Start()
     {
     if (type == pickupType.objective)
-        {
-            levelManager.instance.updateRequiredItems();
-            // I changed this to updateEnemies instead since that is the new function in gamemanager.
-            gamemanager.instance.updateItems(1);
+    {
+            if (levelManager.instance.GetCurrentLevel() < 7)
+            {
+                levelManager.instance.updateRequiredItems();
+                // I changed this to updateEnemies instead since that is the new function in gamemanager.
+                gamemanager.instance.updateItems(1);
+            }
+            else if (!levelManager.instance.atEnding)
+            {
+                levelManager.instance.updateRequiredItems();
+                // I changed this to updateEnemies instead since that is the new function in gamemanager.
+                gamemanager.instance.updateItems(1);
+                levelManager.instance.atEnding = true;
+            }
         }
     }
 

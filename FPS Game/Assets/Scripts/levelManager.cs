@@ -20,6 +20,9 @@ public class levelManager : MonoBehaviour
     // I added the requiredItemsPerLevel here for it's own thing.  - Tuff Genda
     private int requiredItemsPerLevel = 0; // Items needed for each level
 
+    public bool goodEnding;
+    public bool atEnding;
+
     // Initialize singleton pattern
     void Awake()
     {
@@ -27,6 +30,8 @@ public class levelManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+
+            goodEnding = false;
         }
         else
         {
@@ -66,6 +71,24 @@ public class levelManager : MonoBehaviour
         }
     }
 
+    public void CheckEnding()
+    {
+        int numCollects = 0;
+
+        foreach (bool collectible in gamemanager.instance.sendCollectibleData())
+        {
+            if (collectible)
+            {
+                ++numCollects;
+            }
+        }
+
+        if (numCollects >= 5)
+        {
+            goodEnding = true;
+        }
+    }
+
     // Progress to the next level or complete the game
     public void NextLevel()
     {
@@ -84,8 +107,14 @@ public class levelManager : MonoBehaviour
         else if (currentLevel >= maxLevels)
         {
             // Game completed
-            
-            gamemanager.instance.youWin();
+            if (goodEnding)
+            {
+                gamemanager.instance.youWinGood();
+            }
+            else
+            {
+                gamemanager.instance.youWinBad();
+            }
         }
     }
 
