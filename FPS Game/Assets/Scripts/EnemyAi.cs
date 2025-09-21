@@ -11,6 +11,8 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     [SerializeField] int HP;
     [SerializeField] int FOV;
 
+    [SerializeField] Animator anim;
+    [SerializeField] int animTransSpeed;
 
     [SerializeField] int roamDistance;
     [SerializeField] int roamPauseTime;
@@ -48,6 +50,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     // Update is called once per frame
     void Update()
     {
+        setAnimLoca();
         shootTimer += Time.deltaTime;
 
         if (agent.remainingDistance < 0.01f)
@@ -89,7 +92,13 @@ public class enemyAI : MonoBehaviour, IAllowDamage
             agent.SetDestination(hit.position);
         }
     }
+    void setAnimLoca()
+    {
+        float agentSpeedCur = agent.velocity.normalized.magnitude;
+        float animSpeedCur = anim.GetFloat("Speed");
 
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeedCur, agentSpeedCur, Time.deltaTime + animTransSpeed));
+    }
     bool canSeePlayer()
     {
         playerDirection = gamemanager.instance.player.transform.position - transform.position;
@@ -145,6 +154,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage
 
     void shoot()
     {
+        //anim.SetTrigger("Shoot");
         shootTimer = 0;
         Instantiate(bullet, shootPos.position, transform.rotation);
     }
