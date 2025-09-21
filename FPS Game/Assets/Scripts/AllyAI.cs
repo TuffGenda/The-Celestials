@@ -65,13 +65,6 @@ public class AllyAI : MonoBehaviour, IAllowPickup
         anim.SetFloat("Speed", Mathf.Lerp(animSpeedCurrent, agentSpeedCurrent, Time.deltaTime + animTransitionSpeed));
     }
 
-    public IEnumerator playAnimation(string name, int seconds)
-    {
-        anim.SetBool(name, true);
-        yield return new WaitForSeconds(seconds);
-        anim.SetBool(name, false);
-    }
-
     void FollowPlayer()
     {
         if (player != null)
@@ -113,8 +106,6 @@ public class AllyAI : MonoBehaviour, IAllowPickup
     void Shoot(Vector3 dir)
     {
         shootTimer = 0f;
-
-        StartCoroutine(playAnimation("Shoot", 1));
 
         Instantiate(bullet, shootPos.position, Quaternion.LookRotation(dir));
     }

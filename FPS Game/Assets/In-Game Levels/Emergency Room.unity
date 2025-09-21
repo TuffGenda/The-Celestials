@@ -11394,11 +11394,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5852620122464541711, guid: 3e401f2103251f0489a6d23756d9cd01, type: 3}
       propertyPath: maxLevels
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5852620122464541711, guid: 3e401f2103251f0489a6d23756d9cd01, type: 3}
       propertyPath: currentLevel
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6003147005763503213, guid: 3e401f2103251f0489a6d23756d9cd01, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

@@ -11,6 +11,14 @@ public class buttonFunctions : MonoBehaviour
         gamemanager.instance.menuClick.Play();
     }
 
+    public void Continue()
+    {
+        levelManager.instance.levelComplete = true;
+        gamemanager.instance.menuClick.Play();
+        gamemanager.instance.stateUnpause();
+        levelManager.instance.NextLevel();
+    }
+
     public void restart()
     {
         Invoke("actuallyRestart", 0.1f);

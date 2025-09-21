@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
+using System.Collections;
 
 public class gamemanager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuWinGood;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuSettings;
+    [SerializeField] GameObject menuLevelWin;
     // I added these so that I could define the buttons for the main menu and the change floors. - Tuff Genda
     [SerializeField] GameObject menuMain;
     [SerializeField] GameObject menuCredits;
@@ -212,6 +214,19 @@ public class gamemanager : MonoBehaviour
 
         // This happens when anything unpasues the game since anytime the title screen is up, it pauses the game. - Tuff Genda
         onTitle = false;
+    }
+
+    public void levelEnd()
+    {
+        if (levelManager.instance.levelComplete)
+        {
+            levelManager.instance.levelComplete = false;
+        }
+
+        menuActive = menuLevelWin;
+        statePause();
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonPause);
+        menuActive.SetActive(true);
     }
 
     // I split UpdateGameGoal into three separate functions for use with waveManager and LevelManager. That way we can keep items

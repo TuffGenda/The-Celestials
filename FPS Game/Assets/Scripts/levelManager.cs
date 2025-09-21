@@ -15,7 +15,8 @@ public class levelManager : MonoBehaviour
     [SerializeField] int itemsCollected; // Items collected in current level
 
     // Flag to check if current level objectives are complete
-    private bool levelComplete = false;
+    public bool levelComplete = false;
+    private bool readyForNextLevel = false;
 
     // I added the requiredItemsPerLevel here for it's own thing.  - Tuff Genda
     private int requiredItemsPerLevel = 0; // Items needed for each level
@@ -75,6 +76,8 @@ public class levelManager : MonoBehaviour
     {
         int numCollects = 0;
 
+        atEnding = true;
+
         foreach (bool collectible in gamemanager.instance.sendCollectibleData())
         {
             if (collectible)
@@ -92,17 +95,11 @@ public class levelManager : MonoBehaviour
     // Progress to the next level or complete the game
     public void NextLevel()
     {
-        if (levelComplete && currentLevel < maxLevels)
+        if (levelComplete && currentLevel < maxLevels && !atEnding && !readyForNextLevel)
         {
-            // Move to next level
-            currentLevel++;
-            itemsCollected = 0;
-            levelComplete = false;
+            gamemanager.instance.levelEnd();
 
-            // Load next scene or reset level
-            gameData data = gamemanager.instance.playerScript.givePlayerData();
-            saveManager.instance.SaveGame(data);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            readyForNextLevel = true;
         }
         else if (currentLevel >= maxLevels)
         {
@@ -116,6 +113,18 @@ public class levelManager : MonoBehaviour
                 gamemanager.instance.youWinBad();
             }
         }
+        else if (readyForNextLevel)
+        {
+            // Move to next level
+            currentLevel++;
+            itemsCollected = 0;
+            levelComplete = false;
+
+            // Load next scene or reset level
+            gameData data = gamemanager.instance.playerScript.givePlayerData();
+            saveManager.instance.SaveGame(data);
+            SceneManager.LoadScene(currentLevel);
+        }
     }
 
     // Update UI elements showing current progress
@@ -125,12 +134,6 @@ public class levelManager : MonoBehaviour
     public void updateRequiredItems()
     {
         ++requiredItemsPerLevel;
-    }
-
-    // Return whether current level is complete
-    public bool IsLevelComplete()
-    {
-        return levelComplete;
     }
 
     // Get current level number
