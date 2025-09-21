@@ -1572,11 +1572,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 126907176358475468, guid: ac19fecd62802744f9018eb96a5438d9, type: 3}
       propertyPath: maxLevels
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 126907176358475468, guid: ac19fecd62802744f9018eb96a5438d9, type: 3}
       propertyPath: currentLevel
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1131304492365989727, guid: ac19fecd62802744f9018eb96a5438d9, type: 3}
       propertyPath: m_Center.x
