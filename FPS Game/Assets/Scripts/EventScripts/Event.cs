@@ -1,13 +1,15 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.UIElements;
+using UnityEngine;
+using static UnityEditor.Progress;
 
 // Event script created by Tuff Genda.
 public class Event : MonoBehaviour
 {
     enum objectWindow
     {
-        Object, Window, both
+        Object, Window, Both, Cure
     }
 
     [SerializeField] objectWindow eventType;
@@ -30,7 +32,7 @@ public class Event : MonoBehaviour
                 item?.SetActive(true);
             }
         }
-        else if (eventType == objectWindow.both)
+        else if (eventType == objectWindow.Both)
         {
             foreach (GameObject item in objectsToShow)
             {
@@ -44,6 +46,18 @@ public class Event : MonoBehaviour
 
             gamemanager.instance.stateUnpause();
             gameWindowToShow.SetActive(false);
+        }
+        else if (eventType == objectWindow.Cure)
+        {
+            foreach (GameObject item in objectsToShow)
+            {
+                item.SetActive(false);
+            }
+
+            foreach (GameObject item in objectsToHide)
+            {
+                item?.SetActive(true);
+            }
         }
         else
         {
@@ -68,7 +82,7 @@ public class Event : MonoBehaviour
                     item.SetActive(false);
                 }
             }
-            else if (eventType == objectWindow.both)
+            else if (eventType == objectWindow.Both)
             {
                 foreach (GameObject item in objectsToShow)
                 {
@@ -83,6 +97,36 @@ public class Event : MonoBehaviour
                 gamemanager.instance.statePause();
                 gamemanager.instance.menuActive = gameWindowToShow;
                 gamemanager.instance.menuActive.SetActive(true);
+            }
+            else if (eventType == objectWindow.Cure)
+            {
+                levelManager.instance.CheckEnding();
+
+                if (levelManager.instance.goodEnding)
+                {
+                    foreach (var item in objectsToShow)
+                    {
+                        if (item.name == "REAL Cure" || item.name == "Cure Created")
+                        {
+                            item.SetActive(true);
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var item in objectsToShow)
+                    {
+                        if (item.name == "Cure" || item.name == "Cure Created")
+                        {
+                            item.SetActive(true);
+                        }
+                    }
+                }
+
+                foreach (GameObject item in objectsToHide)
+                {
+                    item.SetActive(false);
+                }
             }
             else
             {
