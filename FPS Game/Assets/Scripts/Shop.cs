@@ -13,7 +13,7 @@ public class Shop : MonoBehaviour
             shopManager = Object.FindFirstObjectByType<shopManager>();
             if (shopManager == null)
             {
-                Debug.LogWarning("ShopManager not found in scene. Assign it in the Inspector.");
+                //Debug.LogWarning("ShopManager not found in scene. Assign it in the Inspector.");
             }
         }
     }

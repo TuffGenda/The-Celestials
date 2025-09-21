@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/In-Game Levels/Main Menu.unity
     guid: d754752d3d9bb3b47bcf63f0e91f8dfd
   - enabled: 1
-    path: Assets/In-Game Levels/Test Level.unity
-    guid: e0bfc9cbcb5b49c4d8e7fd4f0f01894a
-  - enabled: 1
     path: Assets/In-Game Levels/Tutorial.unity
     guid: 6475db6c81009254a859a546555b8eda
   - enabled: 1

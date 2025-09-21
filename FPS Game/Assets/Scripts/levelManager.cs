@@ -15,10 +15,14 @@ public class levelManager : MonoBehaviour
     [SerializeField] int itemsCollected; // Items collected in current level
 
     // Flag to check if current level objectives are complete
-    private bool levelComplete = false;
+    public bool levelComplete = false;
+    private bool readyForNextLevel = false;
 
     // I added the requiredItemsPerLevel here for it's own thing.  - Tuff Genda
     private int requiredItemsPerLevel = 0; // Items needed for each level
+
+    public bool goodEnding;
+    public bool atEnding;
 
     // Initialize singleton pattern
     void Awake()
@@ -27,6 +31,8 @@ public class levelManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+
+            goodEnding = false;
         }
         else
         {
@@ -36,10 +42,6 @@ public class levelManager : MonoBehaviour
     }
 
     // Initialize level progress on start
-    void Start()
-    {
-        UpdateLevelUI();
-    }
 
     // Check level completion every frame
     void Update()
@@ -51,7 +53,6 @@ public class levelManager : MonoBehaviour
     public void CollectItem()
     {
         itemsCollected++;
-        UpdateLevelUI();
         CheckLevelCompletion();
     }
 
@@ -71,10 +72,48 @@ public class levelManager : MonoBehaviour
         }
     }
 
+    public void CheckEnding()
+    {
+        int numCollects = 0;
+
+        atEnding = true;
+
+        foreach (bool collectible in gamemanager.instance.sendCollectibleData())
+        {
+            if (collectible)
+            {
+                ++numCollects;
+            }
+        }
+
+        if (numCollects >= 5)
+        {
+            goodEnding = true;
+        }
+    }
+
     // Progress to the next level or complete the game
     public void NextLevel()
     {
-        if (levelComplete && currentLevel < maxLevels)
+        if (levelComplete && currentLevel < maxLevels && !atEnding && !readyForNextLevel)
+        {
+            gamemanager.instance.levelEnd();
+
+            readyForNextLevel = true;
+        }
+        else if (currentLevel >= maxLevels)
+        {
+            // Game completed
+            if (goodEnding)
+            {
+                gamemanager.instance.youWinGood();
+            }
+            else
+            {
+                gamemanager.instance.youWinBad();
+            }
+        }
+        else if (readyForNextLevel)
         {
             // Move to next level
             currentLevel++;
@@ -82,33 +121,19 @@ public class levelManager : MonoBehaviour
             levelComplete = false;
 
             // Load next scene or reset level
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
-        else if (currentLevel >= maxLevels)
-        {
-            // Game completed
-            Debug.Log("All levels completed!");
-            gamemanager.instance.youWin();
+            gameData data = gamemanager.instance.playerScript.givePlayerData();
+            saveManager.instance.SaveGame(data);
+            SceneManager.LoadScene(currentLevel);
         }
     }
 
     // Update UI elements showing current progress
-    void UpdateLevelUI()
-    {
-        // Update UI elements showing progress
-        Debug.Log($"Level {currentLevel}: Items {itemsCollected}");
-    }
+    
 
     // I added this function to update the required items automatically. - Tuff Genda
     public void updateRequiredItems()
     {
         ++requiredItemsPerLevel;
-    }
-
-    // Return whether current level is complete
-    public bool IsLevelComplete()
-    {
-        return levelComplete;
     }
 
     // Get current level number

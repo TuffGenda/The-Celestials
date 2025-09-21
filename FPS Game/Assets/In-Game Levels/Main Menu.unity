@@ -400,8 +400,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 0
-  maxLevels: 4
+  maxLevels: 7
   itemsCollected: 0
+  levelComplete: 0
+  goodEnding: 0
+  atEnding: 0
 --- !u!4 &1486657069
 Transform:
   m_ObjectHideFlags: 0

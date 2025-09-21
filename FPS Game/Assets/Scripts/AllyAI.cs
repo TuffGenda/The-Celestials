@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
-public class AllyAI : MonoBehaviour
+public class AllyAI : MonoBehaviour, IAllowPickup
 {
-    [SerializeField] Renderer model;
+    [SerializeField] Animator anim;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] int faceTargetSpeed;
     [SerializeField] int HP;
@@ -19,9 +20,9 @@ public class AllyAI : MonoBehaviour
     Color colorOriginal;
 
     float shootTimer;
+    int animTransitionSpeed;
 
-    int health;
-    int damage;
+    // I removed these ints in favor of using the serialized field ones. - Tuff Genda.
 
     enum AllyState { Follow, Hold }
     AllyState currentState = AllyState.Follow;
@@ -32,13 +33,14 @@ public class AllyAI : MonoBehaviour
 
     void Start()
     {
-        colorOriginal = model.material.color;
         player = gamemanager.instance.player.transform;
 
     }
 
     void Update()
     {
+        SetAnimLoco();
+
         shootTimer += Time.deltaTime;
 
         switch (currentState)
@@ -53,6 +55,14 @@ public class AllyAI : MonoBehaviour
         }
 
         LookForEnemies();
+    }
+
+    void SetAnimLoco()
+    {
+        float agentSpeedCurrent = agent.velocity.normalized.magnitude;
+        float animSpeedCurrent = anim.GetFloat("Speed");
+
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeedCurrent, agentSpeedCurrent, Time.deltaTime + animTransitionSpeed));
     }
 
     void FollowPlayer()
@@ -96,6 +106,7 @@ public class AllyAI : MonoBehaviour
     void Shoot(Vector3 dir)
     {
         shootTimer = 0f;
+
         Instantiate(bullet, shootPos.position, Quaternion.LookRotation(dir));
     }
 
@@ -116,7 +127,6 @@ public class AllyAI : MonoBehaviour
         if (HP > 0)
         {
             HP -= amount;
-            StartCoroutine(FlashRed());
         }
 
         if (HP <= 0)
@@ -125,19 +135,20 @@ public class AllyAI : MonoBehaviour
         }
     }
 
-    System.Collections.IEnumerator FlashRed()
+    public void GetGunStats(gunStats gun)
     {
-        model.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        model.material.color = colorOriginal;
     }
 
-    public void AllyStats(int newHealth, int newDamage)
+    public void GetAllyStats(SurvivorStats survivorStats)
     {
-        health = newHealth;
-        damage = newDamage;
+        HP = survivorStats.HP;
+        FOV = survivorStats.FOV;
+        faceTargetSpeed = survivorStats.FaceTargetSpeed;
+        shootRate = survivorStats.ShootRate;
+        detectionRadius = survivorStats.DetectionRadius;
+        bullet = survivorStats.Bullet;
+        agent.speed = survivorStats.Speed;
+        agent.acceleration = survivorStats.Acceleration;
     }
-
-
 }
 

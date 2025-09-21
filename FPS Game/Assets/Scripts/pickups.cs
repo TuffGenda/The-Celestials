@@ -5,10 +5,12 @@ public class pickups : MonoBehaviour
 {
     enum pickupType
     {
-        guns, money, objective
+        guns, money, objective, collectible, allies
     }
+
     [Header("Components")]
     [SerializeField] pickupType type;
+    [SerializeField] AudioClip pickupSound;
 
     [Header("For Guns")]
     [SerializeField] gunStats gun;
@@ -16,13 +18,30 @@ public class pickups : MonoBehaviour
     [Header("For Money")]
     [SerializeField] int moneyAmount = 10;
 
+    [Header("For Collectibles")]
+    [SerializeField] int collectibleID;
+
+    [Header("For Allies")]
+    [SerializeField] SurvivorStats survivorStats;
+    [SerializeField] GameObject ally;
+
     private void Start()
     {
-        if (type == pickupType.objective)
-        {
-            levelManager.instance.updateRequiredItems();
-            // I changed this to updateEnemies instead since that is the new function in gamemanager.
-            gamemanager.instance.updateItems(1);
+    if (type == pickupType.objective)
+    {
+            if (levelManager.instance.GetCurrentLevel() < 7)
+            {
+                levelManager.instance.updateRequiredItems();
+                // I changed this to updateEnemies instead since that is the new function in gamemanager.
+                gamemanager.instance.updateItems(1);
+            }
+            else if (!levelManager.instance.atEnding)
+            {
+                levelManager.instance.updateRequiredItems();
+                // I changed this to updateEnemies instead since that is the new function in gamemanager.
+                gamemanager.instance.updateItems(1);
+                levelManager.instance.atEnding = true;
+            }
         }
     }
 
@@ -48,6 +67,8 @@ public class pickups : MonoBehaviour
             }
 
             Destroy(gameObject);
+            if (pickupSound != null)
+                gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(pickupSound);
         }
 
         else if (pickupable != null && other.CompareTag("Player") && type == pickupType.objective)
@@ -58,6 +79,28 @@ public class pickups : MonoBehaviour
             gamemanager.instance.updateItems(-1);
 
             Destroy(gameObject);
+            if (pickupSound != null)
+                gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(pickupSound);
+        }
+
+        else if (pickupable != null && other.CompareTag("Player") && type == pickupType.collectible)
+        {
+            gamemanager.instance.updateCollectibles(collectibleID);
+            Destroy(gameObject);
+            if (pickupSound != null)
+                gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(pickupSound);
+        }
+
+        else if (pickupable != null && other.CompareTag("Player") && type == pickupType.allies)
+        {
+            Instantiate(ally, transform.position, transform.rotation);
+
+            AllyAI allyAIScript = ally.GetComponent<AllyAI>();
+            allyAIScript.GetAllyStats(survivorStats);
+
+            Destroy(gameObject);
+            if (pickupSound != null)
+                gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(pickupSound);
         }
     }
 }

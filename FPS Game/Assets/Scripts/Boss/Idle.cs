@@ -8,15 +8,15 @@ public class Idle : IBossInterface
     {
         standStill(boss);
 
-        if (boss.shootTimer >= boss.shootRate)
+        if (boss.shootTimer >= boss.shootRate && boss.playerInTrigger && !boss.death)
         {
             return boss.attack;
         }
-        else if (boss.agent.remainingDistance <= boss.agent.stoppingDistance)
+        else if (boss.agent.remainingDistance <= boss.agent.stoppingDistance && !boss.death)
         {
             return boss.turnToPlayer;
         }
-        else if (boss.canSeePlayer())
+        else if (boss.playerInTrigger && !boss.death)
         {
             return boss.moveToPlayer;
         }
@@ -28,6 +28,6 @@ public class Idle : IBossInterface
 
     private void standStill(BossNPC boss)
     {
-        boss.agent.SetDestination(boss.transform.position);
+        //boss.agent.SetDestination(boss.transform.position);
     }
 }

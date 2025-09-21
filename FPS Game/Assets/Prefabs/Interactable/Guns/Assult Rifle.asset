@@ -19,7 +19,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2203773368e4340d98c114f55c2dd7fd, type: 3}
   shootVol: 1
   weaponType: 1
-  shootDamage: 37
+  shootDamage: 5
   shootDist: 209
   shootRate: 0.1
   critChance: 50

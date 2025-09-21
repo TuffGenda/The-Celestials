@@ -4757,7 +4757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 1
-  maxLevels: 3
+  maxLevels: 7
   itemsCollected: 0
 --- !u!1 &7563139150157228669
 GameObject:

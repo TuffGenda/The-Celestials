@@ -11,11 +11,24 @@ public class buttonFunctions : MonoBehaviour
         gamemanager.instance.menuClick.Play();
     }
 
+    public void Continue()
+    {
+        levelManager.instance.levelComplete = true;
+        gamemanager.instance.menuClick.Play();
+        gamemanager.instance.stateUnpause();
+        levelManager.instance.NextLevel();
+    }
+
     public void restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Invoke("actuallyRestart", 0.1f);
+        gamemanager.instance.playerScript.startTransition();
         gamemanager.instance.stateUnpause();
         gamemanager.instance.menuClick.Play();
+    }
+
+    public void actuallyRestart() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void saveButton()
@@ -29,21 +42,23 @@ public class buttonFunctions : MonoBehaviour
     {
         gameData data = saveManager.instance.LoadGame();
         gamemanager.instance.playerScript.loadPlayerData(data);
-        //SceneManager.LoadScene(data.playerLevel); If the levels are numbered with the level manager, this should work
-        gamemanager.instance.stateUnpause();
-        gamemanager.instance.menuClick.Play();
+        gamemanager.instance.readCollectibleData(data.collectibles);
+
+        loadLevel(data.level);
     }
 
     public void deleteSave()
     {
         gamemanager.instance.menuClick.Play();
         saveManager.instance.DeleteSave();
+        loadLevel(0);
     }
 
     public void quit()
     {
         gamemanager.instance.menuClick.Play();
         Time.timeScale = gamemanager.instance.timeScaleOrig;
+        gamemanager.instance.playerScript.startTransition();
         Invoke("actuallyQuit", 0.1f);
         
     }
@@ -58,18 +73,28 @@ public class buttonFunctions : MonoBehaviour
 #endif
     }
 
+    IEnumerator actuallyLoadlevel(int lvl)
+    {
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadScene(lvl);
+    }
+
     public void respawnPlayer()
     {
         gamemanager.instance.playerScript.spawnPlayer();
         gamemanager.instance.stateUnpause();
         gamemanager.instance.menuClick.Play();
+        
     }
 
     public void loadLevel(int lvl)
     {
         gamemanager.instance.menuClick.Play();
-        SceneManager.LoadScene(lvl);
-        gamemanager.instance.stateUnpause();
+        gameData data = gamemanager.instance.playerScript.givePlayerData();
+        saveManager.instance.SaveGame(data);
+        StartCoroutine(actuallyLoadlevel(lvl));
+        gamemanager.instance.playerScript.startTransition();
+        gamemanager.instance.stateUnpauseWithScreen();
     }
 
     public void openSettings()
@@ -84,8 +109,9 @@ public class buttonFunctions : MonoBehaviour
     // This starts a new game starting at the first level. - Tuff Genda
     public void newGame()
     {
-        Debug.Log("New Game!");
-        loadLevel(2); // For now, it reloads to the test level, but change this to the tutorial when ready
+        saveManager.instance.DeleteSave();
+        loadLevel(1); // For now, it reloads to the test level, but change this to the tutorial when ready
+
     }
 
     public void revealRealDelete()

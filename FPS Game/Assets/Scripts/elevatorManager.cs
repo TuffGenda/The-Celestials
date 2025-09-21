@@ -12,6 +12,7 @@ public class elevatorManager : MonoBehaviour
     [SerializeField] Transform destination;
     [SerializeField] GameObject doorControls;
     [SerializeField] GameObject floor;
+    
 
     elevatorDoorControls controls;
     parentObjects parentScript;
