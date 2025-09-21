@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class AllyAI : MonoBehaviour, IAllowPickup
 {
-    [SerializeField] Renderer model;
+    [SerializeField] Animator anim;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] int faceTargetSpeed;
     [SerializeField] int HP;
@@ -19,6 +20,7 @@ public class AllyAI : MonoBehaviour, IAllowPickup
     Color colorOriginal;
 
     float shootTimer;
+    int animTransitionSpeed;
 
     // I removed these ints in favor of using the serialized field ones. - Tuff Genda.
 
@@ -31,13 +33,14 @@ public class AllyAI : MonoBehaviour, IAllowPickup
 
     void Start()
     {
-        colorOriginal = model.material.color;
         player = gamemanager.instance.player.transform;
 
     }
 
     void Update()
     {
+        SetAnimLoco();
+
         shootTimer += Time.deltaTime;
 
         switch (currentState)
@@ -52,6 +55,21 @@ public class AllyAI : MonoBehaviour, IAllowPickup
         }
 
         LookForEnemies();
+    }
+
+    void SetAnimLoco()
+    {
+        float agentSpeedCurrent = agent.velocity.normalized.magnitude;
+        float animSpeedCurrent = anim.GetFloat("Speed");
+
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeedCurrent, agentSpeedCurrent, Time.deltaTime + animTransitionSpeed));
+    }
+
+    public IEnumerator playAnimation(string name, int seconds)
+    {
+        anim.SetBool(name, true);
+        yield return new WaitForSeconds(seconds);
+        anim.SetBool(name, false);
     }
 
     void FollowPlayer()
@@ -95,6 +113,9 @@ public class AllyAI : MonoBehaviour, IAllowPickup
     void Shoot(Vector3 dir)
     {
         shootTimer = 0f;
+
+        StartCoroutine(playAnimation("Shoot", 1));
+
         Instantiate(bullet, shootPos.position, Quaternion.LookRotation(dir));
     }
 
@@ -115,20 +136,12 @@ public class AllyAI : MonoBehaviour, IAllowPickup
         if (HP > 0)
         {
             HP -= amount;
-            StartCoroutine(FlashRed());
         }
 
         if (HP <= 0)
         {
             Destroy(gameObject);
         }
-    }
-
-    System.Collections.IEnumerator FlashRed()
-    {
-        model.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        model.material.color = colorOriginal;
     }
 
     public void GetGunStats(gunStats gun)

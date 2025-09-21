@@ -7,6 +7,7 @@ public class BossNPC : MonoBehaviour, IAllowDamage
 {
     [SerializeField] public NavMeshAgent agent;
     [SerializeField] public Animator anim;
+    [SerializeField] AudioClip hurtSound;
 
     [SerializeField] public int faceTargetSpeed;
     [SerializeField] int HP;
@@ -84,8 +85,6 @@ public class BossNPC : MonoBehaviour, IAllowDamage
             playerDirection = gamemanager.instance.player.transform.position - headPos.position;
             angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
 
-            Debug.DrawRay(transform.position, playerDirection, Color.red);
-
             RaycastHit hit;
             if (Physics.Raycast(headPos.position, playerDirection, out hit))
             {
@@ -110,6 +109,8 @@ public class BossNPC : MonoBehaviour, IAllowDamage
     {
         if (HP > 0)
         {
+            gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(hurtSound);
+
             HP -= amount;
 
             StartCoroutine(playAnimation("Damaged", 2));

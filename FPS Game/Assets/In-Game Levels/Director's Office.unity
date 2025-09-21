@@ -1230,8 +1230,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2495328399462311471, guid: 38114c8d09186ab4383a18f0af1278df, type: 3}
       propertyPath: HP
-      value: 1
+      value: 999
       objectReference: {fileID: 0}
+    - target: {fileID: 2495328399462311471, guid: 38114c8d09186ab4383a18f0af1278df, type: 3}
+      propertyPath: hurtSound
+      value: 
+      objectReference: {fileID: 8300000, guid: bffacb6881dcc024a98f017ab7d1ea66, type: 3}
     - target: {fileID: 6431677878281338035, guid: 38114c8d09186ab4383a18f0af1278df, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.01874566
