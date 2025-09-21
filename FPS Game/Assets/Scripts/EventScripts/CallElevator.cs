@@ -4,6 +4,7 @@ public class CallElevator : MonoBehaviour
 {
     [SerializeField] GameObject elevator;
     [SerializeField] GameObject elevatorWall;
+    
 
     elevatorManager elevatorScript;
 

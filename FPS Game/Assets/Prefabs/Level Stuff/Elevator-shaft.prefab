@@ -52,6 +52,7 @@ MonoBehaviour:
   doorR: {fileID: 7959499491084686417}
   destinationL: {fileID: 5512262636756338587}
   destinationR: {fileID: 3641595568843129180}
+  openSound: {fileID: 8300000, guid: 738036d610854954db7a633b3fc91550, type: 3}
   posSet: 0
   doorsOpen: 0
   doorsClosed: 0

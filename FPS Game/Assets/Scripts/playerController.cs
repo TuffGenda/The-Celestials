@@ -75,7 +75,6 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     int gunListPos;
     bool reloadUI = false;
     bool notWinding = true;
-    bool recovery = false;
     float stepTimer;
     float stepRateOrig;
 
