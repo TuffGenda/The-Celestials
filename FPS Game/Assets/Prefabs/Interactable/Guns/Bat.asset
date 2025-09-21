@@ -18,7 +18,7 @@ MonoBehaviour:
   shootSound: []
   shootVol: 1
   weaponType: 1
-  shootDamage: 5
+  shootDamage: 15
   shootDist: 4
   shootRate: 1.2
   critChance: 8.9
@@ -35,4 +35,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bb02f0f71abb43549a5ba3299130b046, type: 3}
   hitSound:
   - {fileID: 8300000, guid: 7383492dbca79e54cb32b2942beb50aa, type: 3}
-  windup: 1
+  windup: 0.5

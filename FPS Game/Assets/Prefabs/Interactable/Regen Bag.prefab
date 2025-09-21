@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   rb: {fileID: 0}
-  healingAmount: 20
+  healingAmount: 5
   cooldown: 1
   healingRate: 0.5
   uses: 0

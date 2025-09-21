@@ -48,6 +48,13 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     [SerializeField] GameObject ally;
     [Header("--- Sound ---")]
     [SerializeField] public AudioSource plrSoundSource;
+    [SerializeField] AudioClip footstepSound;
+    [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip landSound;
+    [SerializeField] AudioClip painSound;
+    [SerializeField] AudioClip meleeSound;
+    [SerializeField] AudioClip gunPickupSound;
+    [SerializeField] float stepRate;
 
 
 
@@ -69,12 +76,15 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     bool reloadUI = false;
     bool notWinding = true;
     bool recovery = false;
+    float stepTimer;
+    float stepRateOrig;
 
     GameObject curGun;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         speedOriginal = speed;
+        stepRateOrig = stepRate;
         HPOriginal = HP;
         exactStamina = stamina;
         staminaOriginal = stamina;
@@ -135,7 +145,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             gunModelPos.localPosition = Vector3.MoveTowards(gunModelPos.localPosition, lowerWindupPos.localPosition, Time.deltaTime * 10);
             gunModelPos.localRotation = Quaternion.RotateTowards(gunModelPos.localRotation, lowerWindupPos.localRotation, Time.deltaTime * 400);
         } 
-        else if (!notWinding)
+        else if (!notWinding && gunList.Count > 0 && melee)
         {
             gunModelPos.localPosition = Vector3.MoveTowards(gunModelPos.localPosition, raiseWindupPos.localPosition, Time.deltaTime / gunList[gunListPos].windup);
             gunModelPos.localRotation = Quaternion.RotateTowards(gunModelPos.localRotation, raiseWindupPos.localRotation, Time.deltaTime * 400);
@@ -147,6 +157,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     void movement()
     {
         shootTimer += Time.deltaTime;
+        stepTimer += Time.deltaTime;
         if (controller.isGrounded)
         {
             jumpcount = 0;
@@ -164,6 +175,11 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         if (Input.GetButton("Fire1") && (melee || (gunList.Count > 0 && gunList[gunListPos].ammoCur > 0)) && shootTimer >= shootRate)
         {
             shoot();
+        }
+        if (controller.isGrounded && moveDirection != Vector3.zero && stepTimer >= stepRate && (settingsManager.instance.GetAxis("Horizontal") != 0 || settingsManager.instance.GetAxis("Vertical") != 0))
+        {
+            stepTimer = 0;
+            plrSoundSource.PlayOneShot(footstepSound);
         }
         if (Input.GetButtonDown("Zoom"))
         {
@@ -183,6 +199,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         if (settingsManager.instance.GetKeyDown("Jump") && jumpcount < jumpMax)
         {
             jumpcount++;
+            plrSoundSource.PlayOneShot(jumpSound);
             playerVelocity.y = jumpSpeed;
         }
     }
@@ -192,6 +209,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         {
             if (stamina >= minStamina || stamina == -1)
             {
+                stepRate /= sprintMod;
                 speed *= sprintMod;
                 isSprinting = true;
             }
@@ -199,6 +217,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         else if (settingsManager.instance.GetKeyUp("Sprint"))
         {
             speed = speedOriginal; //Changed the division here into a variable to decrease room for bugs!
+            stepRate = stepRateOrig;
             if (gunList.Count > 0)
             {
                 speed = speedOriginal * gunList[gunListPos].moveSpeed;
@@ -208,6 +227,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         if (stamina == 0)
         {
             speed = speedOriginal; //Changed the division here into a variable to decrease room for bugs!
+            stepRate = stepRateOrig;
             if (gunList.Count > 0)
             {
                 speed = speedOriginal * gunList[gunListPos].moveSpeed;
@@ -323,6 +343,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             HP -= amount;
             updateHealthUI();
             StartCoroutine(flashDamageScreen());
+            plrSoundSource.PlayOneShot(painSound);
             if (HP <= 0)
             {
                 if (gamemanager.instance != null)
@@ -474,12 +495,14 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
         yield return new WaitForSeconds(windup);
         notWinding = true;
+        plrSoundSource.PlayOneShot(meleeSound, 0.2f);
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
             //Play Windup for melee
             //Play punch animation/sound here
+            
 
             IAllowDamage dmg = hit.collider.GetComponent<IAllowDamage>();
             if (gunList.Count > 0)
@@ -508,6 +531,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         gunList.Add(gun);
         gunListPos = gunList.Count - 1;
         gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+        plrSoundSource.PlayOneShot(gunPickupSound);
         changeGun();
 
     }

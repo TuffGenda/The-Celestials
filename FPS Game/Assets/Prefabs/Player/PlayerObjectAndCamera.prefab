@@ -344,7 +344,7 @@ MonoBehaviour:
   speed: 5
   sprintMod: 2
   jumpSpeed: 12
-  jumpMax: 2
+  jumpMax: 1
   gravity: 35
   stamina: 20
   minStamina: 5
@@ -366,6 +366,13 @@ MonoBehaviour:
   waypointObj: {fileID: 2221406230315996219, guid: c546119d63bb8ef49a49156e3707292d, type: 3}
   ally: {fileID: 0}
   plrSoundSource: {fileID: 7176175282108446652}
+  footstepSound: {fileID: 8300000, guid: 4e31294721eaf9f4f8d9914312c965af, type: 3}
+  jumpSound: {fileID: 8300000, guid: 36aa0a3d69a3d6847981974e2a70b788, type: 3}
+  landSound: {fileID: 8300000, guid: d1e24224e00024945ac6dbc0e70dfb33, type: 3}
+  painSound: {fileID: 8300000, guid: c3f6c682ddb4c1d4c94e70ce1151a2e4, type: 3}
+  meleeSound: {fileID: 8300000, guid: d0d27680121818a4a9c500cd046388d1, type: 3}
+  gunPickupSound: {fileID: 8300000, guid: b4df581a1295b6647b5d1f3bb27d6e9c, type: 3}
+  stepRate: 0.6
 --- !u!33 &4428267519878785780
 MeshFilter:
   m_ObjectHideFlags: 0
