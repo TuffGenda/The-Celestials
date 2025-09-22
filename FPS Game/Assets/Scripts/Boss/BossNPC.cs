@@ -1,18 +1,23 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 public class BossNPC : MonoBehaviour, IAllowDamage
 {
-    [SerializeField] Renderer model;
     [SerializeField] public NavMeshAgent agent;
+    [SerializeField] public Animator anim;
+    [SerializeField] AudioClip hurtSound;
+
     [SerializeField] public int faceTargetSpeed;
     [SerializeField] int HP;
     [SerializeField] int FOV;
+    [SerializeField] public int animTransitionSpeed;
 
     [SerializeField] GameObject bullet;
     [SerializeField] public float shootRate;
     [SerializeField] Transform shootPos;
+    [SerializeField] Transform headPos;
 
     // --- Drop Loot Variables ---
     [Header("--- Drop Loot ---")]
@@ -27,6 +32,7 @@ public class BossNPC : MonoBehaviour, IAllowDamage
     public float angleToPlayer;
     public float stoppingDistanceOriginal;
     public bool playerInTrigger;
+    public bool death;
     public Vector3 playerDirection;
 
     private string currentStateName;
@@ -36,7 +42,7 @@ public class BossNPC : MonoBehaviour, IAllowDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        colorOriginal = model.material.color;
+        death = false;
         stoppingDistanceOriginal = agent.stoppingDistance;
         playerInTrigger = false;
         currentState = idle;
@@ -45,6 +51,8 @@ public class BossNPC : MonoBehaviour, IAllowDamage
     // Update is called once per frame
     void Update()
     {
+        SetAnimLoco();
+
         shootTimer += Time.deltaTime;
         playerDirection = gamemanager.instance.player.transform.position - transform.position;
 
@@ -74,10 +82,11 @@ public class BossNPC : MonoBehaviour, IAllowDamage
     {
         if (playerInTrigger)
         {
+            playerDirection = gamemanager.instance.player.transform.position - headPos.position;
             angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, playerDirection, out hit))
+            if (Physics.Raycast(headPos.position, playerDirection, out hit))
             {
                 if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
                 {
@@ -95,13 +104,16 @@ public class BossNPC : MonoBehaviour, IAllowDamage
     {
         Instantiate(bullet, shootPos.position, transform.rotation);
     }
-
+    
     public void TakeDamage(int amount)
     {
         if (HP > 0)
         {
+            gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(hurtSound);
+
             HP -= amount;
-            StartCoroutine(flashRed());
+
+            StartCoroutine(playAnimation("Damaged", 2));
 
             agent.SetDestination(gamemanager.instance.player.transform.position);
         }
@@ -109,7 +121,10 @@ public class BossNPC : MonoBehaviour, IAllowDamage
         if (HP <= 0)
         {
             dropLoot(); // Call the dropLoot function on death
-            Destroy(gameObject);
+
+            anim.SetBool("Death", true);
+
+            StartCoroutine(DelayDeath());
         }
     }
 
@@ -118,10 +133,38 @@ public class BossNPC : MonoBehaviour, IAllowDamage
 
     }
 
-    /// <summary>
-    /// Handles the dropping of loot when the enemy is defeated.
-    /// </summary>
-    void dropLoot()
+    void SetAnimLoco()
+    {
+        float agentSpeedCurrent = agent.velocity.normalized.magnitude;
+        float animSpeedCurrent = anim.GetFloat("Speed");
+
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeedCurrent, agentSpeedCurrent, Time.deltaTime + animTransitionSpeed));
+    }
+
+    public IEnumerator playAnimation(string name, int seconds)
+    {
+        anim.SetBool(name, true);
+        yield return new WaitForSeconds(seconds);
+        anim.SetBool(name, false);
+    }
+
+    IEnumerator DelayDeath()
+    {
+        death = true;
+        agent.speed = 0;
+        agent.acceleration = 0;
+        faceTargetSpeed = 0;
+        FOV = 0;
+        agent.stoppingDistance = 99999;
+        agent.angularSpeed = 0;
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
+    }
+
+/// <summary>
+/// Handles the dropping of loot when the enemy is defeated.
+/// </summary>
+void dropLoot()
     {
         // Check if a random number is less than or equal to the drop chance
         if (Random.Range(0, 101) <= lootDropChance)
@@ -137,12 +180,5 @@ public class BossNPC : MonoBehaviour, IAllowDamage
                 Instantiate(itemToDrop, transform.position, Quaternion.identity);
             }
         }
-    }
-
-    IEnumerator flashRed()
-    {
-        model.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        model.material.color = colorOriginal;
     }
 }

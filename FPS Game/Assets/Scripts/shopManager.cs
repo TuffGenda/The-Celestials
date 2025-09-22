@@ -252,11 +252,11 @@ public class shopManager : MonoBehaviour
             {
                 
                 playerPickupInterface.GetGunStats(selectedWeapon);
-                Debug.Log("Purchased and equipped: " + GetWeaponDisplayName(selectedWeapon));
+                //Debug.Log("Purchased and equipped: " + GetWeaponDisplayName(selectedWeapon));
             }
             else
             {
-                Debug.LogWarning("Could not equip weapon - player pickup interface not found!");
+                //Debug.LogWarning("Could not equip weapon - player pickup interface not found!");
             }
 
 
@@ -264,7 +264,7 @@ public class shopManager : MonoBehaviour
             PopulateWeaponList();
             UpdatePurchaseButton();
 
-            Debug.Log("Purchased: " + GetWeaponDisplayName(selectedWeapon));
+            //Debug.Log("Purchased: " + GetWeaponDisplayName(selectedWeapon));
         }
     }
 
@@ -286,7 +286,7 @@ public class shopManager : MonoBehaviour
             PopulateWeaponList();
             UpdatePurchaseButton();
 
-            Debug.Log("Sold: " + GetWeaponDisplayName(selectedWeapon) + " for $" + sellValue);
+            //Debug.Log("Sold: " + GetWeaponDisplayName(selectedWeapon) + " for $" + sellValue);
         }
         else if (isOwned && GetOwnedWeapons().Count <= 1)
         {

@@ -2,6 +2,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
+using System.Collections;
 
 public class gamemanager : MonoBehaviour
 {
@@ -13,13 +15,16 @@ public class gamemanager : MonoBehaviour
 
     // Menu GameObjects for diffrent game states
     [SerializeField] GameObject menuPause;
-    [SerializeField] GameObject menuWin;
+    [SerializeField] GameObject menuWinBad;
+    [SerializeField] GameObject menuWinGood;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuSettings;
+    [SerializeField] GameObject menuLevelWin;
     // I added these so that I could define the buttons for the main menu and the change floors. - Tuff Genda
     [SerializeField] GameObject menuMain;
     [SerializeField] GameObject menuCredits;
     [SerializeField] GameObject menuFloors;
+    [SerializeField] public float fadeSpeed = 0.1f;
 
     // I changed this to allow enemies, waves, and items to be tracked by the UI. - Tuff Genda
     [Header("Waves, Enemies, and Items left in level")]
@@ -41,6 +46,14 @@ public class gamemanager : MonoBehaviour
     public GameObject realDeleteButton;
     public GameObject fakeDeleteButton;
     public TMP_Text gameActionText;
+    public GameObject fadeScreen;
+
+    [Header("Collectible Icons")]
+    public GameObject collectible1;
+    public GameObject collectible2;
+    public GameObject collectible3;
+    public GameObject collectible4;
+    public GameObject collectible5;
 
     [Header("Button Settings")]
     public GameObject firstButtonPause;
@@ -49,13 +62,11 @@ public class gamemanager : MonoBehaviour
     public GameObject firstButtonCredits;
     public GameObject firstButtonLose;
     public GameObject firstButtonWin;
+    public GameObject firstButtonLevel;
 
     [Header("Player and Enemy Spawn")]
     // Public spawn object
     public GameObject playerSpawnPOS;
-
-    // I added this enemy spawn object so that Elijah's enemy manager does not use playerSpawnPOS. - Tuff Genda
-    //public GameObject enemySpawnPOS;
 
     // Player Healing
     public GameObject playerHealScreen;
@@ -88,6 +99,8 @@ public class gamemanager : MonoBehaviour
 
     // I added this so that waveManager could find the enemy count. - Tuff Genda
     public int totalEnemyCount;
+
+     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -124,6 +137,46 @@ public class gamemanager : MonoBehaviour
                 stateUnpause();
             }
         }
+        if (settingsManager.instance.GetAxis("Horizontal") > 0 || settingsManager.instance.GetAxis("Vertical") > 0) { 
+            if (menuActive != null)
+            {
+                if (EventSystem.current.currentSelectedGameObject == null)
+                {
+                    if (menuActive == menuPause)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonPause);
+                    }
+                    else if (menuActive == menuSettings)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonSettings);
+                    }
+                    else if (menuActive == menuMain)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonMain);
+                    }
+                    else if (menuActive == menuCredits)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonCredits);
+                    }
+                    else if (menuActive == menuLose)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonLose);
+                    }
+                    else if (menuActive == menuWinBad)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonWin);
+                    }
+                    else if (menuActive == menuWinGood)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonWin);
+                    }
+                    else if (menuActive == menuFloors)
+                    {
+                        EventSystem.current.SetSelectedGameObject(firstButtonLevel);
+                    }
+                }
+            }
+        }
 
     }
 
@@ -151,6 +204,29 @@ public class gamemanager : MonoBehaviour
             menuActive.SetActive(false);
             menuActive = null;
         }
+    }
+    public void stateUnpauseWithScreen()
+    {
+        isPaused = !isPaused;
+        Time.timeScale = timeScaleOrig;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        // This happens when anything unpasues the game since anytime the title screen is up, it pauses the game. - Tuff Genda
+        onTitle = false;
+    }
+
+    public void levelEnd()
+    {
+        if (levelManager.instance.levelComplete)
+        {
+            levelManager.instance.levelComplete = false;
+        }
+
+        menuActive = menuLevelWin;
+        statePause();
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonPause);
+        menuActive.SetActive(true);
     }
 
     // I split UpdateGameGoal into three separate functions for use with waveManager and LevelManager. That way we can keep items
@@ -183,11 +259,55 @@ public class gamemanager : MonoBehaviour
         }
     }
 
+    public void updateCollectibles(int collectible) { 
+        switch (collectible)
+        {
+            case 1:
+                collectible1.SetActive(true);
+                break;
+            case 2:
+                collectible2.SetActive(true);
+                break;
+            case 3:
+                collectible3.SetActive(true);
+                break;
+            case 4:
+                collectible4.SetActive(true);
+                break;
+            case 5:
+                collectible5.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public bool[] sendCollectibleData()
+    {
+        bool[] collectibles = new bool[5];
+        collectibles[0] = collectible1.activeSelf;
+        collectibles[1] = collectible2.activeSelf;
+        collectibles[2] = collectible3.activeSelf;
+        collectibles[3] = collectible4.activeSelf;
+        collectibles[4] = collectible5.activeSelf;
+        return collectibles;
+    }
+
+    public void readCollectibleData(bool[] collectibleData) { 
+        for (int i = 0; i < 5; i++)
+        {
+            if (collectibleData[i])
+            {
+                updateCollectibles(i + 1);
+            }
+        }
+    }
+
     // This allows for ChangeFloors to activate a menu which allows you to select floors. - Tuff Genda
     public void floorsMenu()
     {
         statePause();
-
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonLevel);
         menuActive = menuFloors;
         menuActive.SetActive(true);
     }
@@ -229,11 +349,19 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
-    public void youWin()
+    public void youWinBad()
     {
         statePause();
         EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonWin);
-        menuActive = menuWin;
+        menuActive = menuWinBad;
+        menuActive.SetActive(true);
+    }
+
+    public void youWinGood()
+    {
+        statePause();
+        EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonWin);
+        menuActive = menuWinGood;
         menuActive.SetActive(true);
     }
 
