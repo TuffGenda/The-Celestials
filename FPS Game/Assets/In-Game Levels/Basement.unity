@@ -393,6 +393,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basement
       objectReference: {fileID: 0}
+    - target: {fileID: 2661060030294611401, guid: 89c1115764c1acb4a9a8d0dc330fc2a8, type: 3}
+      propertyPath: maxLevels
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661060030294611401, guid: 89c1115764c1acb4a9a8d0dc330fc2a8, type: 3}
+      propertyPath: currentLevel
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
