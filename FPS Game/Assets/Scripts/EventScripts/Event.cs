@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 // Event script created by Tuff Genda.
 public class Event : MonoBehaviour
