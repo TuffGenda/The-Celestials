@@ -90,6 +90,11 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         shootPosOrig = gunModelPos.localPosition;
         shootRotOrig = gunModelPos.localRotation;
         melee = true; //Default to melee until a gun is picked up
+        gameData data = saveManager.instance.LoadGame();
+        if (data != null && SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            loadPlayerData(data);
+        }
         spawnPlayer();
     }
 
@@ -326,11 +331,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             transform.position = gamemanager.instance.playerSpawnPOS.transform.position;
         }
         controller.enabled = true;
-        gameData data = saveManager.instance.LoadGame();
-        if (data != null && SceneManager.GetActiveScene().buildIndex != 0)
-        {
-            loadPlayerData(data);
-        }
+        
         updateHealthUI();
         updateStaminaUI();
     }
