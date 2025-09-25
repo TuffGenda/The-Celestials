@@ -195,7 +195,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         }
         selectGun();
         reload();
-        placeWaypoint();
+        
     }
 
     void jump()
@@ -284,21 +284,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         controller.enabled = false;
     }
 
-    void placeWaypoint()
-    {
-        if (Input.GetButtonDown("Waypoint"))
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100, ~ignoreLayer))
-            {
-                if (gamemanager.instance.currentWaypoint != null)
-                {
-                    Destroy(gamemanager.instance.currentWaypoint);
-                }
-                gamemanager.instance.currentWaypoint = Instantiate(waypointObj, hit.point, transform.rotation);
-            }
-        }
-    }
+    
 
     void reload()
     {
