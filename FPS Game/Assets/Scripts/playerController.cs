@@ -302,7 +302,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     void reload()
     {
-        if (Input.GetButtonDown("Reload") && gunList.Count > 0 && !reloadUI && !melee && gamemanager.instance.menuActive == null)
+        if (Input.GetButtonDown("Reload") && gunList.Count > 0 && !reloadUI && !melee && gamemanager.instance.menuActive == null && gunList[gunListPos].ammoCur != gunList[gunListPos].ammoMax)
         {
             reloadSound.Play();
             if (reloadTimes)
@@ -529,12 +529,14 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     public void GetGunStats(gunStats gun)
     {
-        gunList.Add(gun);
-        gunListPos = gunList.Count - 1;
-        gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
-        plrSoundSource.PlayOneShot(gunPickupSound);
-        changeGun();
-
+        if (!gunList.Contains(gun))
+        {
+            gunList.Add(gun);
+            gunListPos = gunList.Count - 1;
+            gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+            plrSoundSource.PlayOneShot(gunPickupSound);
+            changeGun();
+        }
     }
 
     void changeGun()
