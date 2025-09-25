@@ -323,6 +323,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     public void spawnPlayer()
     {
+        gamemanager.instance.gameActionText.text = "";
         HP = HPOriginal;
         stamina = staminaOriginal;
         controller.enabled = false;
