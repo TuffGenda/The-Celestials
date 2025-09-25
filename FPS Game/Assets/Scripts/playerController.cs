@@ -90,6 +90,11 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         shootPosOrig = gunModelPos.localPosition;
         shootRotOrig = gunModelPos.localRotation;
         melee = true; //Default to melee until a gun is picked up
+        gameData data = saveManager.instance.LoadGame();
+        if (data != null && SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            loadPlayerData(data);
+        }
         spawnPlayer();
     }
 
@@ -297,7 +302,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     void reload()
     {
-        if (Input.GetButtonDown("Reload") && gunList.Count > 0 && !reloadUI && !melee && gamemanager.instance.menuActive == null)
+        if (Input.GetButtonDown("Reload") && gunList.Count > 0 && !reloadUI && !melee && gamemanager.instance.menuActive == null && gunList[gunListPos].ammoCur != gunList[gunListPos].ammoMax)
         {
             reloadSound.Play();
             if (reloadTimes)
@@ -318,6 +323,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     public void spawnPlayer()
     {
+        gamemanager.instance.gameActionText.text = "";
         HP = HPOriginal;
         stamina = staminaOriginal;
         controller.enabled = false;
@@ -326,11 +332,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
             transform.position = gamemanager.instance.playerSpawnPOS.transform.position;
         }
         controller.enabled = true;
-        gameData data = saveManager.instance.LoadGame();
-        if (data != null && SceneManager.GetActiveScene().buildIndex != 0)
-        {
-            loadPlayerData(data);
-        }
+        
         updateHealthUI();
         updateStaminaUI();
     }
@@ -527,12 +529,14 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
 
     public void GetGunStats(gunStats gun)
     {
-        gunList.Add(gun);
-        gunListPos = gunList.Count - 1;
-        gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
-        plrSoundSource.PlayOneShot(gunPickupSound);
-        changeGun();
-
+        if (!gunList.Contains(gun))
+        {
+            gunList.Add(gun);
+            gunListPos = gunList.Count - 1;
+            gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+            plrSoundSource.PlayOneShot(gunPickupSound);
+            changeGun();
+        }
     }
 
     void changeGun()
