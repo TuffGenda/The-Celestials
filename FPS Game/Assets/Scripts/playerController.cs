@@ -591,12 +591,12 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     void selectGun()
     {
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1 && !reloadUI && notWinding)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1 && !reloadUI && notWinding && gamemanager.instance.menuActive == null)
         {
             gunListPos++;
             changeGun();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0 && !reloadUI && notWinding)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0 && !reloadUI && notWinding && gamemanager.instance.menuActive == null)
         {
             gunListPos--;
             changeGun();
