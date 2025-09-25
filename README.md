@@ -8,6 +8,6 @@ TerminatingTaco/Diego Alonso
 
 # Last Month's Team Memebers
 #### Sorted by Username/First name last name:
-misschevious_gamming/Sarah Vanbrocklin 
-emperoraltros/Elijah Martin 
-JennieBlu/Jennifer Harkless 
+misschevious_gamming/Sarah Vanbrocklin  
+emperoraltros/Elijah Martin  
+JennieBlu/Jennifer Harkless  
