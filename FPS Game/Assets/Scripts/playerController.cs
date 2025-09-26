@@ -195,7 +195,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         }
         selectGun();
         reload();
-        placeWaypoint();
+        
     }
 
     void jump()
@@ -284,21 +284,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         controller.enabled = false;
     }
 
-    void placeWaypoint()
-    {
-        if (Input.GetButtonDown("Waypoint"))
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100, ~ignoreLayer))
-            {
-                if (gamemanager.instance.currentWaypoint != null)
-                {
-                    Destroy(gamemanager.instance.currentWaypoint);
-                }
-                gamemanager.instance.currentWaypoint = Instantiate(waypointObj, hit.point, transform.rotation);
-            }
-        }
-    }
+    
 
     void reload()
     {
@@ -605,12 +591,12 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
     void selectGun()
     {
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1 && !reloadUI && notWinding)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1 && !reloadUI && notWinding && gamemanager.instance.menuActive == null)
         {
             gunListPos++;
             changeGun();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0 && !reloadUI && notWinding)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0 && !reloadUI && notWinding && gamemanager.instance.menuActive == null)
         {
             gunListPos--;
             changeGun();
