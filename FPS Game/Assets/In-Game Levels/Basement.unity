@@ -341,7 +341,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
---- !u!1001 &2848085832717820945
+--- !u!1001 &3264400093904178976
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -393,14 +393,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basement
       objectReference: {fileID: 0}
-    - target: {fileID: 2661060030294611401, guid: 89c1115764c1acb4a9a8d0dc330fc2a8, type: 3}
-      propertyPath: maxLevels
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2661060030294611401, guid: 89c1115764c1acb4a9a8d0dc330fc2a8, type: 3}
-      propertyPath: currentLevel
-      value: 7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -414,6 +406,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1531794577}
-  - {fileID: 2848085832717820945}
+  - {fileID: 3264400093904178976}
   - {fileID: 2052750403}
   - {fileID: 881708433}

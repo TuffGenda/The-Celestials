@@ -130,7 +130,8 @@ public class enemyAI : MonoBehaviour, IAllowDamage
 
     void faceTarget()
     {
-        Quaternion rot = Quaternion.LookRotation(playerDirection);
+        Vector3 direction = new Vector3(playerDirection.x, 0, playerDirection.z);
+        Quaternion rot = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
     }
 
