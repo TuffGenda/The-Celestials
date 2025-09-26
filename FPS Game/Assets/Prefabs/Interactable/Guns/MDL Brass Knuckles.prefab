@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5140607566474046593}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MDL Brass Knuckles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 9124610732333548733}
   - component: {fileID: 1425255780758079303}
   - component: {fileID: 4140565448471790953}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DuckA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 1687103103550364056}
   - component: {fileID: 9191193247303240284}
   - component: {fileID: 7967092613711544342}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DuckB
   m_TagString: Untagged
   m_Icon: {fileID: 0}

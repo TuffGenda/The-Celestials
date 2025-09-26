@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7447076119801925954}
   - component: {fileID: 872958787176022433}
   - component: {fileID: 6951401845633865450}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol_F_Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4841225650155311527}
   - component: {fileID: 1492870195419484350}
   - component: {fileID: 5026023509899935158}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol_F_Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 8104391103095638546}
   - component: {fileID: 2912425708778950979}
   - component: {fileID: 7680450443473349926}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol_F_Receiver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 6466460763935571073}
   - component: {fileID: 151935108802443859}
   - component: {fileID: 2289252681209867554}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol_F_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 671826373142259513}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MDL Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 2081581151044661220}
   - component: {fileID: 1722599272089570118}
   - component: {fileID: 4702677055147491678}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol_F_BarrelGuard.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 8933879679006943912}
   - component: {fileID: 1861404152834238885}
   - component: {fileID: 2801995301400993535}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol_F_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -565,7 +565,7 @@ GameObject:
   - component: {fileID: 4449099467422469928}
   - component: {fileID: 114766623569811263}
   - component: {fileID: 1945819634528374050}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol_F_BarrelGuard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
