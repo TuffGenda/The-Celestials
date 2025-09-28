@@ -255,7 +255,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
                 {
                     //Debug.Log(hit.collider.name);
-                    //Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
+                    Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
 
                     //Play Windup for melee
 

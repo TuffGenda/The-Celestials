@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: SMG
   m_EditorClassIdentifier: 
   model: {fileID: 94336308459943047, guid: c0b3a32bde0ebde43b015b37c9eefbd2, type: 3}
-  weaponIcon: {fileID: 21300000, guid: 4e3e5e12a43a71344919439903885107, type: 3}
-  weaponImage: {fileID: 21300000, guid: 839bd50c2b080494b81c5d88793e285b, type: 3}
+  weaponIcon: {fileID: 0}
+  weaponImage: {fileID: 0}
+  hitEffect: {fileID: 3523679166128343434, guid: 87e213a418a7e6341887ab17dc962308, type: 3}
   shootSound:
   - {fileID: 8300000, guid: b33e2cff5225f4437a43a11d35763d46, type: 3}
   shootVol: 1
@@ -31,3 +32,7 @@ MonoBehaviour:
   price: 1000
   unlockLevel: 1
   rarity: 0
+  Melee: 0
+  missSound: []
+  hitSound: []
+  windup: 1

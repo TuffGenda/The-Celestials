@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Sniper Rifle
   m_EditorClassIdentifier: 
   model: {fileID: 2093207648122188749, guid: bc3a77b578a623d41985c803e1969e0c, type: 3}
-  weaponIcon: {fileID: 21300000, guid: c185103daad24524cab325ed17d7a699, type: 3}
-  weaponImage: {fileID: 21300000, guid: cb55f1118727ac24fbdaf61f054fb118, type: 3}
+  weaponIcon: {fileID: 0}
+  weaponImage: {fileID: 0}
+  hitEffect: {fileID: 3523679166128343434, guid: 87e213a418a7e6341887ab17dc962308, type: 3}
   shootSound:
   - {fileID: 8300000, guid: b2d159f7e00d44d9bbc2d50a0c4fef59, type: 3}
   shootVol: 1

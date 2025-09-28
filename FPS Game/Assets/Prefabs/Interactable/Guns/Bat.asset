@@ -15,6 +15,7 @@ MonoBehaviour:
   model: {fileID: 3356260703565007237, guid: d7021bf52fa48c3439d3c96d5845e788, type: 3}
   weaponIcon: {fileID: 0}
   weaponImage: {fileID: 0}
+  hitEffect: {fileID: 0}
   shootSound: []
   shootVol: 1
   weaponType: 1
