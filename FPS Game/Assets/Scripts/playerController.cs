@@ -547,7 +547,9 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
                 gunModelPos.localRotation = shootRotOrig;
             }
             speed = speedOriginal * gunList[gunListPos].moveSpeed;
-
+            if (isSprinting) {
+                speed *= sprintMod;
+            }
             updateAmmoUI();
             gunStereo.volume = gunList[gunListPos].shootVol;
             if (curGun != null)
