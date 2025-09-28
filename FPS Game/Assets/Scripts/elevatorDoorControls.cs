@@ -41,7 +41,28 @@ public class elevatorDoorControls : MonoBehaviour
         if (!audioDB) {
             audioDB = true;
             gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(openSound, 0.4f);
-            
+            gamemanager.instance.playerScript.sendActionText("");
+
+            switch (levelManager.instance.currentLevel) { 
+                case 2:
+                    gamemanager.instance.playerScript.sendActionText("Floor 1 - General Paitent Ward");
+                    break;
+                case 3:
+                    gamemanager.instance.playerScript.sendActionText("Floor 2 - Sick Paitent Ward");
+                    break;
+                case 4:
+                    gamemanager.instance.playerScript.sendActionText("Floor 3 - Injured Paitent Ward");
+                    break;
+                case 5:
+                    gamemanager.instance.playerScript.sendActionText("Floor 4 - Emergency Room");
+                    break;
+                case 6:
+                    gamemanager.instance.playerScript.sendActionText("Floor 5 - Director's Office");
+                    break;
+                case 7:
+                    gamemanager.instance.playerScript.sendActionText("Floor 0 - Basement");
+                    break;
+            }
         }
         if (doorL.localPosition == destinationL.localPosition && doorR.localPosition == destinationR.localPosition)
         {
