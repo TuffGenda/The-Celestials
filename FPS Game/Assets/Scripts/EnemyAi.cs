@@ -22,6 +22,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
     [SerializeField] Transform shootPos;
+    [SerializeField] Transform shootUpPos;
 
     // --- Drop Loot Variables ---
     [Header("--- Drop Loot ---")]
@@ -114,7 +115,14 @@ public class enemyAI : MonoBehaviour, IAllowDamage
                 agent.SetDestination(gamemanager.instance.player.transform.position);
                 if (shootTimer >= shootRate)
                 {
-                    shoot();
+                    if (playerDirection.y > 1)
+                    {
+                        shootUp();
+                    }
+                    else
+                    {
+                        shoot();
+                    }
                 }
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
@@ -131,8 +139,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage
 
     void faceTarget()
     {
-        Vector3 direction = new Vector3(playerDirection.x, 0, playerDirection.z);
-        Quaternion rot = Quaternion.LookRotation(direction);
+        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDirection.x, 0, playerDirection.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
     }
 
@@ -159,6 +166,13 @@ public class enemyAI : MonoBehaviour, IAllowDamage
         //anim.SetTrigger("Shoot");
         shootTimer = 0;
         Instantiate(bullet, shootPos.position, transform.rotation);
+    }
+
+    void shootUp()
+    {
+        //anim.SetTrigger("Shoot");
+        shootTimer = 0;
+        Instantiate(bullet, shootUpPos.position, transform.rotation);
     }
 
     public void TakeDamage(int amount)
