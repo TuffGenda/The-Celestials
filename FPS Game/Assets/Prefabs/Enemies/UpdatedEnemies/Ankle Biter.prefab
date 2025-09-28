@@ -697,7 +697,6 @@ MonoBehaviour:
   shootUpPos: {fileID: 1705242098180382014}
   lootDrops:
   - {fileID: 9016169452721659674, guid: 682f77c0007d2954c8e04b5c2078da18, type: 3}
-  - {fileID: 1294851164820021041, guid: 0fefe249973e5104b8b598af9c46a7b3, type: 3}
   lootDropChance: 15
 --- !u!195 &6095774346078078749
 NavMeshAgent:
