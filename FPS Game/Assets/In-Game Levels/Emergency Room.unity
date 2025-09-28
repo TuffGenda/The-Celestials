@@ -8651,21 +8651,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1884642029682755508, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 8192
-      objectReference: {fileID: 0}
-    - target: {fileID: 1884642029682755508, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
-      propertyPath: m_LayerOverridePriority
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2715122462285565902, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: m_Name
       value: PlayerObjectAndCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 5792699333598976360, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 13311
       objectReference: {fileID: 0}
     - target: {fileID: 8300019698269819084, guid: 8ea14f760a0b9f74da8c7e9b3d01042e, type: 3}
       propertyPath: m_LocalPosition.x

@@ -38,10 +38,6 @@ public class elevatorManager : MonoBehaviour
         {
             moveUp();
         }
-        else if (controls.doorsClosed)
-        {
-            moveDown();
-        }
         else if (atDestination && !controls.doorsOpen)
         {
             if (!controls.posSet)
@@ -53,10 +49,6 @@ public class elevatorManager : MonoBehaviour
                 StartCoroutine(controls.open(secondsTillDoorsClose, doorSpeed));
             }
         }
-        else if (atDestination && controls.doorsOpen)
-        {
-            StartCoroutine(controls.close(secondsTillDoorsClose, doorSpeed));
-        }
         else if (!atDestination && parentScript.playerParented)
         {
             moveUp();
@@ -66,11 +58,6 @@ public class elevatorManager : MonoBehaviour
     public void moveUp()
     {
         StartCoroutine(move(destination.position, 0));
-    }
-
-    public void moveDown()
-    {
-        StartCoroutine(move(startingPos, 0));
     }
 
     IEnumerator move(Vector3 target, int seconds)
