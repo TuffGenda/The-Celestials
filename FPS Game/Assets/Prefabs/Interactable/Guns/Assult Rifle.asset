@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Assult Rifle
   m_EditorClassIdentifier: 
   model: {fileID: 5955557658189492419, guid: 30bc401ace006654d950f54c6e93f675, type: 3}
-  weaponIcon: {fileID: 21300000, guid: b13379e9ea449054ab9fef4667a0b28e, type: 3}
-  weaponImage: {fileID: 21300000, guid: 0c9e1fd91d70180459ecfb68d1f71356, type: 3}
+  weaponIcon: {fileID: 0}
+  weaponImage: {fileID: 0}
+  hitEffect: {fileID: 3523679166128343434, guid: 87e213a418a7e6341887ab17dc962308, type: 3}
   shootSound:
   - {fileID: 8300000, guid: 2203773368e4340d98c114f55c2dd7fd, type: 3}
   shootVol: 1
