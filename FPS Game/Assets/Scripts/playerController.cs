@@ -176,7 +176,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         controller.Move(moveDirection.normalized * speed * Time.deltaTime);
         jump();
         controller.Move(playerVelocity * Time.deltaTime);
-        if (Input.GetButton("Fire1") && (melee || (gunList.Count > 0 && gunList[gunListPos].ammoCur > 0)) && shootTimer >= shootRate)
+        if (Input.GetButton("Fire1") && (melee || (gunList.Count > 0 && gunList[gunListPos] != null && gunList[gunListPos].ammoCur > 0)) && shootTimer >= shootRate )
         {
             shoot();
         }
