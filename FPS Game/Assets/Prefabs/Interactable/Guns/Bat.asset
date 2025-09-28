@@ -36,4 +36,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bb02f0f71abb43549a5ba3299130b046, type: 3}
   hitSound:
   - {fileID: 8300000, guid: 7383492dbca79e54cb32b2942beb50aa, type: 3}
-  windup: 0.5
+  windup: 0.6
