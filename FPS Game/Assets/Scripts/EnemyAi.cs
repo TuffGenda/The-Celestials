@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.AI;
 
 public class enemyAI : MonoBehaviour, IAllowDamage
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created\
-    [SerializeField] Renderer model;
+    [SerializeField] List<Renderer> models;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] int faceTargetSpeed;
     [SerializeField] int HP;
@@ -40,7 +41,7 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     Vector3 startingPos;
     void Start()
     {
-        colorOriginal = model.material.color;
+        colorOriginal = models[0].material.color;
         // I changed this to updateEnemies instead since that is the new function in gamemanager. - Tuff Genda
         gamemanager.instance.updateEnemies(1);
         startingPos = transform.position;
@@ -184,9 +185,16 @@ public class enemyAI : MonoBehaviour, IAllowDamage
     }
     IEnumerator flashRed()
     {
-        model.material.color = Color.red;
+        foreach (Renderer model in models)
+        {
+            model.material.color = Color.red;
+        }
+
         yield return new WaitForSeconds(0.1f);
-        model.material.color = colorOriginal;
+        foreach (Renderer model in models)
+        {
+            model.material.color = colorOriginal;
+        }
     }
 
 

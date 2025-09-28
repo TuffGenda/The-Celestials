@@ -216,7 +216,7 @@ Transform:
   m_GameObject: {fileID: 839317299840821843}
   serializedVersion: 2
   m_LocalRotation: {x: 0.49912703, y: -0.50087154, z: -0.49912694, w: 0.5008715}
-  m_LocalPosition: {x: 0, y: 0.4399264, z: -0.025008678}
+  m_LocalPosition: {x: 0, y: 0.439, z: -0.356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -666,7 +666,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea9288e40f9e9c4886c816a65ce7cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 5110232564579017853}
+  models:
+  - {fileID: 5110232564579017853}
+  - {fileID: 3619568266214456329}
+  - {fileID: 3452659704228538184}
+  - {fileID: 2410147837646126171}
+  - {fileID: 7543349028462413227}
+  - {fileID: 1930854488372972853}
+  - {fileID: 3507115829401440744}
+  - {fileID: 8989784072517562220}
+  - {fileID: 2044564711660450046}
+  - {fileID: 7119394658423864008}
+  - {fileID: 3639856544855270132}
+  - {fileID: 7083529560067970360}
+  - {fileID: 4304827758090404596}
+  - {fileID: 7426153331241574914}
   agent: {fileID: 6095774346078078749}
   faceTargetSpeed: 4
   HP: 4
