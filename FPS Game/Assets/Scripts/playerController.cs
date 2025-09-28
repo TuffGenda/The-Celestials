@@ -173,7 +173,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         }
         moveDirection = (settingsManager.instance.GetAxis("Horizontal") * transform.right) + (settingsManager.instance.GetAxis("Vertical") * transform.forward);
 
-        controller.Move(moveDirection * speed * Time.deltaTime);
+        controller.Move(moveDirection.normalized * speed * Time.deltaTime);
         jump();
         controller.Move(playerVelocity * Time.deltaTime);
         if (Input.GetButton("Fire1") && (melee || (gunList.Count > 0 && gunList[gunListPos].ammoCur > 0)) && shootTimer >= shootRate)
@@ -597,6 +597,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         {
             gunListPos++;
             changeGun();
+
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0 && !reloadUI && notWinding && gamemanager.instance.menuActive == null)
         {
