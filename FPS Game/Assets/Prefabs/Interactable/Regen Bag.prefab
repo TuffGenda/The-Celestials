@@ -170,9 +170,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   rb: {fileID: 0}
-  healingAmount: 5
+  healingAmount: 10
   cooldown: 1
-  healingRate: 0.5
+  healingRate: 1
   uses: 0
 --- !u!65 &1163217487263550030
 BoxCollider:
