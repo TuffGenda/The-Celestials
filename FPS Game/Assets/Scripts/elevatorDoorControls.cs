@@ -46,17 +46,4 @@ public class elevatorDoorControls : MonoBehaviour
             doorsOpen = true;
         }
     }
-
-    public IEnumerator close(int seconds, int speed)
-    {
-        yield return new WaitForSeconds(seconds);
-        doorL.localPosition = Vector3.MoveTowards(doorL.localPosition, startingPosL, speed * Time.deltaTime);
-        doorR.localPosition = Vector3.MoveTowards(doorR.localPosition, startingPosR, speed * Time.deltaTime);
-
-        if (doorL.localPosition == startingPosL && doorR.localPosition == startingPosR)
-        {
-            doorsOpen = false;
-            doorsClosed = true;
-        }
-    }
 }

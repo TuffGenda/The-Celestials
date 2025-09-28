@@ -1,13 +1,14 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
-using Unity.VisualScripting;
 
 public class BossNPC : MonoBehaviour, IAllowDamage
 {
     [SerializeField] public NavMeshAgent agent;
     [SerializeField] public Animator anim;
     [SerializeField] AudioClip hurtSound;
+    [SerializeField] List<Renderer> models;
 
     [SerializeField] public int faceTargetSpeed;
     [SerializeField] int HP;
@@ -42,6 +43,7 @@ public class BossNPC : MonoBehaviour, IAllowDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        colorOriginal = models[0].material.color;
         death = false;
         stoppingDistanceOriginal = agent.stoppingDistance;
         playerInTrigger = false;
@@ -113,6 +115,7 @@ public class BossNPC : MonoBehaviour, IAllowDamage
 
             HP -= amount;
 
+            StartCoroutine(flashRed());
             StartCoroutine(playAnimation("Damaged", 2));
 
             agent.SetDestination(gamemanager.instance.player.transform.position);
@@ -161,10 +164,24 @@ public class BossNPC : MonoBehaviour, IAllowDamage
         Destroy(gameObject);
     }
 
-/// <summary>
-/// Handles the dropping of loot when the enemy is defeated.
-/// </summary>
-void dropLoot()
+    IEnumerator flashRed()
+    {
+        foreach (Renderer model in models)
+        {
+            model.material.color = Color.red;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+        foreach (Renderer model in models)
+        {
+            model.material.color = colorOriginal;
+        }
+    }
+
+    /// <summary>
+    /// Handles the dropping of loot when the enemy is defeated.
+    /// </summary>
+    void dropLoot()
     {
         // Check if a random number is less than or equal to the drop chance
         if (Random.Range(0, 101) <= lootDropChance)
