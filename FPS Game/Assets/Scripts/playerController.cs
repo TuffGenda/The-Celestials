@@ -89,7 +89,7 @@ public class playerController : MonoBehaviour, IAllowDamage, IAllowPickup
         staminaOriginal = stamina;
         shootPosOrig = gunModelPos.localPosition;
         shootRotOrig = gunModelPos.localRotation;
-        melee = true; //Default to melee until a gun is picked up
+        
         gameData data = saveManager.instance.LoadGame();
         if (data != null && SceneManager.GetActiveScene().buildIndex != 0)
         {

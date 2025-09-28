@@ -350,16 +350,16 @@ MonoBehaviour:
   minStamina: 5
   staminaGainMult: 1
   staminaLossMult: 2
-  shootDamage: 1
-  shootRate: 1
-  shootDist: 4
+  shootDamage: 0
+  shootRate: 0
+  shootDist: 0
   reloadTime: 0
   gunList: []
   gunModelPos: {fileID: 4657983903925519304}
   reloadTimes: 1
   reloadSound: {fileID: 7299862583212106055}
   gunStereo: {fileID: 5714584451029532881}
-  melee: 1
+  melee: 0
   windup: 1
   raiseWindupPos: {fileID: 5045424686909521798}
   lowerWindupPos: {fileID: 4953154558749817059}
