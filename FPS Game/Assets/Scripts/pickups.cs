@@ -86,6 +86,7 @@ public class pickups : MonoBehaviour
         else if (pickupable != null && other.CompareTag("Player") && type == pickupType.collectible)
         {
             gamemanager.instance.updateCollectibles(collectibleID);
+            gamemanager.instance.playerScript.sendActionText("You found a Secret Ingredient!");
             Destroy(gameObject);
             if (pickupSound != null)
                 gamemanager.instance.playerScript.plrSoundSource.PlayOneShot(pickupSound);

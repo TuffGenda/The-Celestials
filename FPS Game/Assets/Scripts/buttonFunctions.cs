@@ -36,6 +36,7 @@ public class buttonFunctions : MonoBehaviour
         gameData data = gamemanager.instance.playerScript.givePlayerData();
         saveManager.instance.SaveGame(data);
         gamemanager.instance.menuClick.Play();
+        gamemanager.instance.playerScript.sendActionText("Game Saved!");
     }
 
     public void loadButton()
