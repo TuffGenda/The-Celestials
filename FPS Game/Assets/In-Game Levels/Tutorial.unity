@@ -1106,6 +1106,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ankle Biter
       objectReference: {fileID: 0}
+    - target: {fileID: 2026692715883237181, guid: 7fc3220bd7d4a0446bb2499e954b41f1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.09
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
