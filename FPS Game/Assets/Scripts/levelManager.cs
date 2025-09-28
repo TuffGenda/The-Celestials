@@ -7,7 +7,7 @@ public class levelManager : MonoBehaviour
     public static levelManager instance;
 
     [Header("Level Configuration")]
-    [SerializeField] int currentLevel; // Current level player is on
+    [SerializeField] public int currentLevel; // Current level player is on
     [SerializeField] int maxLevels; // Total number of levels in the game
 
     // I removed the enemies from this enirely that way wave manager handles the enemies and this handles the items instead - Tuff Genda
