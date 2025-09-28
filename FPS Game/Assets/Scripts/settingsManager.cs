@@ -123,7 +123,7 @@ public class settingsManager : MonoBehaviour
                 if (Input.GetKeyDown(key) && key != KeyCode.Escape && key != KeyCode.Return)
                 {
                     // Assign the new key and stop waiting
-                    if (duplicateKeyDetected(key))
+                    if (duplicateKeyDetected(key) || key != KeyCode.R || key != KeyCode.Mouse0 || key != KeyCode.Mouse1 || key != KeyCode.Mouse2 || key != KeyCode.Mouse3 || key != KeyCode.Mouse4 || key != KeyCode.Mouse5 || key != KeyCode.Mouse6)
                     {
                         // If duplicate key detected, revert to original key and update text
                         ChangeKey(keyToChange, originalKey);
