@@ -52,6 +52,9 @@ public class settingsManager : MonoBehaviour
     // String storing which action is being remapped
     private string keyToChange = "";
 
+    //String to store the original key in case of cancel
+    private KeyCode originalKey;
+
     // Initialize singleton pattern and prevent destruction on scene load
     void Awake()
     {
@@ -100,10 +103,11 @@ public class settingsManager : MonoBehaviour
         LoadAudioSettings();
 
         // This loads in the main menu at the earliest point. - Tuff Genda
-        if (starupMainMenu) {
+        if (starupMainMenu)
+        {
             gamemanager.instance.titleMenu();
         }
-        
+
     }
 
     // Handle key detection for remapping
@@ -119,10 +123,23 @@ public class settingsManager : MonoBehaviour
                 if (Input.GetKeyDown(key) && key != KeyCode.Escape && key != KeyCode.Return)
                 {
                     // Assign the new key and stop waiting
-                    ChangeKey(keyToChange, key);
-                    isWaitingForKey = false;
-                    keyToChange = "";
-                    break;
+                    if (duplicateKeyDetected(key))
+                    {
+                        // If duplicate key detected, revert to original key and update text
+                        ChangeKey(keyToChange, originalKey);
+                        isWaitingForKey = false;
+                        keyToChange = "";
+                        break;
+                    }
+                    else
+                    {
+                        ChangeKey(keyToChange, key);
+                        isWaitingForKey = false;
+                        keyToChange = "";
+                        break;
+                    }
+
+
                 }
             }
 
@@ -133,6 +150,36 @@ public class settingsManager : MonoBehaviour
                 keyToChange = "";
             }
         }
+    }
+
+    bool duplicateKeyDetected(KeyCode key)
+    {
+        bool duplicate = false;
+        if (controls["Forward"] == key)
+        {
+            duplicate = true;
+        }
+        else if (controls["Back"] == key)
+        {
+            duplicate = true;
+        }
+        else if (controls["Left"] == key)
+        {
+            duplicate = true;
+        }
+        else if (controls["Right"] == key)
+        {
+            duplicate = true;
+        }
+        else if (controls["Jump"] == key)
+        {
+            duplicate = true;
+        }
+        else if (controls["Sprint"] == key)
+        {
+            duplicate = true;
+        }
+        return duplicate;
     }
 
     // Set up default key mappings (WASD + Space + Shift)
@@ -181,6 +228,7 @@ public class settingsManager : MonoBehaviour
     public void StartKeyChange(string action)
     {
         // Set flags to indicate we're waiting for input
+        originalKey = controls[action];
         isWaitingForKey = true;
         keyToChange = action;
         // Update UI to show we're waiting for input
@@ -196,6 +244,7 @@ public class settingsManager : MonoBehaviour
         // Save the change persistently
         SaveControls();
         // Update the UI display
+
         UpdateControlTexts();
         EventSystem.current.SetSelectedGameObject(gamemanager.instance.firstButtonSettings);
         gamemanager.instance.menuClick.Play();
@@ -295,10 +344,11 @@ public class settingsManager : MonoBehaviour
             {
                 audioMixer.SetFloat("Master", -80f);
             }
-            else {
+            else
+            {
                 audioMixer.SetFloat("Master", Mathf.Log10(volume) * 40);
             }
-                
+
             PlayerPrefs.SetFloat("MasterVolume", volume);
         }
     }
