@@ -15,6 +15,7 @@ MonoBehaviour:
   model: {fileID: 4814906517005370065, guid: 2b7c61e0f281a604392f93c0d91cb409, type: 3}
   weaponIcon: {fileID: 0}
   weaponImage: {fileID: 0}
+  hitEffect: {fileID: 3523679166128343434, guid: 87e213a418a7e6341887ab17dc962308, type: 3}
   shootSound:
   - {fileID: 8300000, guid: b2d159f7e00d44d9bbc2d50a0c4fef59, type: 3}
   shootVol: 1
@@ -23,7 +24,7 @@ MonoBehaviour:
   shootDist: 200
   shootRate: 0.7
   critChance: 5
-  ammoCur: 15
+  ammoCur: 7
   ammoMax: 15
   reloadTime: 0.8
   recoil: 0.3

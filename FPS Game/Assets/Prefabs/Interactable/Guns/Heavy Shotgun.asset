@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Heavy Shotgun
   m_EditorClassIdentifier: 
   model: {fileID: 1913830197270561714, guid: 4abc3c09230fb1b4fa2fa4f943f44f34, type: 3}
-  weaponIcon: {fileID: 21300000, guid: b2521daa46bdfb34aa6ea06eda7daac8, type: 3}
-  weaponImage: {fileID: 21300000, guid: 62f73608b2b56d94a9d943a692933aa4, type: 3}
+  weaponIcon: {fileID: 0}
+  weaponImage: {fileID: 0}
+  hitEffect: {fileID: 3523679166128343434, guid: 87e213a418a7e6341887ab17dc962308, type: 3}
   shootSound:
   - {fileID: 8300000, guid: 4d6281aa604094f04839cffa502096c0, type: 3}
   shootVol: 1

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Weapons/Gun Stats")]
 public class gunStats : ScriptableObject
@@ -6,6 +7,7 @@ public class gunStats : ScriptableObject
     public GameObject model;
     public Sprite weaponIcon;
     public Sprite weaponImage;
+    public VisualEffect hitEffect;
 
     [SerializeField] public AudioClip[] shootSound;    
     [SerializeField][Range(0f, 1f)] public float shootVol = 1f;
