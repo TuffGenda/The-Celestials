@@ -6,9 +6,11 @@ public class cameraController : MonoBehaviour
     [SerializeField] int lockVertMin, lockVertMax;
     [SerializeField] float zoomFOV = 30f;
     [SerializeField] float zoomSpeed = 10f;
+    [SerializeField] Camera gunCam;
 
     float rotX;
     float originalFOV;
+    float originalGunFOV;
     Camera cam;
     bool isZoomed = false;
     public bool invertY;
@@ -18,6 +20,7 @@ public class cameraController : MonoBehaviour
     {
         cam = GetComponent<Camera>();
         originalFOV = cam.fieldOfView;
+        originalGunFOV = gunCam.fieldOfView;
     }
 
     // Update is called once per frame
@@ -45,7 +48,9 @@ public class cameraController : MonoBehaviour
 
         // smooth the zooming in
         float targetFOV = isZoomed ? zoomFOV : originalFOV;
+        float targetGunFOV = isZoomed ? zoomFOV : originalGunFOV;
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed);
+        gunCam.fieldOfView = Mathf.Lerp(gunCam.fieldOfView, targetGunFOV, Time.deltaTime * zoomSpeed);
     }
 
     public void ZoomIn()

@@ -1099,6 +1099,7 @@ MonoBehaviour:
   lockVertMax: 90
   zoomFOV: 30
   zoomSpeed: 10
+  gunCam: {fileID: 7204929089022602234}
   invertY: 0
 --- !u!20 &5792699333598976360
 Camera:
