@@ -8,6 +8,7 @@ public class elevatorDoorControls : MonoBehaviour
     [SerializeField] Transform destinationL;
     [SerializeField] Transform destinationR;
     [SerializeField] AudioClip openSound;
+    [SerializeField] GameObject text;
 
     public bool posSet;
     public bool doorsOpen;
@@ -34,6 +35,7 @@ public class elevatorDoorControls : MonoBehaviour
     public IEnumerator open(int seconds, int speed)
     {
         yield return new WaitForSeconds(seconds);
+        Destroy(text);
         doorL.localPosition = Vector3.MoveTowards(doorL.localPosition, destinationL.localPosition, speed * Time.deltaTime);
         doorR.localPosition = Vector3.MoveTowards(doorR.localPosition, destinationR.localPosition, speed * Time.deltaTime);
         if (!audioDB) {
